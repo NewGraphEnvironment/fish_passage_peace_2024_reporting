@@ -2,30 +2,20 @@
 
 # Currently updated for Peace 2024
 
-path <- "~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024.gpkg"
-dir_backup = "data/backup/"
+path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024.gpkg')
 
 # read in cleaned form from Q after review and finalization
 # first we back up the gpkg in the repo and update the coordinate columns in the gpkg in QGIS
 pscis_export_raw <- fpr::fpr_sp_gpkg_backup(
-  dir_backup = dir_backup,
-  path_gpkg = path,
+  path_gpkg = path_form_pscis,
   update_utm = TRUE,
-  update_site_id = TRUE,
+  update_site_id = TRUE, ## This now also checks for duplicates
   write_back_to_path = FALSE,
   write_to_csv = TRUE,
   # this versions on git everytime due to metadata and can't be tracked visually. Should only be committed when
   # csv is versioned
   write_to_rdata = TRUE,
   return_object = TRUE)
-
-
-## Check for duplicates
-dups <- pscis_export_raw |>
-  group_by(site_id) |>
-  filter(n() > 1)
-
-# No duplicate sites for peace 2024
 
 
 # Not used in Peace 2024
@@ -95,6 +85,7 @@ pscis_export <- pscis_export_raw %>%
                  backwatered_yes_no,
                  crew_members,
                  date_time_start)
+
 
 # write to the `imports_extracted` directory. This is data we import to the project but they are extracted from other places.
 dir.create("data/inputs_extracted")
