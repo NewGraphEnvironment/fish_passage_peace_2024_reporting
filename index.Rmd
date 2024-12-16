@@ -1,5 +1,5 @@
 --- 
-title: "My Bookdown Template"
+title: "Restoring Fish Passage in the Peace Region - 2024"
 author: |
  |
  | Prepared for
@@ -20,9 +20,9 @@ output:
           includes:
             in_header: header.html
 params:
-  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_template_reporting'
-  report_url: 'https://www.newgraphenvironment.com/fish_passage_template_reporting/'
-  job_name: 'fish_passage_template_reporting'
+  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting'
+  report_url: 'https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/'
+  job_name: '2024-073-sern-peace-fish-passage'
   update_packages: FALSE
 nocite: |
   @busch_etal2011LandscapeLevelModela, 
@@ -39,7 +39,7 @@ bibliography: "`r rbbt::bbt_write_bib('references.bib', overwrite = TRUE)`"
 biblio-style: apalike
 link-citations: no
 github-repo: rstudio/bookdown-demo
-description: "My Description."
+description: "Restoring Fish Passage in the Peace Region"
 lof: true
 
 ---
