@@ -4,9 +4,10 @@
 source('scripts/packages.R')
 
 # Pit Tags ------
-#import the pit tag csv
+
+# import the pit tag csv
 # Pit tag data is currently being stored on OneDrive until the 2024 repository has been made.
-path_tag <- '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-072-sern-skeena-fish-passage/data/tag_01_04.csv'
+path_tag <- fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-072-sern-skeena-fish-passage/data/tag_01_04.csv')
 
 # tag_01_04 does not have a column name so for that reason the call to read_csv needs to be different (change col_names to F for that file) and
 # the column name will default to X1.
@@ -17,8 +18,27 @@ pit_tag <- readr::read_csv(path_tag, col_names = F) |>
   tibble::rowid_to_column()
 
 
+###### HACK START ######
+
+# Due to the issue documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/47
+# The 2024 pit tag data is missing the row_id which is used to join it to the rest of the fish data. So we need to first
+# add the row_id to the pit tag data.
+
+
+# extrat the row_id
+
+fish_row_id <- fish |>
+  dplyr::filter(!is.na(row_id) | local_name == "198692_ds_ef2") |> # the row_id at site `198692_ds_ef2` got out of sync so we can't use it.
+  select(date,local_name, row_id)
+
+
+
+###### HACK END ######
+
+
+
 #import csv with fish data
-path_fish <- '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish_data_raw.xlsx'
+path_fish <-  fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish_data_raw.xlsx')
 
 # Read and clean the data
 fish <- readxl::read_xlsx(path_fish, sheet = "fish_data") |>
