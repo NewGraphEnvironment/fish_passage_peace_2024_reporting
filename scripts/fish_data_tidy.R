@@ -60,9 +60,11 @@ qa <- fish_data_tags |>
 
 
 
-# burn the csv ready to cut and paste
+# burn the csv to the repo for cut and paste and to OneDrive for backup
 fish_data_tags |>
   readr::write_csv('data/inputs_extracted/fish_data_tags_joined.csv',
+                   na = "" ) |>
+  readr::write_csv('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/fish_data_tags_joined.csv',
                    na = "" )
 
 
