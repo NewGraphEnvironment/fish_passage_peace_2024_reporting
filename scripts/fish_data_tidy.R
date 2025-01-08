@@ -1,14 +1,25 @@
-#combining pit tag data to individual fish data so that we can copy and paste directly into submission template
-# would be good to include the comments and times/camera of photos in the fish csv and then paste them to the right of the pit tag.
 
 source('scripts/packages.R')
 
-# Pit Tags ------------------------------------------------------
-
-# import the pit tag csv
+# Paths ------------------------------------------------------
 # Pit tag data for ALL years is currently being stored on OneDrive .
 path_tag <- fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/tag_01_05.csv')
 
+# Raw fish data stored in Onedrive
+path_fish <-  fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/fish_data_raw.xlsx')
+
+# Onedrive path where to store the fish data with the pit tags joined.
+path_onedrive_tags_joined <-  fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/fish_data_tags_joined.csv')
+
+# Repo path to individual fish data ready to c/p into `step_3_individual_fish_data`
+path_repo_fish_data_ind <-  fs::path('data/inputs_raw/ind_fish_data.csv')
+
+
+
+# Pit Tags ------------------------------------------------------
+# combining pit tag data to individual fish data so that we can copy and paste directly into submission template
+
+# import the pit tag csv
 # tag_01_05 does not have a column name so for that reason the call to read_csv needs to be different (change col_names to F for that file) and
 # the column name will default to X1.
 pit_tag <- readr::read_csv(path_tag, col_names = F) |>
@@ -20,11 +31,7 @@ pit_tag <- readr::read_csv(path_tag, col_names = F) |>
 
 
 
-
-#import csv with fish data
-path_fish <-  fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish_data_raw.xlsx')
-
-# Read and clean the data
+# Read and clean the raw fish data
 fish <- readxl::read_xlsx(path_fish, sheet = "fish_data") |>
   # remove the dates added by excel, they are wrong. We only want the time segments
   mutate(across(c(site_start_time, site_end_time,segment_start_time, segment_end_time, photo_time_start, photo_time_end),
@@ -62,52 +69,43 @@ qa <- fish_data_tags |>
 
 # burn the csv to the repo for cut and paste and to OneDrive for backup
 fish_data_tags |>
-  readr::write_csv('data/inputs_extracted/fish_data_tags_joined.csv',
-                   na = "" ) |>
-  readr::write_csv('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/fish_data_tags_joined.csv',
+  readr::write_csv(path_onedrive_tags_joined,
                    na = "" )
 
 
 
 
 # Fish Data ------------------------------------------------------
-# import raw fish data csv on onedrive, add common names and reference numbers
-path <- 'Projects/2023_data/peace/fish/fish_data.csv'
-stub_from <- 'C:/Users/matwi/OneDrive/'
 
-fish_data <- readr::read_csv(file = paste0(stub_from, path)) |>
+# Prepare the fish data for copy paste into `step_3_individual_fish_data` of the habitat confirmations spreadsheet.
+
+# specify which project data we want. for this case `2024-073-sern-peace-fish-passage`
+project = "2024-073-sern-peace-fish-passage"
+
+# read in the data and filter to contain data from the correct project
+fish_data_complete <- readr::read_csv(file = path_onedrive_tags_joined) |>
   janitor::clean_names() |>
-  # there is an extra underscore in site names after ef that needs to be removed
-  mutate(local_name = str_replace_all(local_name, 'ef_', 'ef'))
+  #filter for peace 2024
+  dplyr::filter(project_name == project)
 
-# cross reference with step 1 of hab con sheet to get ref numbers
+# cross reference with step 1 of hab con sheet to get reference numbers
 ref_names <- left_join(
   fish_data,
   fpr_import_hab_con(backup = F, row_empty_remove = T, col_filter_na = T) |>
-    pluck(1) |>
+    pluck("step_1_ref_and_loc_info") |>
     select(reference_number, alias_local_name),
   by = c('local_name' = 'alias_local_name')
 ) |>
   relocate(reference_number, .before = 'local_name')
 
-# import fish names and codes
-hab_fish_codes <- fishbc::freshwaterfish |>
-  select(species_code = Code, common_name = CommonName) |>
-  # add option when there was no fish caught
-  tibble::add_row(species_code = 'NFC', common_name = 'No Fish Caught') |>
-  # CT is named differently in hab con sheet
-  mutate(common_name = case_when(common_name == 'Cutthroat Trout' ~ 'Cutthroat Trout (General)', T ~ common_name))
 
-# xref and change codes to common names in raw file
-fish_names <- left_join(
-  ref_names,
-  hab_fish_codes,
-  by = c('species' = 'species_code')
-) |>
-  # re arrange columns to align with step 3 of submission sheet, drop species code column
-  select(-species) |>
-  relocate(common_name, .before = 'length_mm') |>
+# arrange for easy c/p into `step_3_individual_fish_data`
+fish_ind_data <- ref_names |>
+  dplyr::select(reference_number, local_name, sampling_method, pass_number, species:weight, comments)
+
+
+fish_ind_data |>
   # burn cleaned file to repo
-  readr::write_csv(file = 'data/inputs_raw/fish_data.csv', na = '')
+  readr::write_csv(file = path_repo_fish_data_ind, na = '')
 
 
