@@ -69,15 +69,15 @@ form_fiss_site_prep1 <- form_fiss_site_prep1 |>
 Really kind of humorous that we are getting 1:50,000 watershed codes from the database then the province turns around
 and converts them back to 1:20,000 (pers. comm. Dave McEwan - Fisheries Standards Biologist - 778 698-4010 - Dave.McEwan@gov.bc.ca).
 
-Some sites are linked incorrectly in bcfishpass, see issue here https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/issues/7. We have a work around for now where we use the `bcfishpass.crossings_vw` layer form the `sern_peace_fwcp_2023` GIS project instead of pulling directly from bcfishpass.
-
 ```{r get-wsc}
 
 ids <- form_fiss_site_prep1 |> 
   dplyr::distinct(site_id) |> 
   dplyr::pull(site_id)
 
-##### HACK FOR THE TIME BEING, UNTIL THE ABOVE ISSUE GETS FIXED #####
+##### HACK FOR IF WE CANT USE bcfishpass.crossings_vw FROM BCFISHPASS #####
+
+# this was a work around for this issue here https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/issues/7. 
 
 # use the bcfishpass.crossings_vw layer form the sern_peace_fwcp_2023 GIS project
 crossings_vw <- sf::st_read(dsn = '/Users/lucyschick/Projects/gis/sern_peace_fwcp_2023/background_layers.gpkg',
