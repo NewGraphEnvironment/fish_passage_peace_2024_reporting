@@ -3,7 +3,7 @@ These are the procedures for 2023 data.
 
 First we need to fill in everything in the Step 1 sheet. 
 
-Project Title: Same as report - "Restoring Fish Passage in the Skeena Region - 2023"
+Project Title: Same as report - "Restoring Fish Passage in the Peace Region - 2024"
 Company/Agency: Other
 Company/Agency (Other): New Graph Environment Ltd.
 Spreadsheet Recorder(s): Allan Irvine or Lucy Schick
@@ -21,8 +21,8 @@ Some of this could move to params in the future but for now we will just define 
 
 ```{r}
 #location of the data
-repo_name <- "fish_passage_skeena_2023_reporting"
-permit_id <- 'SM23-814011'
+repo_name <- "fish_passage_peace_2024_reporting"
+permit_id <- 'PG24-879256'
 
 stub_repo <- fs::path("~/Projects/repo", repo_name)
 
@@ -37,119 +37,6 @@ fs::dir_create(stub_out_permit)
 ```
 
 
-## Extract `stream_crossing_id`s
-For now we get the stream crossing ids from the habitat confirmations sheet.  We will use these to query the database for the watershed codes.
-In the future we could perhaps use `form_fiss_site`.
-```{r extract-ids}
-# define a list of stream_crossing_id 
-hab_con <- fpr::fpr_import_hab_con(path = path_in,
-                                               backup = FALSE,
-                                               row_empty_remove = T,
-                                               col_filter_na = TRUE) 
-
-ids <- hab_con |> 
-  purrr::pluck("step_1_ref_and_loc_info") |> 
-  tidyr::separate(alias_local_name, into = c('site', 'location', 'ef'), remove = F) |>
-  dplyr::distinct(site) |> 
-  dplyr::pull(site)
-
-```
-
-## Query database to get 1:50,000 watershed codes
-Really kind of humorous that we are getting 1:50,000 watershed codes from the database then the province turns around
-and converts them back to 1:20,000 (pers. comm. Dave McEwan - Fisheries Standards Biologist - 778 698-4010 - Dave.McEwan@gov.bc.ca).
-
-Some sites are missing in bcfishpass so they are not returned in the following query. The missing sites are delt with in the next section `csv-wsc`. The missing sites are (123377,124500, 58067). Why aren't they in bcfishpass mmmm.... odd that they are all in the BULK watershed...
-
-```{r get-wsc}
-conn <- fpr::fpr_db_conn()
-
-wscodes <- fpr::fpr_db_query(
-  query = glue::glue_sql("SELECT DISTINCT ON (stream_crossing_id)
-    a.stream_crossing_id,
-    a.linear_feature_id,
-    a.watershed_group_code,
-    b.watershed_code_50k,
-    substring(b.watershed_code_50k from 1 for 3)
-    || '-' || substring(b.watershed_code_50k from 4 for 6)
-    || '-' || substring(b.watershed_code_50k from 10 for 5)
-    || '-' || substring(b.watershed_code_50k from 15 for 5)
-    || '-' || substring(b.watershed_code_50k from 20 for 4)
-    || '-' || substring(b.watershed_code_50k from 24 for 4)
-    || '-' || substring(b.watershed_code_50k from 28 for 3)
-    || '-' || substring(b.watershed_code_50k from 31 for 3)
-    || '-' || substring(b.watershed_code_50k from 34 for 3)
-    || '-' || substring(b.watershed_code_50k from 37 for 3)
-    || '-' || substring(b.watershed_code_50k from 40 for 3)
-    || '-' || substring(b.watershed_code_50k from 43 for 3) AS watershed_code_50k_parsed,
-    b.blue_line_key_20k,
-    b.watershed_key_20k,
-    b.blue_line_key_50k,
-    b.watershed_key_50k,
-    b.match_type
-    FROM bcfishpass.crossings_vw a
-    LEFT OUTER JOIN whse_basemapping.fwa_streams_20k_50k b
-    ON a.linear_feature_id = b.linear_feature_id_20k
-    WHERE a.stream_crossing_id IN ({ids*})
-    ORDER BY a.stream_crossing_id, b.match_type;",
-    .con = conn
-  ) 
-)
-DBI::dbDisconnect(conn)
-```
-
-<br>
-
-Now make csv with watershed codes and and burn to file - so we can copy and paste into the spreadsheet. We need to
-QA this data using the `whse_fish.wdic_waterbody_route_line_svw` layer.  This layer has now been added the
-2023 QGIS shared projects for Skeena and Peace:
-
-
-```{r csv-wsc}
-
-##now we need to join to our habitat_confirmations sheet in the right order so we can copy and past into the spreadsheet
-wsc_join <- dplyr::left_join(
-  hab_con |> 
-  purrr::pluck("step_1_ref_and_loc_info") |> 
-    tidyr::separate(alias_local_name, into = c('site', 'location', 'ef'), remove = F) |> 
-    dplyr::mutate(site = as.integer(site)),
-  
-  wscodes |> dplyr::select(stream_crossing_id, watershed_code_50k = watershed_code_50k_parsed, watershed_group_code),
-  
-  by = c('site' = 'stream_crossing_id')) |> 
-  
-  dplyr::select(reference_number, gazetted_name, alias_local_name, site, location, watershed_code_50k, watershed_group_code) |> 
-  ## Here are some hand bomb corrections for the sites that were missing from bcfishpass. We need to add the watershed_group_code so    ## that the waterbody_id can be created
-  # mutate(watershed_group_code = case_when(
-  #   site == 123377 ~ 'BULK',
-  #   site == 124500 ~ 'BULK',
-  #   site == 58067 ~ 'BULK',
-  #   T ~ watershed_group_code)) |>
-  dplyr::mutate(alias_corrected = NA_character_,
-         waterbody_id = paste0('00000', watershed_group_code),
-         waterbody_type = 'stream') |> 
-  # QA in QGIS using the wdic_waterbody_route_line_svw layer in postgres db, this layer comes from:
-  # https://catalogue.data.gov.bc.ca/dataset/wsa-stream-routes-50-000/resource/d694884b-97a6-4d34-9ece-263aa46974f5
-  # here are some hand bomb corrections for the watershed_code_50k
-  # mutate(watershed_code_50k = case_when(
-  #   site == 197360 ~ '460-600600-23900-95600-0000-0000-000-000-000-000-000-000',
-  #   site == 123377 ~ '460-517700-00000-00000-0000-0000-000-000-000-000-000-000',
-  #   site == 198217 ~ '400-448500-00000-00000-0000-0000-000-000-000-000-000-000',
-  #   site == 198022 ~ '460-600600-44500-00000-0000-0000-000-000-000-000-000-000',
-  #   site == 124500 ~ '460-437000-00000-00000-0000-0000-000-000-000-000-000-000',
-  #   site == 198934 ~ '460-600600-17000-18900-0000-0000-000-000-000-000-000-000',
-  #   site == 58067 ~ '460-223800-00000-00000-0000-0000-000-000-000-000-000-000',
-  #   T ~ watershed_code_50k)) |>
-  dplyr::select(reference_number, alias_local_name, site, location, gazetted_name, alias_corrected, waterbody_type, waterbody_id, watershed_code_50k)
-
-
-# order to location spreadsheet and burn to file
-wsc_join |> 
-  readr::write_csv(file = fs::path(stub_out_csv, "hab_con_wsc_codes.csv"), na = "")
-```
-
-
-At this point we do our hand work to transfer over the watershed codes to the `habitat_confirmations.xls` file from the csv.
 
 ## Duplicate the FDS and make final changes for submission
 Now we will make a copy of the data. We don't love having multiple values of the same data but we don't want to break any of

@@ -1,15 +1,17 @@
 # load the sqlite database with bcfishpass and other info-----------------------------------------------------------------------------------------------------
 
+# The data must be submitted to the province first before proceeding with this script.
+
 # this is the name of the funding project we used to submit our phase 1 data to the province.  we use it to filter the raw
 # pscis data for our entire study area to obtain just the data we submitted. We use it to filter xref_pscis_my_crossing_modelled
 # but not sure that filtering is actually necessary - we could test and remove if it is not
-my_funding_project_number = "peace_2023_Phase1"
+my_funding_project_number = "peace_2024_Phase1"
 
 
 # name the watershed groups in our study area
-wsg <- c('PARS', 'CARP', 'CRKD', 'NATR')
+wsg <- c('PARS', 'CARP', 'CRKD')
 
-# this object should be called bcfishpass.crossings_vw or something that better reflects what it is
+# this object should be called bcfishpass_crossings_vw or something that better reflects what it is
 bcfishpass <- fpr::fpr_db_query(
   glue::glue(
     "SELECT * from bcfishpass.crossings_vw
@@ -29,7 +31,7 @@ bcfishpass_spawn_rear_model <- fpr::fpr_db_query(
 )
 
 # get all the pscis data for the watershed from the database which is updated weekly on our server
-# could consider nameing more effectively in the future
+# could consider naming more effectively in the future
 pscis_assessment_svw <- fpr::fpr_db_query(
   glue::glue(
     "SELECT p.*, wsg.watershed_group_code

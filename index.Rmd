@@ -23,6 +23,7 @@ params:
   repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting'
   report_url: 'https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/'
   job_name: '2024-073-sern-peace-fish-passage'
+  update_form_pscis: TRUE
   update_packages: FALSE
 nocite: |
   @busch_etal2011LandscapeLevelModela, 
