@@ -47,7 +47,7 @@ sites_all_summary <- sites_all |>
 ```
 
 ```{r tab-sites-sum-cap, results="asis"}
-my_caption = "Summary of fish passage assessment procedures conducted in the Skeena through SERNbc since 2020."
+my_caption = "Summary of fish passage assessment procedures conducted in the FWCP Peace Region since 2019."
 my_tab_caption()
 ```
 
@@ -63,7 +63,7 @@ sites_all_summary |>
 
 
 ```{r tab-sites-cap, results="asis"}
-my_caption = "Details of fish passage assessment procedures conducted in the Skeena through SERNbc since 2020."
+my_caption = "Details of fish passage assessment procedures conducted in the FWCP Peace Region since 2019."
 my_tab_caption()
 ```
 

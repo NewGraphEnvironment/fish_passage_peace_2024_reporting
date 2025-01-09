@@ -11,7 +11,7 @@ author: |
  |
  |
  | Prepared by
- | Al Irvine, B.Sc., R.P.Bio. and Mateo Winterscheidt, B.Sc.
+ | Al Irvine, B.Sc., R.P.Bio. and Lucy Schick, B.Sc.
  | New Graph Environment Ltd.
  | on behalf of 
  | Society for Ecosystem Restoration in Northern BC

@@ -4,10 +4,11 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Fish Passage in the Peace Region 2023</a></li>
+        <li><a href="./">Fish Passage in the Peace Region 2024</a></li>
       after: |
-        <li><a href="https://github.com/NewGraphEnvironment/fish_passage_peace_2023_reporting" target="blank">Scripts and Data</a></li>
-    download: ["fish_passage_peace_2023_reporting.pdf", "fish_passage_peace_2023_reporting.html"]
+        <li><a href="https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting" target="blank">Scripts and Data</a></li>
+      collapse: section
+    download: ["fish_passage_peace_2024_reporting.pdf", "fish_passage_peace_2024_reporting.html"]
     fontsettings:
       theme: white
       family: sans

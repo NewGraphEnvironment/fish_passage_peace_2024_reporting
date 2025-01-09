@@ -1,20 +1,12 @@
 # Changelog {-}
 
-### mybookdown-template 0.0.4 {-}
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
-  * 20240410
-  * add fpr::fpr_kable to intro
-  * remove `getwd` from `run.R`
-  * stop keeping the `merged_file` (`mybookdown_template.Rmd`)
-  * packages.R now uses `pak`
+### fish_passage_peace_2024_reporting 0.0.2 (2025-01-09) {-}
+
+- initial DRAFT release with progress map and Results summary tables
 
 
-### mybookdown-template 0.0.2 {-}
 
-  * 20220516
-  * add references.bib
-  * add `NEWS.md` file
-  * update `README.md`
-  * update logos
-  * put date on line with version numbers
-  * tighten packages and functions
+
+
