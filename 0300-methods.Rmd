@@ -131,7 +131,7 @@ text_footnote <- ""
 
 
 bcfishpass_spawn_rear_model |> 
-  filter(species_code %in% species) |>
+  dplyr::filter(species_code %in% species) |>
   mutate(Species = fishbc::fbc_common_name(species_code),
          spawn_gradient_max = round(spawn_gradient_max * 100 ,1),
          rear_gradient_max = round(rear_gradient_max * 100 ,1)) |>
@@ -195,7 +195,7 @@ bcfishpass_spawn_rear_model_references |>
 <!-- Turn on once tables.R has been run  -->
 ```{r tab-bcfp-def, eval = TRUE}
 fpr::fpr_xref_crossings |>
-  filter(id_side == 1) |>
+  dplyr::filter(id_side == 1) |>
   arrange(id_join) |>
   select(Attribute = report, Definition = column_comment) |>
   fpr::fpr_kable(caption_text = 'bcfishpass outputs and associated definitions',
@@ -318,7 +318,7 @@ sfpr_xref_road_cost() |>
     TRUE ~ stringr::str_to_title(Class)),
     Surface = stringr::str_to_title(Surface)
   ) |> 
-  # filter(Class != 'FSR' & Surface != 'Paved') |>
+  # dplyr::filter(Class != 'FSR' & Surface != 'Paved') |>
   fpr::fpr_kable(caption_text = 'Cost multiplier table based on road class and surface type.', scroll = F)
 ```
 
