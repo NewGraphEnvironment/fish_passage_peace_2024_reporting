@@ -2,17 +2,27 @@
 title: "Restoring Fish Passage in the Peace Region - 2024"
 author: |
  |
+ | PEA-F24-F-3944-DCA
+ |
  | Prepared for
-
+ | Fish and Wildlife Compensation Program 
+ |       and  
+ | Fish Passage Technical Working Group 
  |
  |
  | Prepared by
- | Al Irvine, B.Sc., R.P.Bio. and Lucy Schick, B.Sc.
+ | Al Irvine, B.Sc., R.P.Bio. and Mateo Winterscheidt, B.Sc.
  | New Graph Environment Ltd.
+ | on behalf of 
+ | Society for Ecosystem Restoration in Northern BC
+ | 
+ | Prepared with financial support of the Fish and Wildlife Compensation Program on
+ | behalf of its program partners BC Hydro, the Province of BC, Fisheries and Oceans
+ | Canada, First Nations and Public Stakeholders.
 
 date: |
  |
- | Version 0.0.4 `r format(Sys.Date(), "%Y-%m-%d")`
+ | DRAFT Version `r desc::desc_get_version()` `r format(Sys.Date(), "%Y-%m-%d")`
 toc-title: Table of Contents
 site: bookdown::bookdown_site
 output: 
@@ -82,7 +92,8 @@ font_set <- 9
 source('scripts/packages.R')
 source('scripts/functions.R')
 source('scripts/staticimports.R')
-source('scripts/tables.R')
+source("scripts/02_reporting/0165-load-sqlite.R")
+# source('scripts/tables.R')
 
 ```
 
@@ -103,6 +114,7 @@ Modern civilization has a long journey ahead to acknowledge and address the hist
 
 ```{js, logo-header, echo = FALSE, eval= T}
 title=document.getElementById('header');
-title.innerHTML = '<img src="fig/nge-full_white.png" alt="NewGraph">' + title.innerHTML
+title.innerHTML = '<img src="fig/logo_fwcp_sern.png" alt="NewGraph">' + title.innerHTML
 ```
+
 
