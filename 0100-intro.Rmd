@@ -22,10 +22,11 @@ passage at road crossing structure barriers within the Parsnip River, Carp River
 This project builds on Society for Ecosystem Restoration Northern BC (SERNbc) work in:
 
 
-- [Parsnip River Watershed – Fish Habitat Confirmations (PEA-F20-F-2967)](https://newgraphenvironment.github.io/Parsnip_Fish_Passage/) [@irvine2020ParsnipRiver],  
-- [PEA-F22-F-3577-DCA Restoring Fish Passage in the Peace Region](https://www.newgraphenvironment.com/fish_passage_parsnip_2021_reporting/) [@irvine2022PEAF22F3577DCARestoring]
-- [Restoring Fish Passage in the Peace Region - 2022 - PEA-F23-F-3761-DCA](https://newgraphenvironment.github.io/fish_passage_peace_2022_reporting/) [@irvine_winterscheidt2023RestoringFish]  
-- [Restoring Fish Passage in the Peace Region - 2023](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/) [@irvine_winterscheidt2024RestoringFish]
+- [Parsnip River Watershed – Fish Habitat Confirmations (PEA-F20-F-2967)](https://newgraphenvironment.github.io/Parsnip_Fish_Passage/){target="_blank"} [@irvine2020ParsnipRiver]
+- [PEA-F22-F-3577-DCA Restoring Fish Passage in the Peace Region](https://www.newgraphenvironment.com/fish_passage_parsnip_2021_reporting/){target="_blank"} [@irvine2022PEAF22F3577DCARestoring]  
+- [Restoring Fish Passage in the Peace Region - 2022 - PEA-F23-F-3761-DCA](https://newgraphenvironment.github.io/fish_passage_peace_2022_reporting/){target="_blank"} [@irvine_winterscheidt2023RestoringFish]  
+- [Restoring Fish Passage in the Peace Region - 2023](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/){target="_blank"} [@irvine_winterscheidt2024RestoringFish]
+
 
 <br>
 
