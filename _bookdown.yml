@@ -1,7 +1,9 @@
-book_filename: "fish_passage_template_reporting"
+book_filename: "fish_passage_peace_2024_reporting"
 language:
   ui:
     chapter_name: ""
-delete_merged_file: TRUE
+delete_merged_file: false
 output_dir: "docs"
+
+
 
