@@ -49,7 +49,7 @@ below:
 ### Issue Tracking
 "Issues" logged on the online github platform are effective ways to track tasks, enhancements, and bugs related to project components.
 They can be referenced with the scripts, text and actions used to address them by linking documentation to the issues with text comments
-or programatically through `git` commit messages.  Issues for this project are kept [here](paste0('https://github.com/NewGraphEnvironment/',params$job_name,'/issues')).
+or programatically through `git` commit messages.  Issues for this project are kept [here](paste0(params$repo_url,'/issues')).
 
 ### Mapping
 
