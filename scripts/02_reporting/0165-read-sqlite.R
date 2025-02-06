@@ -24,7 +24,7 @@ xref_pscis_my_crossing_modelled <- readwritesqlite::rws_read_table("xref_pscis_m
 rd_class_surface <- readwritesqlite::rws_read_table("rd_class_surface", conn = conn)
 
 # Table containing photo metadata. Used in the iteractive map
-photo_metadata <- readwritesqlite::rws_read_table("photo_metadata", conn = conn)
+# photo_metadata <- readwritesqlite::rws_read_table("photo_metadata", conn = conn)
 
 #Read in the form_pscis
 form_pscis <- readwritesqlite::rws_read_table("form_pscis", conn = conn)

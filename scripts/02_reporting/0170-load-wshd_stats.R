@@ -5,9 +5,6 @@
 # `0165-read-sqlite.R` reads in the `bcfishpass` object
 source("scripts/02_reporting/0165-read-sqlite.R")
 
-# `tables.R` reads in the `form_pscis_2024` object
-source('scripts/02_reporting/tables.R')
-
 
 
 ## Filter the bcfishpass data to just the phase 2 sites -------------------------------------------------
@@ -156,28 +153,13 @@ wshds <-  dplyr::left_join(
 
 
 ## Add to the geopackage -------------------------------------------------
-path_gis_wshds <- fs::path("~/Projects/gis/sern_skeena_2023/data_field/2024/fishpass_mapping.gpkg")
+path_gis_wshds <- fs::path("~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/fishpass_mapping.gpkg")
 
 wshds |>
   sf::st_write(dsn = path_gis_wshds,
                layer = 'hab_wshds',
                delete_layer = T,
                append = F) ##might want to f the append....
-
-
-
-## Add to the repo -------------------------------------------------
-path_repo_wshds <- fs::path_expand("~/Projects/repo/fish_passage_skeena_2024_reporting/data/fishpass_mapping/fishpass_mapping.gpkg")
-stub_repo_wshds <- fs::path_expand("~/Projects/repo/fish_passage_skeena_2024_reporting/data/fishpass_mapping")
-
-fs::dir_create(stub_repo_wshds)
-
-wshds |>
-  sf::st_write(dsn = path_repo_wshds,
-               layer = 'hab_wshds',
-               delete_layer = T,
-               append = F)
-
 
 
 ## Burn to a kml -------------------------------------------------

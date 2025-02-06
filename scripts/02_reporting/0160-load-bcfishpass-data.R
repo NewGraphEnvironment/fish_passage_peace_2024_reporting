@@ -5,11 +5,12 @@
 # this is the name of the funding project we used to submit our phase 1 data to the province.  we use it to filter the raw
 # pscis data for our entire study area to obtain just the data we submitted. We use it to filter xref_pscis_my_crossing_modelled
 # but not sure that filtering is actually necessary - we could test and remove if it is not
-my_funding_project_number = "skeena_2024_Phase1"
+my_funding_project_number = "peace_2024_Phase1"
 
 
 # name the watershed groups in our study area
-wsg <- c('BULK', 'MORR', 'ZYMO', 'KISP', 'KLUM')
+wsg <- c('PARS', 'CARP', 'CRKD')
+
 
 # this object should be called bcfishpass_crossings_vw or something that better reflects what it is
 bcfishpass <- fpr::fpr_db_query(
