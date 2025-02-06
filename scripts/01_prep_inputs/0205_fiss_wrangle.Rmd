@@ -90,6 +90,8 @@ form_fiss_site_cleaned <- form_fiss_site |>
 
 ## Fix the timezone
 
+Peace 2024 - times in `form_fiss_site_raw` are wrong in R and Q!
+
 We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
 
 ```{r time-fix}
@@ -148,67 +150,6 @@ wscodes <- fpr::fpr_db_query(
     ORDER BY a.stream_crossing_id, b.match_type;"
   ) 
 )
-```
-
-
-```{rget-wsc-hack, eval = F}
-
-##### HACK FOR IF WE CANT USE bcfishpass.crossings_vw FROM BCFISHPASS #####
-
-# this was a work around for this issue here https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/issues/7. 
-
-# use the bcfishpass.crossings_vw layer form the sern_peace_fwcp_2023 GIS project
-crossings_vw <- sf::st_read(dsn = '/Users/lucyschick/Projects/gis/sern_peace_fwcp_2023/background_layers.gpkg',
-                       layer = 'bcfishpass.crossings_vw') |> 
-  sf::st_drop_geometry() |> 
-  dplyr::filter(stream_crossing_id %in% ids)
-
-
-fwa_streams <- fpr::fpr_db_query(query = glue::glue("
-  SELECT DISTINCT ON (linear_feature_id_20k)
-    linear_feature_id_20k,
-    watershed_code_50k,
-    blue_line_key_20k,
-    watershed_key_20k,
-    blue_line_key_50k,
-    watershed_key_50k,
-    match_type
-  FROM whse_basemapping.fwa_streams_20k_50k
-  WHERE linear_feature_id_20k IN ({glue::glue_collapse(glue::single_quote(crossings_vw$linear_feature_id), sep = ', ')})
-  ORDER BY linear_feature_id_20k, match_type
-"))
-
-wscodes <- crossings_vw |>
-  left_join(fwa_streams, by = c("linear_feature_id" = "linear_feature_id_20k")) |>
-  mutate(
-    watershed_code_50k_parsed = paste(
-      substring(watershed_code_50k, 1, 3),    # First 3 digits
-      substring(watershed_code_50k, 4, 9),   # Next 6 digits
-      substring(watershed_code_50k, 10, 14), # Next 5 digits
-      substring(watershed_code_50k, 15, 19), # Next 5 digits
-      substring(watershed_code_50k, 20, 24), # Next 5 digits
-      substring(watershed_code_50k, 25, 29), # Next 5 digits
-      substring(watershed_code_50k, 30, 34), # Next 5 digits
-      substring(watershed_code_50k, 35, 39), # Next 5 digits
-      substring(watershed_code_50k, 40, 44), # Next 5 digits
-      substring(watershed_code_50k, 45, 49), # Next 5 digits
-      sep = "-"
-    )
-  ) |>
-  select(
-    stream_crossing_id,
-    linear_feature_id,
-    watershed_group_code,
-    watershed_code_50k,
-    watershed_code_50k_parsed,
-    blue_line_key_20k,
-    watershed_key_20k,
-    blue_line_key_50k,
-    watershed_key_50k,
-    match_type
-  )
-
-##### END HACK #####
 ```
 
 
