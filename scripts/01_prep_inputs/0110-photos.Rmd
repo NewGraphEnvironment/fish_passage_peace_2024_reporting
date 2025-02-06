@@ -7,8 +7,8 @@ output:
 params:
   repo_owner: "NewGraphEnvironment"
   repo_name: "fish_passage_peace_2024_reporting"
-  gis_name: "sern_skeena_2023"
-  job_name: "2024-072-sern-skeena-fish-passage"
+  gis_name: "sern_peace_2023"
+  job_name: "2024-073-sern-peace-fish-passage"
 ---
 
 
