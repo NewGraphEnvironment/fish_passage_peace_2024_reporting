@@ -320,7 +320,7 @@ Reassessments were completed at `r pscis_reassessments |> nrow()` sites where PS
 
 <br>
 
-A summary of crossings assessed, a rough cost estimate for remediation and a priority ranking for follow up for Phase 1 sites is presented in Table \@ref(tab:cost-est-phase-1). Detailed data with photos are presented in `r if(gitbook_on){knitr::asis_output("[Appendix - Phase 1 Fish Passage Assessment Data and Photos]")} else knitr::asis_output("[Attachment 2](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/appendix---phase-1-fish-passage-assessment-data-and-photos.html)")`.
+A summary of crossings assessed, a rough cost estimate for remediation and a priority ranking for follow up for Phase 1 sites is presented in Table \@ref(tab:cost-est-phase-1). Detailed data with photos are presented in `r if(gitbook_on){knitr::asis_output("[Appendix - Phase 1 Fish Passage Assessment Data and Photos]")} else knitr::asis_output("[Attachment 2](https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/appendix---phase-1-fish-passage-assessment-data-and-photos.html")`.
 
 
 <br>
@@ -393,9 +393,9 @@ fpr::fpr_table_cv_summary(dat = pscis_phase2)  |>
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 
-```{r cost-est-phase-2, eval=F}
+```{r cost-est-phase-2, eval=T}
 tab_cost_est_phase2 |>
-  fpr::fpr_kable(caption_text = paste0("Cost benefit analysis for Phase 2 assessments. ", ),
+  fpr::fpr_kable(caption_text = paste0("Cost benefit analysis for Phase 2 assessments. ", sp_rearing_caption),
                  scroll = gitbook_on)
 
 ```
