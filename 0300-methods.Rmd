@@ -2,7 +2,7 @@
 
 
 ```{r set-up}
-fish_col_permit_num <- "PG23-813101"
+fish_col_permit_num <- "PG24-879256"
 
 ```
 

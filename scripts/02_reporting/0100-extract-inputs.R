@@ -198,7 +198,7 @@ replace_empty_with_na <- function(x) {
   return(x)
 }
 
-
+## used `bt_rearing_km` for Peace 2024
 hab_priority_prep <- form_fiss_site |>
   dplyr::select(stream_name = gazetted_names,
                 local_name,
@@ -217,7 +217,7 @@ hab_priority_prep <- form_fiss_site |>
     # us_habitat_m = list(fpr::fpr_my_bcfishpass(dat = form_fiss_site, site = local_name, col_filter = local_name, col_pull = us_habitat_m)),
     # species_known = list(fpr::fpr_my_bcfishpass(dat = form_fiss_site, site = local_name, col_filter = local_name, col_pull = species_known)),
     comments = list(fpr::fpr_my_bcfishpass(dat = form_fiss_site, site = local_name, col_filter = local_name, col_pull = comments)),
-    upstream_habitat_length_m = list(fpr::fpr_my_bcfishpass(site = site, col_pull = st_rearing_km, round_dig = 4)),
+    upstream_habitat_length_m = list(fpr::fpr_my_bcfishpass(site = site, col_pull = bt_rearing_km, round_dig = 4)),
     # `upstream_habitat_length_m` is currently in km due to `st_rearing_km` being in kms.
     upstream_habitat_length_m = list(round((upstream_habitat_length_m * 1000), digits = 0)),
     species_codes = list(fpr::fpr_my_bcfishpass(site = site, col_pull = observedspp_upstr)),
@@ -234,6 +234,9 @@ hab_priority_prep <- form_fiss_site |>
     dplyr::across(everything(), ~replace_empty_with_na(.))) |>
   dplyr::ungroup() |>
   dplyr::filter(is.na(ef)) |>
+  dplyr::mutate(priority = dplyr::case_when(priority == "mod" ~ "moderate", TRUE ~ priority)) |>
+  dplyr::mutate(priority = stringr::str_to_title(priority)) |>
+  dplyr::mutate(hab_value = stringr::str_to_title(hab_value)) |>
   dplyr::arrange(local_name, crew_members, date_time_start) |>
   sf::st_drop_geometry()
 
@@ -283,6 +286,13 @@ rd_class_surface <- bcfishpass |>
            T ~ my_road_class),
          my_road_class = stringr::word(my_road_class, 1),
          my_road_class = stringr::str_to_lower(my_road_class))
+
+## Unique to peace 2024 - bcfishpass says Fern FSR is paved which it is definitely not. Need to change by hand so
+# that the cost estimate works.
+
+rd_class_surface <- rd_class_surface |>
+  dplyr::mutate(my_road_surface = dplyr::case_when(stream_crossing_id == "125261" ~ "rough",
+                                                   TRUE ~ my_road_surface))
 
 
 

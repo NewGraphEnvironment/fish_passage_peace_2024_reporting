@@ -128,7 +128,7 @@ pscis_all <- dplyr::left_join(
 
 fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
   janitor::clean_names() |>
-  #filter for skeena 2024
+  #filter for peace 2024
   dplyr::filter(project_name == project)
 
 
@@ -176,56 +176,56 @@ tab_hab_summary <- form_fiss_site |>
 
 # Phase 1 Appendix ----------------------------------------------
 
-## make result summary tables for each of the crossings, used to display phase 1 data in the appendix
-
-## turn spreadsheet into list of data frames
-pscis_phase1_for_tables <- pscis_all |>
-  dplyr::filter(!source == "pscis_phase2.xlsm") |>
-  dplyr::arrange(pscis_crossing_id)
-
-pscis_split <- pscis_phase1_for_tables  |>
-  dplyr::group_split(pscis_crossing_id) |>
-  purrr::set_names(pscis_phase1_for_tables$pscis_crossing_id)
-
-
-##make result summary tables for each of the crossings
-tab_summary <- pscis_split |>
-  purrr::map(fpr::fpr_table_cv_detailed)
-
-tab_summary_comments <- pscis_split |>
-  purrr::map(fpr::fpr_table_cv_detailed_comments)
-
-
-tab_photo_url <- fs::dir_ls(path = "data/photos/", recurse = FALSE) |>
-  basename() |>
-  tibble::as_tibble() |>
-  ## for skeena 2024 - remove folder buck_falls
-  dplyr::filter(!value == "buck_falls") |>
-  dplyr::mutate(value = as.integer(value)) |>  # Convert filenames to integers for sorting
-  dplyr::arrange(value) |>
-  dplyr::mutate(photo = paste0("![](data/photos/", value, "/crossing_all.JPG)")) |>
-  dplyr::filter(value %in% pscis_phase1_for_tables$site_id) |>
-  dplyr::left_join(xref_pscis_my_crossing_modelled,
-                   by = c("value" = "external_crossing_reference")) |>
-  dplyr::mutate(stream_crossing_id = dplyr::case_when(
-    is.na(stream_crossing_id) ~ value,
-    TRUE ~ stream_crossing_id
-  )) |>
-  dplyr::arrange(stream_crossing_id) |>
-  dplyr::group_split(stream_crossing_id)
-
-
-# used to build tables for PDF version of the report
-tabs_phase1_pdf <- mapply(
-  fpr::fpr_table_cv_detailed_print,
-  tab_sum = tab_summary,
-  comments = tab_summary_comments,
-  photos = tab_photo_url,
-  gitbook_switch = FALSE)
-
-
-rm(pscis_phase1_for_tables,pscis_split)
-
+# ## make result summary tables for each of the crossings, used to display phase 1 data in the appendix
+#
+# ## turn spreadsheet into list of data frames
+# pscis_phase1_for_tables <- pscis_all |>
+#   dplyr::filter(!source == "pscis_phase2.xlsm") |>
+#   dplyr::arrange(pscis_crossing_id)
+#
+# pscis_split <- pscis_phase1_for_tables  |>
+#   dplyr::group_split(pscis_crossing_id) |>
+#   purrr::set_names(pscis_phase1_for_tables$pscis_crossing_id)
+#
+#
+# ##make result summary tables for each of the crossings
+# tab_summary <- pscis_split |>
+#   purrr::map(fpr::fpr_table_cv_detailed)
+#
+# tab_summary_comments <- pscis_split |>
+#   purrr::map(fpr::fpr_table_cv_detailed_comments)
+#
+#
+# tab_photo_url <- fs::dir_ls(path = "data/photos/", recurse = FALSE) |>
+#   basename() |>
+#   tibble::as_tibble() |>
+#   ## for skeena 2024 - remove folder buck_falls
+#   dplyr::filter(!value == "buck_falls") |>
+#   dplyr::mutate(value = as.integer(value)) |>  # Convert filenames to integers for sorting
+#   dplyr::arrange(value) |>
+#   dplyr::mutate(photo = paste0("![](data/photos/", value, "/crossing_all.JPG)")) |>
+#   dplyr::filter(value %in% pscis_phase1_for_tables$site_id) |>
+#   dplyr::left_join(xref_pscis_my_crossing_modelled,
+#                    by = c("value" = "external_crossing_reference")) |>
+#   dplyr::mutate(stream_crossing_id = dplyr::case_when(
+#     is.na(stream_crossing_id) ~ value,
+#     TRUE ~ stream_crossing_id
+#   )) |>
+#   dplyr::arrange(stream_crossing_id) |>
+#   dplyr::group_split(stream_crossing_id)
+#
+#
+# # used to build tables for PDF version of the report
+# tabs_phase1_pdf <- mapply(
+#   fpr::fpr_table_cv_detailed_print,
+#   tab_sum = tab_summary,
+#   comments = tab_summary_comments,
+#   photos = tab_photo_url,
+#   gitbook_switch = FALSE)
+#
+#
+# rm(pscis_phase1_for_tables,pscis_split)
+#
 
 # Phase 2 Priority spreadsheet ----------------------------------------------
 
@@ -389,10 +389,7 @@ tab_cost_est_prep <- dplyr::left_join(
   rd_class_surface |>
     dplyr::select(stream_crossing_id, my_road_class, my_road_surface),
   by = c('pscis_crossing_id' = 'stream_crossing_id')
-)|>
-  ## Unique to Skeena 2024 - two phase 2 sites (58245 and 58245) are missing `my_road_class` and `my_road_surface`, so lets add then by hand so we get a cost estimate.
-  dplyr::mutate(my_road_class = dplyr::case_when(pscis_crossing_id == "58245" ~ "collector", TRUE ~ my_road_class),
-                my_road_surface = dplyr::case_when(pscis_crossing_id == "58245" ~ "paved", TRUE ~ my_road_surface))
+)
 
 # Step 2: Add `pscis_crossing_id` from `xref_pscis_my_crossing_modelled`
 tab_cost_est_prep1 <- dplyr::left_join(
@@ -486,12 +483,12 @@ tab_cost_est_phase1 <- tab_cost_est_prep6 |>
     Priority = my_priority,
     Stream = stream_name,
     Road = road_name,
-    Result = barrier_result,
+    `Barrier Result` = barrier_result,
     `Habitat value` = habitat_value,
+    `Habitat Upstream (km)` = st_network_km,
     `Stream Width (m)` = downstream_channel_width_meters,
     Fix = crossing_fix_code,
     `Cost Est ( $K)` = cost_est_1000s,
-    `Habitat Upstream (km)` = st_network_km,
     `Cost Benefit (m / $K)` = cost_gross,
     `Cost Benefit (m2 / $K)` = cost_area_gross
   ) |>
@@ -538,26 +535,39 @@ tab_cost_est_prep8 <- dplyr::left_join(
 # Step 3: Filter and select relevant columns for Phase 2 cost estimates
 tab_cost_est_prep9 <- tab_cost_est_prep8 |>
   dplyr::filter(source == "pscis_phase2.xlsm") |>
+  dplyr::mutate(upstream_habitat_length_km = round((upstream_habitat_length_m/1000), 1)) |>
   dplyr::select(
     pscis_crossing_id,
     stream_name,
     road_name,
     barrier_result,
     habitat_value,
+    upstream_habitat_length_km,
     avg_channel_width_m,
     crossing_fix_code,
     cost_est_1000s,
-    upstream_habitat_length_m,
     cost_net,
     cost_area_net,
     source
-  ) |>
-  dplyr::mutate(upstream_habitat_length_m = round(upstream_habitat_length_m, 0))
+  )
 
 # Step 4: Prepare the Phase 2 cost estimates for the table
 tab_cost_est_phase2 <- tab_cost_est_prep9 |>
   dplyr::arrange(pscis_crossing_id) |>
-  dplyr::select(-source)
+  dplyr::select(-source) |>
+  dplyr::rename(
+    `PSCIS ID` = pscis_crossing_id,
+    Stream = stream_name,
+    Road = road_name,
+    `Barrier Result` = barrier_result,
+    `Habitat value` = habitat_value,
+    `Habitat Upstream (km)` = upstream_habitat_length_km,
+    `Stream Width (m)` = avg_channel_width_m,
+    Fix = crossing_fix_code,
+    `Cost Est ( $K)` = cost_est_1000s,
+    `Cost Benefit (m / $K)` = cost_net,
+    `Cost Benefit (m2 / $K)` = cost_area_net
+  )
 
 # Clean up unnecessary objects
 rm(tab_cost_est_prep,
