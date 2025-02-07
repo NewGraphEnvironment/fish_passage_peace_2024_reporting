@@ -17,9 +17,12 @@ project = "2024-073-sern-peace-fish-passage"
 # specify the repo
 repo_name <- "fish_passage_peace_2024_reporting"
 
+# This is used in the table captions
 # specify in index.Rmd YAML which species you want to use for the modelling
 # For Skeena we use steelhead
 # For Peace we use bull trout
+model_species_name <- dplyr::case_when(params$model_species == "bt" ~ "Bull trout",
+                                       params$model_species == "st" ~ "Steelhead")
 
 
 
@@ -477,11 +480,11 @@ tab_cost_est_prep6 <- dplyr::left_join(
     road_name,
     barrier_result,
     habitat_value,
+    sp_network_km,
     downstream_channel_width_meters,
     my_priority,
     crossing_fix_code,
     cost_est_1000s,
-    sp_network_km,
     cost_gross, cost_area_gross, source
   ) |>
   dplyr::filter(barrier_result != 'Unknown' & barrier_result != 'Passable')

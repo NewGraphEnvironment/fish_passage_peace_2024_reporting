@@ -1,3 +1,31 @@
+```{r caption_model-sp, eval = T}
+
+# Dynamically make the table captions depending on the species used for modelling.
+
+
+#Make the caption for the network model
+
+# Hard coding these for now, not ideal but will do. 
+bt_network_gradient <- "25"
+st_network_gradient <- "20"
+
+sp_network_caption <- dplyr::case_when(params$model_species == "bt" ~ paste0(model_species_name," network model used for habitat estimates (total length of stream network <",
+                                                                             bt_network_gradient, "% gradient)."),
+                                       params$model_species == "st" ~ paste0(model_species_name," network model used for habitat estimates (total length of stream network <",
+                                                                             st_network_gradient, "% gradient)."))
+
+#Make the caption for the rearing model 
+
+#pull out the max rearing gradient
+rear_gradient <- bcfishpass_spawn_rear_model |> 
+  dplyr::filter(species_code == stringr::str_to_upper(params$model_species)) |> 
+  dplyr::mutate(rear_gradient_max = round((rear_gradient_max*100), 1)) |> 
+  dplyr::pull(rear_gradient_max)
+
+sp_rearing_caption <- paste0(model_species_name," rearing model used for habitat estimates (total length of stream network <", rear_gradient, "% gradient).")
+```
+
+
 # Results and Discussion
 
 ## Five Year Summary
@@ -212,7 +240,7 @@ map
 
 In addition to numerous layers documenting fieldwork activities since 2020, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the
 time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included 
-`r if(identical(gitbook_on, FALSE)){knitr::asis_output("online [here](https://newgraphenvironment.github.io/fish_passage_skeena_2024_reporting/)")}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
+`r if(identical(gitbook_on, FALSE)){knitr::asis_output("online [here](https://newgraphenvironment.github.io/fish_passage_peace_2024_reporting/)")}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
 
 ```{r rfp-metadata, eval = params$update_gis}
 # grab the metadata
@@ -292,7 +320,7 @@ Reassessments were completed at `r pscis_reassessments |> nrow()` sites where PS
 
 <br>
 
-A summary of crossings assessed, a rough cost estimate for remediation and a priority ranking for follow up for Phase 1 sites is presented in Table \@ref(tab:cost-est-phase-1). Detailed data with photos are presented in `r if(gitbook_on){knitr::asis_output("[Appendix - Phase 1 Fish Passage Assessment Data and Photos]")} else knitr::asis_output("[Attachment 2](https://www.newgraphenvironment.com/fish_passage_skeena_2024_reporting/appendix---phase-1-fish-passage-assessment-data-and-photos.html")`.
+A summary of crossings assessed, a rough cost estimate for remediation and a priority ranking for follow up for Phase 1 sites is presented in Table \@ref(tab:cost-est-phase-1). Detailed data with photos are presented in `r if(gitbook_on){knitr::asis_output("[Appendix - Phase 1 Fish Passage Assessment Data and Photos]")} else knitr::asis_output("[Attachment 2](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/appendix---phase-1-fish-passage-assessment-data-and-photos.html)")`.
 
 
 <br>
@@ -309,8 +337,9 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @fi
 
  tab_cost_est_phase1 |>
   select(`PSCIS ID`:`Cost Est ( $K)`) |> 
-   fpr::fpr_kable(caption_text = 'Upstream habitat estimates and cost benefit analysis for Phase 1 assessments ranked as a "barrier" or "potential" barrier. Steelhead network model (total length stream network <20% gradient).',
+   fpr::fpr_kable(caption_text = paste0("Upstream habitat estimates and cost benefit analysis for Phase 1 assessments ranked as a 'barrier' or 'potential' barrier. ", sp_network_caption),
                   scroll = gitbook_on)
+ 
 ```
 
 <br>
@@ -347,7 +376,7 @@ table_phase2_overview <- function(dat, caption_text = '', font = font_set, scrol
 }
 
 tab_overview |> 
-  table_phase2_overview(caption_text = 'Overview of habitat confirmation sites. Bull trout rearing model used for habitat estimates (total length of stream segments <10.5% gradient)', 
+  table_phase2_overview(caption_text = paste0("Overview of habitat confirmation sites. ", sp_rearing_caption), 
                         scroll = gitbook_on)
 
 ```
@@ -366,7 +395,7 @@ fpr::fpr_table_cv_summary(dat = pscis_phase2)  |>
 
 ```{r cost-est-phase-2, eval=F}
 tab_cost_est_phase2 |>
-  fpr::fpr_kable(caption_text = 'Cost benefit analysis for Phase 2 assessments. Bull trout rearing model used for habitat estimates (total length of stream segments <10.5% gradient)',
+  fpr::fpr_kable(caption_text = paste0("Cost benefit analysis for Phase 2 assessments. ", ),
                  scroll = gitbook_on)
 
 ```
@@ -395,7 +424,7 @@ fpr::fpr_table_wshd_sum() |>
 
 <br>
 
-```{r plot-model-all, fig.cap='Summary of potential habitat upstream of habitat confirmation assessment sites estimated based on modelled channel width and upstream channel length.', eval=T}
+```{r plot-model-all, fig.cap='Summary of potential habitat upstream of habitat confirmation assessment sites estimated based on modelled channel width and upstream channel length.', eval=F}
 
 
 bcfp_xref_plot <- xref_bcfishpass_names |> 
