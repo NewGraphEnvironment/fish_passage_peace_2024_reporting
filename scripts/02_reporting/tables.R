@@ -17,6 +17,10 @@ project = "2024-073-sern-peace-fish-passage"
 # specify the repo
 repo_name <- "fish_passage_peace_2024_reporting"
 
+# specify in index.Rmd YAML which species you want to use for the modelling
+# For Skeena we use steelhead
+# For Peace we use bull trout
+
 
 
 # Load data -------------------------------------------------
@@ -242,6 +246,7 @@ habitat_confirmations_priorities <- readr::read_csv(
 # Overview of habitat confirmation sites used in the results section
 
 tab_overview_prep1 <- form_pscis|>
+  sf::st_drop_geometry() |>
   dplyr::filter(assess_type_phase2 == "Yes") |>
   dplyr::select(pscis_crossing_id, stream_name, road_name, road_tenure, easting, northing, utm_zone, habitat_value)
 
@@ -434,20 +439,26 @@ tab_cost_est_prep4 <- tab_cost_est_prep3 |>
 
 # Now prepare phase 1 cost estimates.
 
+sp_network_km <- rlang::sym(paste0(params$model_species, "_network_km"))
+sp_belowupstrbarriers_network_km <- rlang::sym(paste0(params$model_species, "_belowupstrbarriers_network_km"))
+
+
 # Step 6: Add upstream modelling data to estimate potential habitat gain
 tab_cost_est_prep5 <- dplyr::left_join(
   tab_cost_est_prep4,
   bcfishpass |>
-    dplyr::select(stream_crossing_id, st_network_km, st_belowupstrbarriers_network_km) |>
+    dplyr::select(stream_crossing_id, !!sp_network_km, !!sp_belowupstrbarriers_network_km) |>
     dplyr::mutate(stream_crossing_id = as.numeric(stream_crossing_id)),
   by = c('pscis_crossing_id' = 'stream_crossing_id')
 ) |>
   dplyr::mutate(
-    cost_net = round(st_belowupstrbarriers_network_km * 1000 / cost_est_1000s, 1),
-    cost_gross = round(st_network_km * 1000 / cost_est_1000s, 1),
-    cost_area_net = round((st_belowupstrbarriers_network_km * 1000 * downstream_channel_width_meters * 0.5) / cost_est_1000s, 1), ## this is a triangle area!
-    cost_area_gross = round((st_network_km * 1000 * downstream_channel_width_meters * 0.5) / cost_est_1000s, 1) ## this is a triangle area!
+    cost_net = round(!!sp_belowupstrbarriers_network_km * 1000 / cost_est_1000s, 1),
+    cost_gross = round(!!sp_network_km * 1000 / cost_est_1000s, 1),
+    cost_area_net = round((!!sp_belowupstrbarriers_network_km * 1000 * downstream_channel_width_meters * 0.5) / cost_est_1000s, 1),
+    cost_area_gross = round((!!sp_network_km * 1000 * downstream_channel_width_meters * 0.5) / cost_est_1000s, 1),
+    st_network_km = round(!!sp_network_km, 1)
   )
+
 
 # Step 7: Add the priority from `form_pscis`
 tab_cost_est_prep6 <- dplyr::left_join(
@@ -470,7 +481,7 @@ tab_cost_est_prep6 <- dplyr::left_join(
     my_priority,
     crossing_fix_code,
     cost_est_1000s,
-    st_network_km,
+    sp_network_km,
     cost_gross, cost_area_gross, source
   ) |>
   dplyr::filter(barrier_result != 'Unknown' & barrier_result != 'Passable')
@@ -485,7 +496,7 @@ tab_cost_est_phase1 <- tab_cost_est_prep6 |>
     Road = road_name,
     `Barrier Result` = barrier_result,
     `Habitat value` = habitat_value,
-    `Habitat Upstream (km)` = st_network_km,
+    `Habitat Upstream (km)` = sp_network_km,
     `Stream Width (m)` = downstream_channel_width_meters,
     Fix = crossing_fix_code,
     `Cost Est ( $K)` = cost_est_1000s,
@@ -535,17 +546,16 @@ tab_cost_est_prep8 <- dplyr::left_join(
 # Step 3: Filter and select relevant columns for Phase 2 cost estimates
 tab_cost_est_prep9 <- tab_cost_est_prep8 |>
   dplyr::filter(source == "pscis_phase2.xlsm") |>
-  dplyr::mutate(upstream_habitat_length_km = round((upstream_habitat_length_m/1000), 1)) |>
   dplyr::select(
     pscis_crossing_id,
     stream_name,
     road_name,
     barrier_result,
     habitat_value,
-    upstream_habitat_length_km,
     avg_channel_width_m,
     crossing_fix_code,
     cost_est_1000s,
+    upstream_habitat_length_m,
     cost_net,
     cost_area_net,
     source
@@ -561,7 +571,7 @@ tab_cost_est_phase2 <- tab_cost_est_prep9 |>
     Road = road_name,
     `Barrier Result` = barrier_result,
     `Habitat value` = habitat_value,
-    `Habitat Upstream (km)` = upstream_habitat_length_km,
+    `Habitat Upstream (m)` = upstream_habitat_length_m,
     `Stream Width (m)` = avg_channel_width_m,
     Fix = crossing_fix_code,
     `Cost Est ( $K)` = cost_est_1000s,

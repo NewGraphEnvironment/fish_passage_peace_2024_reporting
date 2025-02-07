@@ -33,6 +33,7 @@ params:
   repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting'
   report_url: 'https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/'
   job_name: '2024-073-sern-peace-fish-passage'
+  model_species: "bt"
   update_packages: FALSE
   update_form_pscis: FALSE
   update_form_fiss_site: FALSE
