@@ -28,100 +28,6 @@ sp_rearing_caption <- paste0(model_species_name," rearing model used for habitat
 
 # Results and Discussion
 
-## Five Year Summary
-
-Summary of fish passage assessment procedures conducted in the Peace River Watershed.
-
-```{r ld-db}
-
-sites_all <- fpr::fpr_db_query(
-  query = "SELECT * FROM working.fp_sites_tracking"
-)
-```
-
-```{r summarize-sites}
-
-# unique(sites_all$watershed_group_name)
-
-
-wsg <- c(
-              "Parsnip River",
-              "Carp Lake",
-              "Crooked River"
-              )
-
-# more straight forward is new graph only watersheds
-# wsg_ng <- "Elk River"
-
-# here is a summary with Elk watershed group removed
-sites_all_summary <- sites_all |> 
-  # make a flag column for uav flights
-  dplyr::mutate(
-    uav = dplyr::case_when(
-      !is.na(link_uav1) ~ "yes",
-      T ~ NA_character_
-    )) |> 
-  # remove the elk counts
-  dplyr::filter(watershed_group %in% wsg) |>
-  dplyr::group_by(watershed_group) |> 
-  dplyr::summarise(
-    dplyr::across(assessment:fish_sampling, ~ sum(!is.na(.x))),
-    uav = sum(!is.na(uav))
-  ) |> 
-  sf::st_drop_geometry() |> 
-  # make pretty names
-  dplyr::rename_with(~ stringr::str_replace_all(., "_", " ") |> 
-                       stringr::str_to_title()) |> 
-  # annoying special case
-  dplyr::rename(
-    `Drone Imagery` = Uav) |> 
-  janitor::adorn_totals()
-```
-
-```{r tab-sites-sum-cap, results="asis"}
-my_caption = "Summary of fish passage assessment procedures conducted in the FWCP Peace Region since 2019."
-my_tab_caption()
-```
-
-```{r tab-sites-sum}
-sites_all_summary |> 
-  my_dt_table(
-    page_length = 20,
-    cols_freeze_left = 0
-              )
-```
-
-<br>
-
-
-```{r tab-sites-cap, results="asis"}
-my_caption = "Details of fish passage assessment procedures conducted in the FWCP Peace Region since 2019."
-my_tab_caption()
-```
-
-```{r tab-sites-all}
-sites_all |>
-  sf::st_drop_geometry() |>
-  dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
-  dplyr::select(-idx) |>
-  # make pretty names
-  dplyr::rename_with(~ . |>
-                       stringr::str_replace_all("_", " ") |>
-                       stringr::str_replace_all("repo", "Report") |>
-                       stringr::str_replace_all("uav", "Drone") |>
-                       stringr::str_to_title()) |> 
-  # dplyr::arrange(desc(stream_crossing_id)) |> 
-  
-  my_dt_table(
-    cols_freeze_left = 1,
-    escape = FALSE
-  )
-```
-
-
-
-## 2024 Summary
-
 `r if(gitbook_on){knitr::asis_output("Results of Phase 1 and Phase 2 assessments are summarized in Figure \\@ref(fig:map-interactive) with additional details provided in sections below.")}`
 
 <br>
@@ -236,11 +142,108 @@ map
 
 ```
 
+
+## Site Assessment Data Since 2019
+
+Fish passage assessment procedures conducted through FWCP in the Peace River Region since 2019 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output("online within the Results and Discussion section of the report found  [here](https://newgraphenvironment.github.io/fish_passage_peace_2024_reporting/)")}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap).")}`
+
+<br>
+
+```{r ld-db}
+
+sites_all <- fpr::fpr_db_query(
+  query = "SELECT * FROM working.fp_sites_tracking"
+)
+```
+
+```{r summarize-sites}
+
+# unique(sites_all$watershed_group_name)
+
+
+wsg <- c(
+              "Parsnip River",
+              "Carp Lake",
+              "Crooked River"
+              )
+
+# more straight forward is new graph only watersheds
+# wsg_ng <- "Elk River"
+
+# here is a summary with Elk watershed group removed
+sites_all_summary <- sites_all |> 
+  # make a flag column for uav flights
+  dplyr::mutate(
+    uav = dplyr::case_when(
+      !is.na(link_uav1) ~ "yes",
+      T ~ NA_character_
+    )) |> 
+  # remove the elk counts
+  dplyr::filter(watershed_group %in% wsg) |>
+  dplyr::group_by(watershed_group) |> 
+  dplyr::summarise(
+    dplyr::across(assessment:fish_sampling, ~ sum(!is.na(.x))),
+    uav = sum(!is.na(uav))
+  ) |> 
+  sf::st_drop_geometry() |> 
+  # make pretty names
+  dplyr::rename_with(~ stringr::str_replace_all(., "_", " ") |> 
+                       stringr::str_to_title()) |> 
+  # annoying special case
+  dplyr::rename(
+    `Drone Imagery` = Uav) |> 
+  janitor::adorn_totals()
+```
+
+```{r tab-sites-sum-cap, results="asis"}
+my_caption = "Summary of fish passage assessment procedures conducted in the FWCP Peace Region since 2019."
+my_tab_caption()
+```
+
+```{r tab-sites-sum}
+sites_all_summary |> 
+  my_dt_table(
+    page_length = 20,
+    cols_freeze_left = 0
+              )
+```
+
+<br>
+
+
+```{r tab-sites-cap, results="asis"}
+my_caption = "Details of fish passage assessment procedures conducted in the FWCP Peace Region since 2019."
+my_tab_caption()
+```
+
+```{r tab-sites-all}
+sites_all |>
+  sf::st_drop_geometry() |>
+  dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
+  dplyr::select(-idx) |>
+  # make pretty names
+  dplyr::rename_with(~ . |>
+                       stringr::str_replace_all("_", " ") |>
+                       stringr::str_replace_all("repo", "Report") |>
+                       stringr::str_replace_all("uav", "Drone") |>
+                       stringr::str_to_title()) |> 
+  # dplyr::arrange(desc(stream_crossing_id)) |> 
+  
+  my_dt_table(
+    cols_freeze_left = 1,
+    escape = FALSE
+  )
+```
+
+
+
 ## Collaborative GIS Environment
 
-In addition to numerous layers documenting fieldwork activities since 2020, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the
+In addition to numerous layers documenting fieldwork activities since 2019, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the
 time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included 
 `r if(identical(gitbook_on, FALSE)){knitr::asis_output("online [here](https://newgraphenvironment.github.io/fish_passage_peace_2024_reporting/)")}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
+
+<br>
 
 ```{r rfp-metadata, eval = params$update_gis}
 # grab the metadata
@@ -250,7 +253,6 @@ md <- rfp::rfp_meta_bcd_xref()
 md |> 
   readr::write_csv("data/rfp_metadata.csv")
 ```
-
 
 ```{r rfp-tracking-copy, eval = params$update_gis}
 
@@ -338,7 +340,7 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @fi
  tab_cost_est_phase1 |>
   select(`PSCIS ID`:`Cost Est ( $K)`) |> 
    fpr::fpr_kable(caption_text = paste0("Upstream habitat estimates and cost benefit analysis for Phase 1 assessments ranked as a 'barrier' or 'potential' barrier. ", sp_network_caption),
-                  scroll = gitbook_on)
+                  scroll = F)
  
 ```
 
@@ -346,12 +348,12 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @fi
 
 ## Phase 2 - Habitat Confirmation Assessments
 
-During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Parsnip River, Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at all habitat confirmation sites. Georeferenced field maps are provided in Attachment 1.
+During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in Attachment 1.
 
 <br>
 
 As collaborative decision making was ongoing at the time of reporting, site prioritization can be considered preliminary. 
-Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in digital format [here](`r paste0(params$repo_url, "blob/main/data/habitat_confirmations.xls")`). A summary of preliminary modelling results illustrating quantities of bull trout spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site specific appendices to this document.
+Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in digital format [here](`r paste0(params$repo_url, "/blob/main/data/habitat_confirmations.xls")`). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site specific appendices to this document.
 
 `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
 
@@ -365,7 +367,7 @@ table_phase2_overview <- function(dat, caption_text = '', font = font_set, scrol
     kableExtra::kable_styling(c("condensed"),
                               full_width = T,
                               font_size = font) |>
-    kableExtra::column_spec(column = c(11), width_min = '4in') |>
+    kableExtra::column_spec(column = c(11), width_min = '1.5in') |>
     kableExtra::column_spec(column = c(1:10), width_max = '1in')
 
   if(identical(scroll,TRUE)){
@@ -396,7 +398,7 @@ fpr::fpr_table_cv_summary(dat = pscis_phase2)  |>
 ```{r cost-est-phase-2, eval=T}
 tab_cost_est_phase2 |>
   fpr::fpr_kable(caption_text = paste0("Cost benefit analysis for Phase 2 assessments. ", sp_rearing_caption),
-                 scroll = gitbook_on)
+                 scroll = F)
 
 ```
 
@@ -424,7 +426,7 @@ fpr::fpr_table_wshd_sum() |>
 
 <br>
 
-```{r plot-model-all, fig.cap='Summary of potential habitat upstream of habitat confirmation assessment sites estimated based on modelled channel width and upstream channel length.', eval=F}
+```{r plot-model-all, fig.cap='Summary of potential habitat upstream of habitat confirmation assessment sites estimated based on modelled channel width and upstream channel length.', eval=T}
 
 
 bcfp_xref_plot <- xref_bcfishpass_names |> 
@@ -441,7 +443,7 @@ bcfishpass_phase2_plot_prep <- bcfishpass |>
   dplyr::filter(stream_crossing_id %in% (pscis_phase2 |> dplyr::pull(pscis_crossing_id))) |> 
   dplyr::select(stream_crossing_id, dplyr::all_of(bcfp_xref_plot$bcfishpass)) |> 
   dplyr::mutate(stream_crossing_id = as.factor(stream_crossing_id)) |> 
-  tidyr::pivot_longer(cols = ch_spawning_km:st_rearing_km) |> 
+  tidyr::pivot_longer(cols = bt_rearing_km:bt_spawning_km) |> 
   dplyr::filter(value > 0.0 &
                 !is.na(value)) |> 
   dplyr::mutate(
@@ -455,7 +457,8 @@ bcfishpass_phase2_plot_prep |>
   ggplot2::ggplot(ggplot2::aes(x = stream_crossing_id, y = value)) +
   ggplot2::geom_bar(stat = "identity") +
   ggplot2::facet_wrap(~name, ncol = 2) +
-  ggdark::dark_theme_bw(base_size = 11) +
+  # ggdark::dark_theme_bw(base_size = 11) +
+  ggplot2::theme_light(base_size = 11) +
   ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   ggplot2::labs(x = "Site", y = "Modelled habitat (km)")
 
@@ -465,18 +468,15 @@ bcfishpass_phase2_plot_prep |>
 
 ### Fish Sampling
 
-
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within `r tab_fish_sites_sum |> distinct(stream) |> nrow()` streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish.
-
-DRAFT NEEDS WORK TO BE MORE CLEAR 
-All sampled sites were habitat confirmation sites; however, Sandstone Creek was assessed in 2023, while the other sites were assessed in 2024. Electrofishing was conducted at Sandstone Creek during both years, with additional electrofishing in 2024 to build on previous data. At this site only, salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement.
-
-Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm) and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram).  A summary of sites assessed are included in Table \@ref(tab:tab-fish-site-summary) and raw data is provided in [Attachment 3](https://github.com/NewGraphEnvironment/fish_passage_skeena_2023_reporting/blob/main/data/habitat_confirmations.xls). A summary of density results for all life stages combined of select species is also presented in Figure \@ref(fig:plot-fish-all). 
-
-DRAFT NEEDS WORK TO BE MORE CLEAR 
-Results are presented in greater detail within individual habitat confirmation site appendices, and for sandstone Creek [here](https://www.newgraphenvironment.com/fish_passage_skeena_2022_reporting/). 
+Fish sampling was completed all both habitat confirmation sites as well as several monitoring sites.
 
 <br>
+
+Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within `r tab_fish_sites_sum |> distinct(stream) |> nrow()` streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm) and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram).  A summary of sites assessed are included in Table \@ref(tab:tab-fish-site-summary) and raw data is provided in [Attachment 3](https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/blob/main/data/fish_data_tags_joined.csv). A summary of density results for all life stages combined of select species is also presented in Figure \@ref(fig:plot-fish-all). 
+
+<br>
+
+Results are presented in detail within the individual habitat confirmation site appendices in this report and in past reports for the monitoring sites, which can be accessed by searching the site number in Table \@ref(tab:tab-sites-cap) and clicking the Link Report.
 
 ```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = F}
 knitr::include_graphics("fig/fish_histogram.png")
@@ -495,7 +495,7 @@ tab_fish_sites_sum |>
 
 <br>
 
-```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of fish captured by electrofishing during habitat confirmation assessments.', eval=T}
+```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of fish captured downstream (ds) and upstream (us) by electrofishing during habitat confirmation assessments.', eval=T}
 
 plot_fish_box_all <- fish_abund |> 
   dplyr::filter(
@@ -517,166 +517,22 @@ plot_fish_box_all
 
 ## Phase 3 - Design
 
-All sites with a design for remediation of fish passage can be found in Table 
-
-At the time of reporting, designs for remediation of fish passage had been completed for the following sites listed by watershed group:
-
-
-### Bulkley River
-
-- McDowell Creek - PSCIS 58159 - Private Road.  Design for clear-span bridge completed in 2021 Onsite Engineering with
-funding provided through this program. Background presented  [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).
-- Tyhee Creek - PSCIS 123445 - Highway 16. Preliminary design commissioned from Pacific North Coast Consulting by Canadian Wildlife Federation.  Background presented  [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).
-- Helps Creek - PSCIS 124500 - Lawson Road. Background presented  [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).
-- Thompson Creek - 123377 - Walcott Road.  At the time of reporting, geotechnical assessments were underway from consultants
-under contract to the Ministry of Transportation and Infrastructure
-to inform the design of the replacement structure. Background presented [here](https://www.newgraphenvironment.com/fish_passage_skeena_2021_reporting/). 
-- Tributary to Buck Creek - PSCIS 197640 - Buck Flats Road. Preliminary design commisioned from Pacific North Coast Consulting by Canadian Wildlife Federation. Background presented  [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).
-- Station  Creek (also know as Mission Creek) - PSCIS 124420. Preliminary design commisioned from Pacific North Coast Consulting by Canadian Wildlife Federation. Background presented [here](https://www.newgraphenvironment.com/fish_passage_skeena_2021_reporting/).
-
-
-### Morice River
-
-- Riddeck Creek - PSCIS 197360 - Morice-Owen FSR. Design developed by consultants under contract to the Ministry of 
-Water, Lands and Resource Stewardship. Some materials have been purchased for construction and the site has been incorporated
-into the Bii Wenii Kwa Restoration/Recovery Plan lead by the Office of the Wet’suwet’en. Background presented [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).
-- Alvin Creek - PSCIS 197379 - Morice-Owen FSR (km 29.8).  Design developed by Mark Dewitt from the Ministry of Forests. Background presented [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/). the site has been incorporated
-into the Bii Wenii Kwa Restoration/Recovery Plan lead by the Office of the Wet’suwet’en.
-
+All sites with a design for remediation of fish passage can be found in Table \@ref(tab:tab-sites-cap) by filtering using Design = yes. 
 
 
 ## Phase 4 - Remediations
 
-Remediation of fish passage has been completed at the following sites (listed by watershed group):
+All sites where remediation of fish passage has been completed can be found in Table \@ref(tab:tab-sites-cap) by filtering using Remediation = yes.
 
-### Bulkley River 
-- McDowell Creek - 58159 - Private Road.  Replaced with a clear-span bridge in 2022 with remediation work led by the Canadian Wildlife Federation. Background presented  [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).
-- Robert Hatch Creek - 197912 - Unnamed Road. Removal of the collapsed bridge in 2022 with remediation work led by the Canadian Wildlife Federation. Background presented  [here](https://www.newgraphenvironment.com/fish_passage_skeena_2021_reporting/).
+<br>
 
-
-### Kispiox River
-- Tributary to Skeena River - 198217 - Sik-E-Dakh Water Tower Road.  Replacement of the crossing with a clear-span bridge in 2024
-with remediation work led by the Gitskan Watershed Authorities. This project serves as a great example to follow in future installations, demonstrating thoughtful erosion control and re-vegetation, a wide, stable channel with minimal riprap, and strategic riprap placement that was effectively buried to maintain natural channel morphology. Background information - updated in 2025 - can be found [here](https://www.newgraphenvironment.com/fish_passage_skeena_2022_reporting/)
+In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at kilometer 21 on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by C4 with environmental oversight and engineering from DWB Consulting Services Ltd. Partial funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/).  
 
 
 ## Monitoring
 
-Two sites were revisited in 2024 to gather data to further inform prioritization and/or to provide data for effectiveness monitoring. Below are the sites visited with details of data collected and links to reporting provided.
+Two sites were revisited in 2024 to gather data to further inform prioritization and/or to provide data for effectiveness monitoring. Below are the sites visited with details of data collected and links to reporting provided:
 
-### Buck Creek
+- Following the 2022 replacement of Tributary to Missinka (PSCIS crossing 125179) on Chuchinka-Missinka FSR, effectiveness monitoring was conducted in 2024. Background can be reviewed [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/) with results of the monitoring presented in a report appendix.
 
-Buck Creek features a significant series of waterfalls, collectively referred to as Buck falls, located approximately 30 km upstream of its confluence with the Bulkley River. Situated downstream of the Buck Creek and Buck Flats Road crossing, the falls consist of a series of vertical and cascading drops. During the 2024 assessment, a site visit was conducted to document Buck Falls, including UTM coordinates, height, and gradient, to assess the feasibility of fish passage. Buck falls has been previously documented by @gottesfeld_rabnett2007SkeenaFish, the World Waterfall Database [@BuckFallsBritishColumbiaCanadaWorldWaterfallDatabase], and in Houston Hikers as a popular hiking trail [@BuckFallsAdventures]. Given previous uncertainty regarding fish access, the assessment aimed to determine whether further efforts to improve upstream crossings would be justified.
-
-<br>
-
-The upper falls consisted of a ~4 m high vertical drop, presenting a substantial barrier to fish passage (Figure \@ref(fig:photo-buck-01)). Approximately 25 m downstream, the second falls was a ~3.5 m high sheer drop to bedrock, with minimal pool depth available to facilitate fish passage (Figure \@ref(fig:photo-buck-02)). Further downstream ~100 m, the third step comprised a ~1.5 m vertical drop with an overlying cascade, exhibiting a ~15% gradient over a 1.0 m height (Figure \@ref(fig:photo-buck-03)). An additional cascade, located a further ~25 m downstream, featured a ~2 m high drop with a ~30% gradient extending over a 5 m length (Figure \@ref(fig:photo-buck-04)).
-
-<br>
-
-Historically, salmonids have been documented above Buck Falls in the FISS database; however, fish passage beyond these barriers is considered highly improbable [@moe2024KnownBC].
-
-<br>
-
-Water quality measurements recorded at the site indicated a conductivity of 269 µS/cm, a temperature of 6.7°C, and a pH of 8.2.
-
-<br>
-
-Pink salmon have been noted as spawning in the first reach of Buck Creek, with coho spawners noted to Reach 3, and chinook spawners to Reach 5 where the subject tributary enters the mainstem (NCFDC 1998).
-
-<br>
-
-```{r photo-buck-01-prep, eval=T}
-my_site = "buck_falls"
-
-my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = '_falls1')
-
-my_caption1 = paste0("Buck Falls – The upper falls featured a ~4 m high vertical drop. A 2 m tall net is included for scale.")
-
-
-```
-
-```{r photo-buck-01, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
-knitr::include_graphics(my_photo1)
-```
-
-<br>
-
-```{r photo-buck-02-prep, eval=T}
-my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = '_falls2')
-
-my_caption2 = paste0("Buck Falls – The second falls consisted of a ~3.5 m high sheer drop to bedrock.")
-
-
-```
-
-```{r photo-buck-02, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
-knitr::include_graphics(my_photo2)
-```
-
-```{r photo-buck-d01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
-my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
-
-knitr::include_graphics(my_photo1)
-knitr::include_graphics("fig/pixel.png")
-knitr::include_graphics(my_photo2)
-```
-
-<br>
-
-```{r photo-buck-03-prep, eval=T}
-
-my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = '_falls3')
-
-my_caption1 = paste0("Buck Falls – The third step consisted of a ~1.5 m vertical drop with an overlying cascade, exhibiting a ~15% gradient over a 1.0 m height.")
-
-
-```
-
-```{r photo-buck-03, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
-knitr::include_graphics(my_photo1)
-```
-
-<br>
-
-```{r photo-buck-04-prep, eval=T}
-my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = '_falls4')
-
-my_caption2 = paste0("Buck Falls – An additional cascade featured a ~2 m high drop with a ~30% gradient extending over a 5 m length. A 2 m tall net is included for scale.")
-
-```
-
-```{r photo-buck-04, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
-knitr::include_graphics(my_photo2)
-```
-
-```{r photo-buck-d02, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
-my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
-
-knitr::include_graphics(my_photo1)
-knitr::include_graphics("fig/pixel.png")
-knitr::include_graphics(my_photo2)
-```
-
-<br>
-
-<!-- ### Morice River -->
-
-<!-- All sites below have been incorporated -->
-<!-- into the Bii Wenii Kwa Restoration/Recovery Plan lead by the Office of the Wet’suwet’en. -->
-
-<!-- - Riddeck Creek - PSCIS 197360 - Morice-Owen FSR. Electrofishing was conducted above and below the crossing and fish over 60mm were tagged with PIT tags so that their movement and health can be tracked over time.  Results are presented [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).  -->
-
-<!-- - Alvin Creek - PSCIS 197379 - Morice-Owen FSR (km 29.8). Revisited with the intention to conduct fish sampling however the stream was primarily dry with water present only within a small culvert outlet pool. Areas electrofished in 2022 were surveyed with PIT tag reader to scope for tags from potential mortalities related  -->
-<!-- to the dewatering.  Results are presented [here](https://www.newgraphenvironment.com/fish_passage_bulkley_2020_reporting/).  -->
-
-<!-- - Tributary to Owen Creek - PSCIS 197378 - Klate lake Road. Electrofishing was conducted above and below the crossing and fish over 60mm were tagged with PIT tags so that their movement and health can be tracked over time. Aerial imagery was also collected utilizing an unmanned aerial vehicle. Results are presented [here](https://www.newgraphenvironment.com/fish_passage_skeena_2021_reporting/) -->
-
-
-<!-- ### Kispiox River -->
-
-<!-- - Tributary to Skeena River - PSCIS 198217 - Sik-E-Dakh Water Tower Road.  Prior to replacement of the crosssing in the spring of 2024, electrofishing was conducted above and below the crossing and fish over 60mm were tagged with PIT tags so that their movement and health can be tracked over time. Additionally, lidar imagery was also collected utilizing an unmanned aerial vehicle.  Aerial imagery and lidar data were collected with a drone. Results are presented [here](https://www.newgraphenvironment.com/fish_passage_skeena_2022_reporting/). -->
-
-<!-- - Dale Creek - PSCIS 198215 - Kispiox Westside Road. Electrofishing was conducted above and below the crossing and fish over 60mm were tagged with PIT tags so that their movement and health can be tracked as part of effectiveness monitoring at the site. Results are presented [here](https://www.newgraphenvironment.com/fish_passage_skeena_2022_reporting/). -->
-
-<!-- - Sterritt creek - 198225 - Babine Slide FSR.  Revisited with the intention to conduct fish sampling however, before sampling was conducted surveyors observed a 2 - 3m high near vertical cascade flowing over bedrock into the small culvert outlet pool immediately below the FSR. It was decided to not proceed with electrofishing as replacement of the culvert with a bridge would not facilitate upstream fish migration. Results are presented [here](https://www.newgraphenvironment.com/fish_passage_skeena_2022_reporting/). -->
-
+- Following the 2024 replacement of Tributary to Table (PSCIS crossing 125132) on Chuchinka-Table FSR, effectiveness monitoring was conducted in 2024. Background can be reviewed [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/) with results of the monitoring presented in a report appendix.
