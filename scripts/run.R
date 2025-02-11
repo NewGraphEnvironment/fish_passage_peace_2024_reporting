@@ -12,7 +12,7 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
 
 # add/update the NEWS.md to the book as an appendix and build the gitbook
 {
-  # update util file functions from staticeimports
+  # update util file functions from staticimports
   staticimports::import()
   source('scripts/staticimports.R')
   my_news_to_appendix()
