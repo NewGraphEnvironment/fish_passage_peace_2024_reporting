@@ -2,7 +2,7 @@
 ## NOTE: this script needs to be re run if photos are deleted or new ones added
 
 # define your project repo name b/c this is not
-repo_name <- 'fish_passage_skeena_2024_reporting'
+repo_name <- 'fish_passage_peace_2024_reporting'
 
 photo_metadata <- exifr::read_exif('data/photos', recursive=T) |>
   janitor::clean_names() |>

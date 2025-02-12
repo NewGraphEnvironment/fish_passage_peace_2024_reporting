@@ -99,12 +99,12 @@ leaflet::addCircleMarkers(data=dplyr::filter(tab_map_phase_1, stringr::str_detec
   #              opacity=0.75, color = '#e216c4',
   #              fillOpacity = 0.75, weight=5, group = "Phase 2") |>
 
-# leaflet::addAwesomeMarkers(
-#     lng = as.numeric(photo_metadata$gps_longitude),
-#     lat = as.numeric(photo_metadata$gps_latitude),
-#     popup = leafpop::popupImage(photo_metadata$url, src = "remote"),
-#     clusterOptions = leaflet::markerClusterOptions(),
-#     group = "Phase 2") |>
+leaflet::addAwesomeMarkers(
+    lng = as.numeric(photo_metadata$gps_longitude),
+    lat = as.numeric(photo_metadata$gps_latitude),
+    popup = leafpop::popupImage(photo_metadata$url, src = "remote"),
+    clusterOptions = leaflet::markerClusterOptions(),
+    group = "Phase 2") |>
 
 
   leaflet::addCircleMarkers(
