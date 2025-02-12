@@ -6,9 +6,7 @@ output:
     code_folding: "hide"
 params:
   repo_owner: "NewGraphEnvironment"
-  repo_name: "fish_passage_skeena_2024_reporting"
-  file_in: 'scripts/02_reporting/photos_import.Rmd'
-  file_out: 'photos_import.html'
+  repo_name: "fish_passage_peace_2024_reporting"
 ---
 
 ```{r setup, eval= TRUE}
@@ -21,9 +19,9 @@ options(knitr.kable.NAN = '--')
 
 ```{r paths, eval=TRUE}
 
-dir_server_photos <- fs::path_expand("~/Library/CloudStorage/OneDrive-Personal/Projects/2024-072-sern-skeena-fish-passage/data/photos/")
+dir_server_photos <- fs::path_expand("~/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/")
 
-dir_repo_photos <- fs::path_expand("~/Projects/repo/fish_passage_skeena_2024_reporting/data/photos/")
+dir_repo_photos <- fs::path_expand("~/Projects/repo/fish_passage_peace_2024_reporting/data/photos/")
 ```
 
 This is a simple script to bulk import all photos tagged with `_k_` or `crossings_all`  from a shared server to the local repo directory. Idea here is that all collaborators on raw project (who have access to the shared server) can add photos to the shared server and alter
