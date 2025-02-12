@@ -1,22 +1,21 @@
 # Background
 
 The study area includes the FWCP Peace Region with a focus to date on traditional territories of the Tse'khene First Nations.
-In 2023, field assessments were completed with the Parsnip River, Carp River and Crooked River watershed groups (Figure \@ref(fig:overview-map)).  
+In 2024, field assessments were completed with the Parsnip River, Carp River and Crooked River watershed groups (Figure \@ref(fig:overview-map)).  
 
 <br>
 
 In 2019/2020, following a literature review, analysis of fish habitat modelling data, the Provincial Stream Crossing Inventory System (PSCIS) and a community scoping exercise within the McLeod Lake Indian Band habitat confirmation assessments were conducted at 17 sites throughout the Parsnip River watershed with 10 crossings rated as high priorities for rehabilitation and three crossings rated as moderate priorities for restoration. An engineering design for site 125179 on a tributary to the Missinka River was also completed through the 2019/2020 project.  In 2021/2022, project activities reconvened through FWCP directed project PEA-F22-F-3577-DCA. Partners were engaged, funding was raised, planning was conducted and reporting was completed to initiate restoration activities of high priority crossings. Materials were purchased and permitting was put in place to prep for replacement of the twin culverts on the Missinka River tributary with a clear-span bridge.  
 
-
 <br>
 
-In 2022/2023, this collaborative project leveraged ongoing connectivity restoration initiatives in the province and engaged multiple partners to catalyze fish passage restoration activities at high-priority sites identified in 2019/2020 and 2021/2022. Key accomplishments include the replacement of PSCIS crossing 125179, prioritization of two crossings on the Chuchinka-Table FSR for replacement in 2024-2025 (with engineering designs commissioned and materials purchased), and field assessments including fish sampling at high priority crossing 125000 on a tributary to the Parsnip River near Arctic Lake. 
+In 2024/2025, this collaborative project leveraged ongoing connectivity restoration initiatives in the province and engaged multiple partners to catalyze fish passage restoration activities at high-priority sites identified in from 2019-2023. Key accomplishments include the replacement of PSCIS crossing 125231 on a tributary to the Table River and field assessments including effectiveness monitoring at PSCIS crossing 125179 which was replaced in 2022. 
 
+<br>
 
 ```{r overview-map, fig.cap = 'Overview map of Study Area',eval=T}
 knitr::include_graphics("fig/fishpassage_2024_fwcp_progress.jpeg")
 ```
-
 
 <br>
 
@@ -30,7 +29,7 @@ The continental divide separates watersheds flowing north into the Arctic Ocean 
 
 <br>
 
-Construction of the 183 m high and 2134 m long W.A.C. Bennett Dam was completed in 1967 at Hudson's Hope, BC, creating the Williston Reservoir [@hirst1991Impactsoperations]. Filling of the 375km^2^ reservoir was complete in 1972 and flooded a substantial portion of the Parsnip River and major tributary valleys forming what is now known as the Peace and Parsnip reaches. The replacement of riverine habitat with an inundated reservoir environment resulted in profound changes to the ecology, resource use and human settlement patterns in these systems [@hagen_etal2015Criticalhabitats; @pearce_etal2019FirstNations; @stamford_etal2017FWCPArctic]. Prior to the filling of the reservoir, the Pack River, into which McLeod Lake flows, was a major tributary to the Parsnip River.  The Pack River currently enters the Williston Reservoir directly as the historic location of the confluence of the two rivers lies within the reservoir's footprint.
+Construction of the 183m high and 2134m long W.A.C. Bennett Dam was completed in 1967 at Hudson's Hope, BC, creating the Williston Reservoir [@hirst1991Impactsoperations]. Filling of the 375km^2^ reservoir was complete in 1972 and flooded a substantial portion of the Parsnip River and major tributary valleys forming what is now known as the Peace and Parsnip reaches. The replacement of riverine habitat with an inundated reservoir environment resulted in profound changes to the ecology, resource use and human settlement patterns in these systems [@hagen_etal2015Criticalhabitats; @pearce_etal2019FirstNations; @stamford_etal2017FWCPArctic]. Prior to the filling of the reservoir, the Pack River, into which McLeod Lake flows, was a major tributary to the Parsnip River.  The Pack River currently enters the Williston Reservoir directly as the historic location of the confluence of the two rivers lies within the reservoir's footprint.
 
 
 
@@ -169,7 +168,7 @@ fiss_sum_wshed <- readr::read_csv(file = paste0(getwd(), '/data/inputs_extracted
 ```
 
 ```{r tab-fish-grad}
-my_caption <- 'Summary of historic salmonid observations vs. stream gradient category for the Parsnip River watershed group.'
+my_caption <- 'Summary of historic fish observations vs. stream gradient category for the Parsnip River watershed group.'
 fiss_sum_grad %>% 
   select(-gradient_id) %>% 
   fpr::fpr_kable(caption_text = my_caption,
@@ -180,7 +179,7 @@ fiss_sum_grad %>%
 <br>
 
 
-```{r fish-plot-grad, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. stream gradient category for the Parsnip River watershed group.', eval=T}
+```{r fish-plot-grad, out.width = photo_width, fig.cap= 'Summary of historic fish observations vs. stream gradient category for the Parsnip River watershed group.', eval=T}
 ##bar graph
 plot_grad <- fiss_sum_grad %>% 
   dplyr::filter(gradient_id != 99) %>% 
