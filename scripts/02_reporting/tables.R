@@ -403,56 +403,54 @@ tab_hab_summary <- form_fiss_site |>
 
 # Phase 1 Appendix ----------------------------------------------
 
-# ## make result summary tables for each of the crossings, used to display phase 1 data in the appendix
-#
-# ## turn spreadsheet into list of data frames
-# pscis_phase1_for_tables <- pscis_all |>
-#   dplyr::filter(!source == "pscis_phase2.xlsm") |>
-#   dplyr::arrange(pscis_crossing_id)
-#
-# pscis_split <- pscis_phase1_for_tables  |>
-#   dplyr::group_split(pscis_crossing_id) |>
-#   purrr::set_names(pscis_phase1_for_tables$pscis_crossing_id)
-#
-#
-# ##make result summary tables for each of the crossings
-# tab_summary <- pscis_split |>
-#   purrr::map(fpr::fpr_table_cv_detailed)
-#
-# tab_summary_comments <- pscis_split |>
-#   purrr::map(fpr::fpr_table_cv_detailed_comments)
-#
-#
-# tab_photo_url <- fs::dir_ls(path = "data/photos/", recurse = FALSE) |>
-#   basename() |>
-#   tibble::as_tibble() |>
-#   ## for skeena 2024 - remove folder buck_falls
-#   dplyr::filter(!value == "buck_falls") |>
-#   dplyr::mutate(value = as.integer(value)) |>  # Convert filenames to integers for sorting
-#   dplyr::arrange(value) |>
-#   dplyr::mutate(photo = paste0("![](data/photos/", value, "/crossing_all.JPG)")) |>
-#   dplyr::filter(value %in% pscis_phase1_for_tables$site_id) |>
-#   dplyr::left_join(xref_pscis_my_crossing_modelled,
-#                    by = c("value" = "external_crossing_reference")) |>
-#   dplyr::mutate(stream_crossing_id = dplyr::case_when(
-#     is.na(stream_crossing_id) ~ value,
-#     TRUE ~ stream_crossing_id
-#   )) |>
-#   dplyr::arrange(stream_crossing_id) |>
-#   dplyr::group_split(stream_crossing_id)
-#
-#
-# # used to build tables for PDF version of the report
-# tabs_phase1_pdf <- mapply(
-#   fpr::fpr_table_cv_detailed_print,
-#   tab_sum = tab_summary,
-#   comments = tab_summary_comments,
-#   photos = tab_photo_url,
-#   gitbook_switch = FALSE)
-#
-#
-# rm(pscis_phase1_for_tables,pscis_split)
-#
+## make result summary tables for each of the crossings, used to display phase 1 data in the appendix
+
+## turn spreadsheet into list of data frames
+pscis_phase1_for_tables <- pscis_all |>
+  dplyr::filter(!source == "pscis_phase2.xlsm") |>
+  dplyr::arrange(pscis_crossing_id)
+
+pscis_split <- pscis_phase1_for_tables  |>
+  dplyr::group_split(pscis_crossing_id) |>
+  purrr::set_names(pscis_phase1_for_tables$pscis_crossing_id)
+
+
+##make result summary tables for each of the crossings
+tab_summary <- pscis_split |>
+  purrr::map(fpr::fpr_table_cv_detailed)
+
+tab_summary_comments <- pscis_split |>
+  purrr::map(fpr::fpr_table_cv_detailed_comments)
+
+
+tab_photo_url <- fs::dir_ls(path = "data/photos/", recurse = FALSE) |>
+  basename() |>
+  tibble::as_tibble() |>
+  dplyr::mutate(value = as.integer(value)) |>  # Convert filenames to integers for sorting
+  dplyr::arrange(value) |>
+  dplyr::mutate(photo = paste0("![](data/photos/", value, "/crossing_all.JPG)")) |>
+  dplyr::filter(value %in% pscis_phase1_for_tables$site_id) |>
+  dplyr::left_join(xref_pscis_my_crossing_modelled,
+                   by = c("value" = "external_crossing_reference")) |>
+  dplyr::mutate(stream_crossing_id = dplyr::case_when(
+    is.na(stream_crossing_id) ~ value,
+    TRUE ~ stream_crossing_id
+  )) |>
+  dplyr::arrange(stream_crossing_id) |>
+  dplyr::group_split(stream_crossing_id)
+
+
+# used to build tables for PDF version of the report
+tabs_phase1_pdf <- mapply(
+  fpr::fpr_table_cv_detailed_print,
+  tab_sum = tab_summary,
+  comments = tab_summary_comments,
+  photos = tab_photo_url,
+  gitbook_switch = FALSE)
+
+
+rm(pscis_phase1_for_tables,pscis_split)
+
 
 # Phase 2 Priority spreadsheet ----------------------------------------------
 
@@ -785,22 +783,10 @@ tab_cost_est_prep9 <- tab_cost_est_prep8 |>
   )
 
 # Step 4: Prepare the Phase 2 cost estimates for the table
+# Don't rename the columns here because the function `fpr_my_cost_estimate` relies on the column cost_est_1000ss
 tab_cost_est_phase2 <- tab_cost_est_prep9 |>
   dplyr::arrange(pscis_crossing_id) |>
-  dplyr::select(-source) |>
-  dplyr::rename(
-    `PSCIS ID` = pscis_crossing_id,
-    Stream = stream_name,
-    Road = road_name,
-    `Barrier Result` = barrier_result,
-    `Habitat value` = habitat_value,
-    `Habitat Upstream (m)` = upstream_habitat_length_m,
-    `Stream Width (m)` = avg_channel_width_m,
-    Fix = crossing_fix_code,
-    `Cost Est ( $K)` = cost_est_1000s,
-    `Cost Benefit (m / $K)` = cost_net,
-    `Cost Benefit (m2 / $K)` = cost_area_net
-  )
+  dplyr::select(-source)
 
 # Clean up unnecessary objects
 rm(tab_cost_est_prep,
