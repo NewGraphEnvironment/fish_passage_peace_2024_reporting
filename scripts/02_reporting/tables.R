@@ -879,7 +879,7 @@ tab_map_phase_2 <- dplyr::left_join(
   dplyr::mutate(
     photo_link = paste0(
       '<a href =',
-      'https://raw.githubusercontent.com/NewGraphEnvironment/fish_passage_skeena_2024_reporting/main/data/photos/',
+      'https://raw.githubusercontent.com/NewGraphEnvironment/', repo_name,'/main/data/photos/',
       pscis_crossing_id, '/crossing_all.JPG ',
       'target="_blank">Culvert Photos</a>'
     )
