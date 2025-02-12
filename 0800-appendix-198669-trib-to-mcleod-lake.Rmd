@@ -52,14 +52,14 @@ fpr::fpr_table_wshd_sum(site_id = my_site) |>
 <br>
 
 A summary of habitat modelling outputs for the crossing are presented in Table
-\@ref(tab:tab-culvert-bcfp-198669)). A map of the watershed is provided in
+\@ref(tab:tab-culvert-bcfp-198669). A map of the watershed is provided in
 map attachment
 [`r fpr::fpr_my_bcfishpass(col_pull = dbm_mof_50k_grid)`](`r fpr::fpr_my_mapsheet(wshd = "parsnip", archive_date = "2022-05-27")`).
 
 <br>
 
 ```{r tab-culvert-bcfp-198669, eval = T}
-fpr::fpr_table_bcfp(scroll = gitbook_on) 
+fpr::fpr_table_bcfp(scroll = F) 
 ```
 
 <br>
@@ -68,7 +68,7 @@ fpr::fpr_table_bcfp(scroll = gitbook_on)
 ## Stream Characteristics at Crossing `r as.character(my_site)`  {.unnumbered}
 
 At the time of the 2024 assessment, PSCIS crossing `r as.character(my_site)` on the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` was
-un-embedded, non-backwatered and although it ranked as a
+un-embedded, non-backwatered and ranked as a
 `r fpr::fpr_my_pscis_info(col_pull = barrier_result) |>stringr::str_to_lower()` to upstream fish passage according to the provincial protocols [@moe2011Fieldassessment] (Table \@ref(tab:tab-culvert-198669)). The culvert had a 0.36m outlet drop, a 1m deep outlet pool, and was in extremely poor condition with approximately 2m of the culvert unraveling at the outlet. There were signs of significant erosion around the pipe inlet, suggesting the culvert is undersized for the stream.
 
 <br>
@@ -104,21 +104,21 @@ hab_site |>filter(site == my_site & location == 'us') |>pull(comments)
 
 ## Stream Characteristics Upstream of Crossing `r as.character(my_site)` {.unnumbered}
 
-`r fpr_my_survey_dist(loc = 'us')` Abundant gravels were present throughout the lower section, providing suitable spawning habitat. Near the powerline corridor, substrate composition transitioned to predominantly fines. Approximately 100m upstream of the transmission line, a 1.2m high beaver dam created a backwatered area. Numerous fish, ranging from 40mm to 120mm, were observed throughout the surveyed section up to the beaver dam. Upstream of the impounded area, the stream returned to predominantly gravel substrates with frequent pools up to 40cm deep `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-198669-02)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-198669-d01))."))` `r fpr_my_habitat_paragraph(loc = 'us')` The habitat was rated as `r fpr::fpr_my_priority_info( loc = 'us') |>stringr::str_to_lower()` value for salmonid spawning and rearing. 
+`r fpr_my_survey_dist(loc = 'us')``r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-198669-02)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-198669-d01))."))` Abundant gravels were present throughout the lower section, providing suitable spawning habitat. Near the powerline corridor, substrate composition transitioned to predominantly fines. Approximately 100m upstream of the transmission line, a 1.2m high beaver dam created a backwatered area. Numerous fish, ranging from 40-120mm, were observed throughout the surveyed section up to the beaver dam. Upstream of the impounded area, the stream returned to predominantly gravel substrates with frequent pools up to 40cm deep. `r fpr_my_habitat_paragraph(loc = 'us')` The habitat was rated as `r fpr::fpr_my_priority_info( loc = 'us') |>stringr::str_to_lower()` value for salmonid spawning and rearing. 
 
 <br>
 
 
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
-Should restoration/maintenance activities proceed, replacement of the Hart Highway crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)` m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
+Should restoration/maintenance activities proceed, replacement of the Hart Highway crossing with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)` m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
 
 <br>
 
 
 ## Conclusion {.unnumbered}
 
-The culvert was in extremely poor condition, with a deep outlet pool and significant erosion around the pipe inlet, indicating that the culvert is severely undersized for the stream. The 0.36m outlet drop likely inhibits fish passage for juvenile salmonids. The crossing is a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement. Approximately 5km of bull trout rearing habitat is modelled upstream, and the habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |> stringr::str_to_lower()` value for salmonid spawning and rearing.
+Approximately 5km of bull trout rearing habitat is modelled upstream, and the habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |> stringr::str_to_lower()` value for anadromous spawning and rearing. The culvert was in extremely poor condition, with a deep outlet pool and significant erosion around the pipe inlet, indicating that the culvert is severely undersized for the stream. The 0.36m outlet drop likely inhibits juvenile fish passage. The crossing is a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement.
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
@@ -151,7 +151,7 @@ knitr::include_graphics(my_photo1)
 ```{r photo-198669-02-prep, eval=T}
 my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'us_typical_2')
 
-my_caption2 = paste0('Typical habitat upstream of PSCIS crossing ', my_site, ', with signs of bank armouring and channelization.')
+my_caption2 = paste0('Typical habitat upstream of PSCIS crossing ', my_site, '.')
 
 
 ```
