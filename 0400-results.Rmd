@@ -404,6 +404,19 @@ fpr::fpr_table_cv_summary(dat = pscis_phase2)  |>
 
 ```{r cost-est-phase-2, eval=T}
 tab_cost_est_phase2 |>
+    dplyr::rename(
+    `PSCIS ID` = pscis_crossing_id,
+    Stream = stream_name,
+    Road = road_name,
+    `Barrier Result` = barrier_result,
+    `Habitat value` = habitat_value,
+    `Habitat Upstream (m)` = upstream_habitat_length_m,
+    `Stream Width (m)` = avg_channel_width_m,
+    Fix = crossing_fix_code,
+    `Cost Est ( $K)` = cost_est_1000s,
+    `Cost Benefit (m / $K)` = cost_net,
+    `Cost Benefit (m2 / $K)` = cost_area_net
+  ) |> 
   fpr::fpr_kable(caption_text = paste0("Cost benefit analysis for Phase 2 assessments. ", sp_rearing_caption),
                  scroll = F)
 
@@ -486,10 +499,6 @@ bcfishpass_phase2_plot_prep |>
 
 
 ### Fish Sampling
-
-Fish sampling was completed at all habitat confirmation sites as well as several monitoring sites.
-
-<br>
 
 Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within `r tab_fish_sites_sum |> distinct(stream) |> nrow()` streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm) and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram).  A summary of sites assessed are included in Table \@ref(tab:tab-fish-site-summary) and raw data is provided in [Attachment 3](https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/blob/main/data/fish_data_tags_joined.csv). A summary of density results for all life stages combined of select species is also presented in Figure \@ref(fig:plot-fish-all). 
 
