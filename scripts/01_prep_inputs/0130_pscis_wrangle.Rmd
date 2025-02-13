@@ -1,0 +1,173 @@
+---
+title: "0130_pscis_wrangle"
+date: "Created: 2025-02-13 | Updated: `r format(Sys.Date(), '%Y-%m-%d')`"
+output: 
+  html_document:
+    code_folding: "hide"
+params:
+  repo_owner: "NewGraphEnvironment"
+  repo_name: "fish_passage_peace_2024_reporting"
+  gis_name: "sern_peace_fwcp_2023"
+  job_name: "2024-073-sern-peace-fish-passage"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Purpose of this script
+
+Add columns to `form_pscis_2024` and then burn back a NEW geopackage.
+
+This script is still a WIP and there is an issue about what still needs to be added here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/56
+
+
+```{r params}
+# path to raw form_fiss_site after QA
+path_form_pscis_raw <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024_raw.gpkg')
+
+#NEW geopcackage path for the form after we have added columns as per this script
+path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024.gpkg')
+```
+
+
+
+## Backup the form after the QA
+
+Name the project directory we are pulling from and import the cleaned form from Q after review and finalization.
+
+We use `fpr_sp_gpkg_backup` to import and backup the data, as well as update the UTMS. We will also write the data to a csv and Rdata file and commit for version control using git. Commit these backup files with a message such as "backups after QA - 2024 data".
+
+
+```{r import}
+
+# read in cleaned form from Q after review and finalization
+# backup to csv and rdata
+form_pscis_raw <- fpr::fpr_sp_gpkg_backup(
+  path_gpkg = path_form_pscis_raw,
+  update_utm = TRUE,
+  update_site_id = FALSE, ## Turn this off after adding pscis ids
+  write_back_to_path = FALSE,
+  write_to_csv = TRUE,
+  write_to_rdata = TRUE,
+  return_object = TRUE)
+```
+
+
+## Fix times
+
+This is not always applicable and we will hopefully have a permanent fix soon.
+
+We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
+
+For peace 2024, the times are correct in `form_pscis` but are incorrect (in UTC) when `form_pscis_2024` gets read in in Q.
+
+
+```{r time-fix, eval F}
+
+## Fix time zone, issue here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
+ form_pscis_time_fix <- form_pscis_raw |>
+ dplyr::mutate(date_time_start_raw = date_time_start,
+               date_time_start = lubridate::force_tz(date_time_start_raw, tzone = "America/Vancouver"),
+               date_time_start = lubridate::with_tz(date_time_start, tzone = "UTC"))
+
+
+### IF RUN, must update code below with pscis_export_raw_clean2
+
+```
+
+
+## Clean and prep
+
+Do some more cleaning
+- fix some vocabulary
+- add in the pscis assessment phase
+
+```{r pscis-clean}
+
+form_pscis_clean <- form_pscis_raw |>
+  dplyr::mutate(date_time_start = lubridate::ymd_hms(date_time_start, tz = "America/Vancouver"),
+                date = lubridate::date(date_time_start)) |>
+  
+  # add in pscis phase
+  ## DOUBLE CHECK IF THERE ARE ANY SITES THAT ARE PHASE 1 AND 2 SITES!!! FIRST TIME HAB CON SITES
+  dplyr::mutate(pscis_phase = case_when(
+    assess_type_phase1 == "Yes" ~ "phase 1",
+    assess_type_phase2 == "Yes" ~ "phase 2",
+    assess_type_reassessment == "Yes" ~ "reassessment"),
+    
+    # Fix the vocabulary
+    stream_name = stringr::str_replace_all(stream_name, 'Trib ', 'Tributary '),
+    stream_name = stringr::str_to_title(stream_name),
+    road_name = stringr::str_to_title(road_name),
+    road_name = stringr::str_replace_all(road_name, 'Hwy', 'Highway '),
+    road_name = stringr::str_replace_all(road_name, 'Fsr', 'FSR'),
+    road_name = stringr::str_replace_all(road_name, 'Rd', 'Road '),
+    crew_members = stringr::str_to_upper(crew_members))
+
+```
+
+## Burn back to the geopackage
+Burn back to geopackage so all the new columns/data are in the form
+
+```{r fiss-burn-gpkg}
+form_pscis_clean |> 
+  sf::st_write(dsn = path_form_pscis,
+               append = FALSE,
+               delete_dsn = TRUE)
+
+```
+
+
+## Backup the new complete form 
+
+```{r backup-complete}
+
+fpr::fpr_sp_gpkg_backup(
+  path_gpkg = path_form_pscis,
+  update_utm = FALSE,
+  update_site_id = FALSE, ## Turn this off after adding pscis ids
+  write_back_to_path = FALSE,
+  write_to_csv = TRUE,
+  write_to_rdata = TRUE,
+  return_object = FALSE)
+```
+
+
+
+
+## Add PSCIS Ids
+
+Add the PSCIS Ids once they are in the system and burn back to geopackage.
+
+```{r add-pscis-ids, eval = F}
+
+# Add pscis Ids
+form_pscis_ids <- dplyr::left_join(pscis_export_raw,
+                         xref_pscis_my_crossing_modelled,
+  by = c('my_crossing_reference' = 'external_crossing_reference')) |>
+  
+  dplyr::mutate(pscis_crossing_id = dplyr::case_when(
+    is.na(pscis_crossing_id) ~ as.numeric(stream_crossing_id),
+    TRUE ~ pscis_crossing_id
+  )) |> 
+  dplyr::select(-stream_crossing_id)
+
+
+# Burn to geopackage
+form_pscis_ids |> 
+  sf::st_write(dsn = path_form_pscis,
+               append = FALSE,
+               delete_dsn = TRUE)
+
+
+#Then backup
+fpr::fpr_sp_gpkg_backup(
+  path_gpkg = path_form_pscis,
+  update_utm = FALSE,
+  update_site_id = FALSE, ## Turn this off after adding pscis ids
+  write_back_to_path = FALSE,
+  write_to_csv = TRUE,
+  write_to_rdata = TRUE,
+  return_object = FALSE)
+```
+

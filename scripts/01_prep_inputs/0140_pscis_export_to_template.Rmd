@@ -1,5 +1,5 @@
 ---
-title: "0130_pscis_export_to_template"
+title: "0140_pscis_export_to_template"
 date: "Created: 2024-06-20 | Updated: `r format(Sys.Date(), '%Y-%m-%d')`"
 output: 
   html_document:
@@ -16,12 +16,9 @@ editor_options:
 This scripts is used to export pscis data to a csv for cut and paste into PSCIS submission spreadsheet.
 
 
-## Fetch and backup the data
+## Fetch the data
 
-Name the project directory we are pulling from and import the cleaned form from Q after review and finalization.
-
-We use `fpr_sp_gpkg_backup` to import and backup the data, as well as update the UTMS. We will also write the data to a csv and Rdata file and commit for version control using git. Commit these backup files with a message such as "backups after QA - 2024 data".
-
+Name the project directory we are pulling from and import the form.
 
 ```{r import}
 path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024.gpkg')
@@ -31,10 +28,10 @@ path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024
 pscis_export_raw <- fpr::fpr_sp_gpkg_backup(
   path_gpkg = path_form_pscis,
   update_utm = TRUE,
-  update_site_id = TRUE, ## This now also checks for duplicates
+  update_site_id = FALSE, ## Turn this off after adding pscis ids
   write_back_to_path = FALSE,
-  write_to_csv = TRUE,
-  write_to_rdata = TRUE,
+  write_to_csv = FALSE,
+  write_to_rdata = FALSE,
   return_object = TRUE)
 ```
 
@@ -102,8 +99,6 @@ pscis_export_prep1 <- pscis_export_raw |>
 
 Do some final cleaning and prepare the data for easy copy paste into the spreadsheets.
 - append MoTi ids to the comments
-- fix some vocabulary
-- add in the pscis assessment phase
 
 TO ADD:
 - change crossing type to other if subtype is ford 
@@ -115,6 +110,7 @@ TO ADD:
 pscis_export <- pscis_export_prep1 |>
   dplyr::mutate(date_time_start = lubridate::ymd_hms(date_time_start, tz = "America/Vancouver"),
                 date = lubridate::date(date_time_start)) |> 
+  
   # append MoTi ids to comments, differentiate between highway major structure, and add time to end
   dplyr::mutate(assessment_comment = dplyr::case_when(
     moti_chris_culvert_id > 1000000 ~ paste0(assessment_comment, ' MoTi chris_culvert_id: ', moti_chris_culvert_id),
@@ -122,16 +118,7 @@ pscis_export <- pscis_export_prep1 |>
     TRUE ~ assessment_comment)) |>
   dplyr::mutate(assessment_comment = dplyr::case_when(moti_chris_culvert_id2 > 1000000 ~ paste0(assessment_comment, ', ', moti_chris_culvert_id2), TRUE ~ assessment_comment)) |>
   dplyr::mutate(assessment_comment = dplyr::case_when(moti_chris_culvert_id3 > 1000000 ~ paste0(assessment_comment, ', ', moti_chris_culvert_id3), TRUE ~ assessment_comment)) |>
-  # add in pscis phase
-  ## DOUBLE CHECK IF THERE ARE ANY SITES THAT ARE PHASE 1 AND 2S!!! FIRST TIME HAB CON SITES
-  dplyr::mutate(pscis_phase = case_when(
-    assess_type_phase1 == "Yes" ~ "phase 1",
-    assess_type_phase2 == "Yes" ~ "phase 2",
-    assess_type_reassessment == "Yes" ~ "reassessment"),
-    # Fix the vocabulary
-    stream_name = stringr::str_replace_all(stream_name, 'Trib ', 'Tributary '),
-    road_name = stringr::str_replace_all(road_name, 'Hwy ', 'Highway '),
-    crew_members = toupper(crew_members)) |>
+  
   # only select columns from the template object, as well as site_id, pscis_phase, and date_time_start
   dplyr::select(
     dplyr::any_of(names(fpr::fpr_xref_template_pscis())),
@@ -139,9 +126,11 @@ pscis_export <- pscis_export_prep1 |>
     date_time_start,
     pscis_phase
   ) |>
+  
   # remove scoring columns, as these can't be copied and pasted anyways because of macros
   dplyr::select(-stream_width_ratio:-barrier_result) |>
   sf::st_drop_geometry() |>
+  
   # arrange by phase so easy to copy/paste into correct spreadsheet
   dplyr::arrange(pscis_phase,
                  crossing_type,
@@ -204,47 +193,6 @@ Finally, copy/paste the structure, size, type data into the appropriate spreadsh
 - from `str_type_pscis1.csv` into `pscis_phase1.xlsm`
 - from `str_type_pscis2.csv` into `pscis_phase2.xlsm`
 - from `str_type_pscis_reassessments.csv` into `pscis_reassessments.xlsm`
-
-
-
-## Add PSCIS Ids
-
-putting this hear for now but evenually is should go in a wrangle file
-
-Add the pscis Ids once they are in the system and burn back to geopackage
-```{r add_pscis_ids}
-
-# Add pscis Ids
-form_pscis_ids <- dplyr::left_join(pscis_export_raw,
-                         xref_pscis_my_crossing_modelled,
-  by = c('my_crossing_reference' = 'external_crossing_reference')) |>
-  
-  dplyr::mutate(pscis_crossing_id = dplyr::case_when(
-    is.na(pscis_crossing_id) ~ as.numeric(stream_crossing_id),
-    TRUE ~ pscis_crossing_id
-  )) |> 
-  dplyr::select(-stream_crossing_id)
-
-
-# Burn to geopackage
-form_pscis_ids |> 
-  sf::st_write(dsn = path_form_pscis,
-               append = FALSE,
-               delete_dsn = TRUE)
-
-
-#Then backup
-fpr::fpr_sp_gpkg_backup(
-  path_gpkg = path_form_pscis,
-  update_utm = FALSE,
-  update_site_id = FALSE, ## This now also checks for duplicates
-  write_back_to_path = FALSE,
-  write_to_csv = TRUE,
-  write_to_rdata = TRUE,
-  return_object = FALSE)
-
-
-```
 
 
 
