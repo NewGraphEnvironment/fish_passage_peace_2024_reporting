@@ -162,7 +162,7 @@ bcfishpass_spawn_rear_model |>
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\newpage")`
 
 <!-- This table has not been included in the most recent reports (skeena and peace 2023). Maybe because we now use 8.5% for ST rearing habitat, which is not what is referenced in this table (they said 7.5) -->
-```{r tab-fish-spawning-rearing-references, eval = TRUE}
+```{r tab-fish-spawning-rearing-references, eval = F}
 # bcfishpass_spawn_rear_model_references <- readr::read_csv(file = 'data/width_modelling/model_spawning_rearing_habitat.csv')
 bcfishpass_spawn_rear_model_references <- readr::read_csv(file = 'data/inputs_raw/bcfishpass_spawn_rear_model_ref.csv')
   # select(species_code, contains('ref'), -contains(c('multiplier','mad')))
@@ -194,17 +194,17 @@ bcfishpass_spawn_rear_model_references |>
 
 <!-- Turn on once tables.R has been run  -->
 ```{r tab-bcfp-def, eval = TRUE}
-fpr::fpr_xref_crossings |>
+xref_bcfishpass_names |>
   dplyr::filter(id_side == 1) |>
   arrange(id_join) |>
   select(Attribute = report, Definition = column_comment) |>
   fpr::fpr_kable(caption_text = 'bcfishpass outputs and associated definitions',
-                 footnote_text = 'Bull trout model uses a gradient threshold of maximum 25% to determine if access if likely possible',
-                 scroll = gitbook_on)
+                 footnote_text = paste0(model_species_name, " uses a maximum gradient threshold of ", bt_network_gradient, "% to determine whether access is likely possible"),
+                 scroll = F)
 ```
 
 
-```{r tablethreshaverage, eval= F}
+```{r tablethreshaverage, eval= T}
 #to quantify upstream habitat potentially available for salmonids and facilitate stream line symbology based on stream morphology.
 
 # while high gradient sections typically  present  upstream  migration  barriers  and  less  available  habitat.  Additionally, the size of the stream (indicated by channel width) is an important determinant for habitat suitability for different species as well as specific life stages of those species. 
@@ -218,7 +218,7 @@ table_thresh_average <- tibble::tibble(`Gradient` = c('0 - 5%', '5 - 15%', '15 -
                                        `Channel Type` = c('Riffle and cascade pool', 'Step pool', 'Step pool - very steep', 'Non fish habitat'))
 
 table_thresh_average |> 
-    fpr::fpr_kable(caption_text = 'Stream gradient categories (threshold and average) and associated channel type.')
+    fpr::fpr_kable(caption_text = 'Stream gradient categories (threshold and average) and associated channel type.', scroll = F)
 
 ```
 
@@ -289,12 +289,11 @@ Potential options to remediate fish passage were selected from @fish_passage_ass
  <br>
 
 ### Cost Estimates
-Cost estimates for structure replacement with bridges and embedded culverts were generated based on the channel width, slope of the culvert, depth of fill, road class and road surface type. Road details were sourced from @flnrordForestTenureRoad2020 and @flnrordDigitalRoadAtlas2020 through `bcfishpass`. Interviews with Phil MacDonald, Engineering Specialist FLNR - Kootenay, Steve Page, Area Engineer - FLNR - Northern Engineering Group and Matt Hawkins - MoTi - Design Supervisor for Highway Design and Survey - Nelson were utilized to helped refine estimates which have since been adjusted for inflation and based on past experience.
+Cost estimates for structure replacement with bridges and embedded culverts were generated based on the channel width, slope of the culvert, depth of fill, road class and road surface type. Road details were sourced from @flnrordForestTenureRoad2020 and @flnrordDigitalRoadAtlas2020 through `bcfishpass`. Interviews with Phil MacDonald, Engineering Specialist FLNR - Kootenay, Steve Page, Area Engineer - FLNR - Northern Engineering Group and Matt Hawkins - MoTi - Design Supervisor for Highway Design and Survey - Nelson were utilized to help refine estimates which have since been adjusted for inflation in 2020 and based on past experience.
 
 <br>
 
-Base costs for installation of bridges on forest service roads and permit roads with surfaces specified in provincial GIS road layers as rough and loose was estimated at \$25000/linear m and assumed that the road could be closed during construction and a minimum bridge span of 15m. For streams with channel widths <2m, embedded culverts were reported as an effective solution with total installation costs estimated at $50k/crossing (pers. comm. Phil MacDonald, Steve Page then adjusted for inflation). For larger streams (>6m), estimated span width increased proportionally to the size of the stream.  For crossings with large amounts of fill (>3m), the replacement bridge span was increased by an additional 3m for each 1m of fill >3m to account for cutslopes to the stream at a 1.5:1 ratio. To account for road type, a multiplier table was generated to estimate incremental cost increases with costs estimated for structure replacement on paved surfaces, railways and arterial/highways costing up to 20 times more than forest service roads due to expenses associate with design/engineering requirements, traffic control and paving.  The cost multiplier table (Table \@ref(tab:tab-cost-mult)) should be considered very approximate with refinement recommended for future projects.
-
+Base costs for installation of bridges on forest service roads and permit roads with surfaces specified in provincial GIS road layers as rough and loose was estimated at \$30000/linear m and assumed that the road could be closed during construction and a minimum bridge span of 15m. For streams with channel widths <2m, embedded culverts were reported as an effective solution with total installation costs estimated at $100k/crossing (pers. comm. Phil MacDonald, Steve Page then adjusted for inflation in 2020). For larger streams (>6m), estimated span width increased proportionally to the size of the stream.  For crossings with large amounts of fill (>3m), the replacement bridge span was increased by an additional 3m for each 1m of fill >3m to account for cutslopes to the stream at a 1.5:1 ratio. To account for road type, a multiplier table was generated to estimate incremental cost increases with costs estimated for structure replacement on paved surfaces, railways and arterial/highways costing up to 15 times more than forest service roads due to expenses associate with design/engineering requirements, traffic control and paving.  The cost multiplier table (Table \@ref(tab:tab-cost-mult)) should be considered very approximate with refinement recommended for future projects.
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
