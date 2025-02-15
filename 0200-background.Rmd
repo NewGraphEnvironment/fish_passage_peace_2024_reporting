@@ -196,7 +196,7 @@ plot_grad
 <br>
 
 ```{r tab-fish-width}
-my_caption <- 'Summary of historic salmonid observations vs. channel width category for the Parsnip River watershed group.'
+my_caption <- 'Summary of historic fish observations vs. channel width category for the Parsnip River watershed group.'
 fiss_sum_width %>% 
   select(-width_id) %>% 
   fpr::fpr_kable(caption_text = my_caption,
@@ -205,7 +205,7 @@ fiss_sum_width %>%
 
 <br>
 
-```{r fish-plot-width, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. channel width category for the Parsnip River watershed group.', eval=T}
+```{r fish-plot-width, out.width = photo_width, fig.cap= 'Summary of historic fish observations vs. channel width category for the Parsnip River watershed group.', eval=T}
 ##bar graph
 plot_width <- fiss_sum_width %>% 
   dplyr::filter(!is.na(width_id)) %>%
@@ -222,7 +222,7 @@ plot_width
 
 
 ```{r tab-fish-wshed}
-my_caption <- 'Summary of historic salmonid observations vs. watershed size category for the Parsnip River watershed group.'
+my_caption <- 'Summary of historic fish observations vs. watershed size category for the Parsnip River watershed group.'
 fiss_sum_wshed %>% 
   fpr::fpr_kable(caption_text = my_caption,
                  scroll = gitbook_on)
@@ -232,7 +232,7 @@ fiss_sum_wshed %>%
 <br>
 
 
-```{r fish-plot-wshed, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. watershed size category for the Parsnip River watershed group.', eval=T}
+```{r fish-plot-wshed, out.width = photo_width, fig.cap= 'Summary of historic fish observations vs. watershed size category for the Parsnip River watershed group.', eval=T}
 plot_wshed <- fiss_sum_wshed %>%
   # dplyr::filter(!is.na(upstream_area_ha)) %>%
   ggplot(aes(x = Watershed, y = Percent)) +
