@@ -54,7 +54,7 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
 
 
 # define the _bookfile_name from _bookdown.yml
-filename_html <- 'fish_passage_template'
+filename_html <- 'fish_passage_peace_2024'
 
 {
 
