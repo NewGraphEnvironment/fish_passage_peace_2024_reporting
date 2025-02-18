@@ -48,7 +48,7 @@ knitr::include_graphics("fig/hydrograph_07EE007.png")
 
 <br>
 
-```{r fig-hydrology-plot-stats, fig.dim = c(5.1, 3.4), fig.cap="Summary discharge statistics (annual maximum, minimum, mean and standard deviation) for Parsnip River at hydrometric station #07EE007."}
+```{r fig-hydrology-plot-stats, fig.dim = c(5.1, 3.4), fig.cap="Summary discharge statistics (annual maximum, minimum, mean and standard deviation) for Parsnip River at hydrometric station #07EE007.", eval=FALSE}
 # img <- png::readPNG("fig/hydrology2.png")
 # grid::grid.raster(img)
 
