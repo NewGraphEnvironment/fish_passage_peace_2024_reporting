@@ -121,7 +121,30 @@ readwritesqlite::rws_disconnect(conn)
 
 
 
+# Fish histogram -----------------------------------------------------------------------
+bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
+bin_n <- ceiling(max(fish_data_complete$length, na.rm = TRUE) / 5) * 5
+bins <- seq(bin_1, bin_n, by = 5)
 
+# Check what species we have and filter out any we don't want
+fish_data_complete |> dplyr::distinct(species)
+
+plot_fish_hist <- ggplot2::ggplot(
+  fish_data_complete |> dplyr::filter(!species %in% c('Fish Unidentified Species', 'Sculpin (General)', 'NFC')),
+  ggplot2::aes(x = length)
+) +
+  ggplot2::geom_histogram(breaks = bins, alpha = 0.75,
+                          position = "identity", size = 0.75) +
+  ggplot2::labs(x = "Fork Length (mm)", y = "Count (#)") +
+  ggplot2::facet_wrap(~species) +
+  ggplot2::theme_light(base_size = 8) +
+  ggplot2::scale_x_continuous(breaks = bins[seq(1, length(bins), by = 2)]) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+
+plot_fish_hist
+
+ggplot2::ggsave(plot = plot_fish_hist, file = "./fig/fish_histogram.png",
+                h = 3.4, w = 5.11, units = "in", dpi = 300)
 
 
 
@@ -227,313 +250,108 @@ readwritesqlite::rws_disconnect(conn)
 #
 #
 
-# fish summary ------------------------------------------------------------
-
-## Leaving this code here for now but lots of this code has been updated and moved to `fish_data_tidy.R` and now does not
-## rely (as much) on the spreadsheet. Double check it is no longer needed and then delete.
-
-
-# # we need to summarize all our fish sizes
+# ######----------------density plots--------------------------
+# # needs to be modified to have remve the haul number and just use the pop estimate
 #
-# ## fish collection data ----------------------------------------------------
-# habitat_confirmations <- fpr::fpr_import_hab_con(row_empty_remove = T)
-#
-#
-# hab_fish_indiv_prep <- habitat_confirmations |>
-#   purrr::pluck("step_3_individual_fish_data") |>
-#   dplyr::filter(!is.na(site_number)) |>
-#   select(-gazetted_names:-site_number)
-#
-# hab_loc <- habitat_confirmations |>
-#   purrr::pluck("step_1_ref_and_loc_info") |>
-#   dplyr::filter(!is.na(site_number))|>
-#   mutate(survey_date = janitor::excel_numeric_to_date(as.numeric(survey_date)))
-#
-#
-# ##add the species code
-# hab_fish_codes <- fishbc::freshwaterfish |>
-#   select(species_code = Code, common_name = CommonName) |>
-#   tibble::add_row(species_code = 'NFC', common_name = 'No Fish Caught') |>
-#   mutate(common_name = case_when(common_name == 'Cutthroat Trout' ~ 'Cutthroat Trout (General)', T ~ common_name))
-#
-# hab_fish_indiv_prep2 <- left_join(
-#   hab_fish_indiv_prep,
-#   hab_loc,
-#   by = 'reference_number'
-# ) |> mutate(
-#   species = case_when(species == 'Fish Unidentified Species' ~ 'Unidentified Species',
-#            T ~ species))
-#
-#
-# hab_fish_indiv_prep3 <- left_join(
-#   hab_fish_indiv_prep2,
-#   select(hab_fish_codes, common_name:species_code),
-#   by = c('species' = 'common_name')
-# ) |>
-#   dplyr::select(reference_number,
-#                 alias_local_name,
-#                 site_number,
-#                 sampling_method,
-#                 method_number,
-#                 haul_number_pass_number,
-#                 species_code,
-#                 length_mm,
-#                 weight_g) ##added method #
-#
-#
-# ##we need the size of the sites too
-#
-# ####workflow is a bit weird because we need to input NFC sites and the size of the sites
-# ##or else we don't know about them in the summary.
-# hab_fish_collect_prep <- habitat_confirmations |>
-#   purrr::pluck("step_2_fish_coll_data") |>
-#   dplyr::filter(!is.na(site_number)) |>
-#   # select(-gazetted_name:-site_number) |>
-#   dplyr::distinct(reference_number, method_number, haul_number_pass_number, .keep_all = T) |>
-#   # distinct(reference_number, .keep_all = T) |>
-#   arrange(reference_number) |>
-#   mutate(across(c(date_in,date_out), janitor::excel_numeric_to_date)) |>
-#   mutate(across(c(time_in,time_out), chron::times))
-# # hab_fish_collect_prep_mt <- habitat_confirmations |>
-# #   purrr::pluck("step_2_fish_coll_data") |>
-# #   dplyr::filter(!is.na(site_number)) |>
-# #   tidyr::separate(local_name, into = c('site', 'location', 'ef'), remove = F) |>
-# #   mutate(site_id = paste0(site, location)) |>
-# #   distinct(local_name, sampling_method, method_number, .keep_all = T) |> ##changed this to make it work as a feed for the extract-fish.R file
-# #   mutate(across(c(date_in,date_out), janitor::excel_numeric_to_date)) |>
-# #   mutate(across(c(time_in,time_out), chron::times))
-#
-# ##we use this to test things out
-# # hab_fish_indiv <- left_join(
-# #   select(hab_fish_collect_prep_mt |> filter(reference_number == 36),
-# #          reference_number,
-# #          local_name,
-# #          site_number:model, date_in:time_out ##added date_in:time_out
-# #   ),
-# #   select(hab_fish_indiv_prep3 |> filter(reference_number == 36),
-# #          reference_number,
-# #          sampling_method,
-# #          method_number, ##added method #
-# #          # alias_local_name,
-# #          species_code, length_mm),
-# #   by = c('reference_number', 'sampling_method', 'method_number') #added method # and haul
-# # )
-#
-# # test to see if there are any missing lengths
-# hab_fish_indiv_prep3 |>
-#   filter(is.na(length_mm))
-#
-# # join the indiv fish data to existing site info
-# hab_fish_indiv <- full_join(
-#   select(hab_fish_indiv_prep3,
-#          reference_number,
-#          sampling_method,
-#          method_number,
-#          haul_number_pass_number,
-#          species_code,
-#          length_mm,
-#          weight_g),
-#   select(hab_fish_collect_prep,
-#          reference_number,
-#          local_name,
-#          temperature_c:model,
-#          date_in:time_out, ##added date_in:time_out because we did minnow traps
-#          comments
-#   ),
-#   by = c(
-#     "reference_number",
-#     # 'alias_local_name' = 'local_name',
-#     "sampling_method",
-#     "method_number",
-#     "haul_number_pass_number")
-# ) |>
-#   mutate(species_code = as.character(species_code)) |>
-#   mutate(species_code = case_when(
-#     is.na(species_code) ~ 'NFC',
-#     T ~ species_code)
-#   ) |>
-#   mutate(species_code = as.factor(species_code)) |>
-#   mutate(life_stage = case_when(  ##this section comes from the histogram below - we include here so we don't need to remake the df
-#     length_mm <= 65 ~ 'fry',
-#     length_mm > 65 & length_mm <= 110 ~ 'parr',
-#     length_mm > 110 & length_mm <= 140 ~ 'juvenile',
-#     length_mm > 140 ~ 'adult',
-#     T ~ NA_character_
-#     )
-#   # life_stage = case_when(
-#   #   species_code %in% c('L', 'SU', 'LSU') ~ NA_character_,
-#   #   T ~ life_stage),
-#   # comments = case_when(
-#   #   species_code %in% c('L', 'SU', 'LSU') & !is.na(comments) ~
-#   #     paste0(comments, 'Not salmonids so no life stage specified.'),
-#   #   species_code %in% c('L', 'SU', 'LSU') & is.na(comments) ~
-#   #     'Not salmonids so no life stage specified.',
-#   #   T ~ comments)
-#   )|>
-#   mutate(life_stage = fct_relevel(life_stage,
-#                                   'fry',
-#                                   'parr',
-#                                   'juvenile',
-#                                   'adult')) |>
+# hab_fish_dens <- hab_fish_indiv |>
+#   filter(sampling_method == 'electrofishing') |> ##added this since we now have mt data as well!!
+#   mutate(area = round(ef_length_m * ef_width_m),0) |>
+#   group_by(local_name, method_number, haul_number_pass_number, ef_length_m, ef_width_m, ef_seconds, area, species_code, life_stage) |>
+#   summarise(fish_total = length(life_stage)) |>
+#   ungroup() |>
+#   mutate(density_100m2 = round(fish_total/area * 100, 1)) |>
 #   tidyr::separate(local_name, into = c('site', 'location', 'ef'), remove = F) |>
-#   mutate(site_id = paste0(site, '_', location))
-
-
-
-# ###------from duncan_fish_plots_20200210
+#   mutate(site_id = paste0(site, location),
+#          location = case_when(location == 'us' ~ 'Upstream',
+#                               T ~ 'Downstream'),
+#          life_stage = factor(life_stage, levels = c('fry', 'parr', 'juvenile', 'adult')))
 #
-# ####----------fish length-----------
-# # filter(species_code == "CO")
-# # fish_eb <-  hab_fish_indiv |> filter(species_code != "EB")
+# # hab_fish_dens |>
+# #   readr::write_csv(file = paste0(getwd(), '/data/extracted_inputs/hab_fish_dens.csv'))
 #
-# bin_1 <- floor(min(hab_fish_indiv$length_mm, na.rm = TRUE)/5)*5
-# bin_n <- ceiling(max(hab_fish_indiv$length_mm, na.rm = TRUE)/5)*5
-# bins <- seq(bin_1,bin_n, by = 5)
-#
-# plot_fish_hist <- ggplot(hab_fish_indiv |> filter(!species_code %in% c('LSU','SU','NFC')), #!species_code %in% c('LSU','SU','NFC')
-#                          aes(x=length_mm
-#                              # fill=alias_local_name
-#                              # color = alias_local_name
-#                          )) +
-#   geom_histogram(breaks = bins, alpha=0.75,
-#                  position="identity", size = 0.75)+
-#   labs(x = "Fork Length (mm)", y = "Count (#)") +
-#   facet_wrap(~species_code)+
-#   # scale_color_grey() +
-#   # scale_fill_grey() +
-#   ggdark::dark_theme_bw(base_size = 8)+
-#   # theme_bw(base_size = 8)+
-#   scale_x_continuous(breaks = bins[seq(1, length(bins), by = 2)])+
-#   # scale_color_manual(values=c("grey90", "grey60", "grey30", "grey0"))+
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-# # geom_histogram(aes(y=..density..), breaks = bins, alpha=1,
-# #                position="identity", size = 0.75)
-# plot_fish_hist
-#
-# # ggsave(plot = plot_fish_hist, file="./fig/fish_histogram.png",
-# #        h=3.4, w=5.11, units="in", dpi=300)
+# ##paths to write to will need to change now
+# # ggsave(plot = plot_fish_box, filename = "./fig/plot_fish_box.png",
+# #        h=9.66, w=14.5, units="cm", dpi=300)
 #
 #
-# # this will be joined to the abundance estimates and the confidence intervals
-# tab_fish_summary <- hab_fish_indiv |>
-#   group_by(site_id,
-#            ef,
-#            sampling_method,
-#            # haul_number_pass_number,
-#            species_code) |> ##added sampling method!
-#   summarise(count_fish = n()) |>
-#   arrange(site_id, species_code, ef)
-
-
-######----------------depletion estimates--------------------------
-# we are going to use
-
-
-
-
-
-######----------------density plots--------------------------
-# needs to be modified to have remve the haul number and just use the pop estimate
-
-hab_fish_dens <- hab_fish_indiv |>
-  filter(sampling_method == 'electrofishing') |> ##added this since we now have mt data as well!!
-  mutate(area = round(ef_length_m * ef_width_m),0) |>
-  group_by(local_name, method_number, haul_number_pass_number, ef_length_m, ef_width_m, ef_seconds, area, species_code, life_stage) |>
-  summarise(fish_total = length(life_stage)) |>
-  ungroup() |>
-  mutate(density_100m2 = round(fish_total/area * 100, 1)) |>
-  tidyr::separate(local_name, into = c('site', 'location', 'ef'), remove = F) |>
-  mutate(site_id = paste0(site, location),
-         location = case_when(location == 'us' ~ 'Upstream',
-                              T ~ 'Downstream'),
-         life_stage = factor(life_stage, levels = c('fry', 'parr', 'juvenile', 'adult')))
-
-# hab_fish_dens |>
-#   readr::write_csv(file = paste0(getwd(), '/data/extracted_inputs/hab_fish_dens.csv'))
-
-##paths to write to will need to change now
-# ggsave(plot = plot_fish_box, filename = "./fig/plot_fish_box.png",
-#        h=9.66, w=14.5, units="cm", dpi=300)
-
-
-##clean up the objects
-rm(hab_site_prep,
-   # hab_fish_indiv_prep,
-   # hab_fish_indiv_prep2,
-   hab_fish_collect_prep2,
-   hab_loc2)
-
-# gps get coordinates for waypoints -----------------------------------------------------
-
-gpx <- 'C:/Users/allan/OneDrive/New_Graph/Current/2021-034-hctf-bulkley-fish-passage/data/GPS/kylegps_sept22backup_bulkley2021.GPX'
-
-
-wp_kyle <- sf::st_read(gpx,
-                       layer = 'waypoints',
-  quiet = T) |>
-  janitor::clean_names() |>
-  # this is a work around so that we get the original name of the renamed wp if there were duplicate names in basecamp
-  mutate(name = as.numeric(name),
-         name = case_when(name > 1000 ~ round(name/10, 0),
-                          T ~ name)) |>
-  dplyr::select(name_old = name, everything())  |>
-  mutate(source = 'KP',
-         name = paste0(name_old, '_', source, '_', lubridate::year(time))) |>
-  sf::st_transform(crs = 26909) |>
-  poisspatial::ps_sfc_to_coords(X = 'easting', Y = 'northing') |>
-  select(name, name_old, source, ele, time, easting, northing)
-
-gpx <- "C:/Users/allan/OneDrive/New_Graph/Current/2021-034-hctf-bulkley-fish-passage/data/GPS/bulkley_2021_field_al.gpx"
-
-wp_al <- sf::st_read(gpx,
-                     layer = 'waypoints',
-                     quiet = T) |>
-  janitor::clean_names() |>
-  # this is a work around so that we get the original name of the renamed wp if there were duplicate names in basecamp
-  mutate(name = as.numeric(name),
-         name = case_when(name > 1000 ~ round(name/10, 0),
-                          T ~ name)) |>
-  dplyr::select(name_old = name, everything())  |>
-  mutate(source = 'AI',
-         name = paste0(name_old, '_', source, '_', lubridate::year(time))) |>
-  sf::st_transform(crs = 26909) |>
-  poisspatial::ps_sfc_to_coords(X = 'easting', Y = 'northing') |>
-  select(name, name_old, source, ele, time, easting, northing)
-
-wp <- bind_rows(
-  wp_kyle,
-  wp_al
-)
-
-rm(wp_kyle, wp_al)
-
-# join with the priorities spreadsheet to get those coords
-hab_con <- readr::read_csv(file = "./data/habitat_confirmations_priorities.csv")
-
-
-wp_joined <- left_join(
-  hab_con|> separate(crew_members, into = c('source', 'others')),
-  wp|> select(name_old, source, easting, northing),
-  by = c('waypoint' = 'name_old', 'source')
-)
-
-# bring in the locations and insert utms where we don't have them already
-hab_loc_utm <- left_join(
-  fpr_import_hab_con(backup = F, col_filter_na = T)|>
-  purrr::pluck("step_1_ref_and_loc_info"),
-
-  wp_joined|> select(alias_local_name, easting, northing),
-
-  by = 'alias_local_name'
-)|>
-  mutate(
-    utm_easting = case_when(
-    is.na(utm_easting) ~ easting,
-    T ~ utm_easting),
-    utm_northing = case_when(
-      is.na(utm_northing) ~ northing,
-      T ~ utm_northing
-      )
-    )
-
-
+# ##clean up the objects
+# rm(hab_site_prep,
+#    # hab_fish_indiv_prep,
+#    # hab_fish_indiv_prep2,
+#    hab_fish_collect_prep2,
+#    hab_loc2)
+#
+# # gps get coordinates for waypoints -----------------------------------------------------
+#
+# gpx <- 'C:/Users/allan/OneDrive/New_Graph/Current/2021-034-hctf-bulkley-fish-passage/data/GPS/kylegps_sept22backup_bulkley2021.GPX'
+#
+#
+# wp_kyle <- sf::st_read(gpx,
+#                        layer = 'waypoints',
+#   quiet = T) |>
+#   janitor::clean_names() |>
+#   # this is a work around so that we get the original name of the renamed wp if there were duplicate names in basecamp
+#   mutate(name = as.numeric(name),
+#          name = case_when(name > 1000 ~ round(name/10, 0),
+#                           T ~ name)) |>
+#   dplyr::select(name_old = name, everything())  |>
+#   mutate(source = 'KP',
+#          name = paste0(name_old, '_', source, '_', lubridate::year(time))) |>
+#   sf::st_transform(crs = 26909) |>
+#   poisspatial::ps_sfc_to_coords(X = 'easting', Y = 'northing') |>
+#   select(name, name_old, source, ele, time, easting, northing)
+#
+# gpx <- "C:/Users/allan/OneDrive/New_Graph/Current/2021-034-hctf-bulkley-fish-passage/data/GPS/bulkley_2021_field_al.gpx"
+#
+# wp_al <- sf::st_read(gpx,
+#                      layer = 'waypoints',
+#                      quiet = T) |>
+#   janitor::clean_names() |>
+#   # this is a work around so that we get the original name of the renamed wp if there were duplicate names in basecamp
+#   mutate(name = as.numeric(name),
+#          name = case_when(name > 1000 ~ round(name/10, 0),
+#                           T ~ name)) |>
+#   dplyr::select(name_old = name, everything())  |>
+#   mutate(source = 'AI',
+#          name = paste0(name_old, '_', source, '_', lubridate::year(time))) |>
+#   sf::st_transform(crs = 26909) |>
+#   poisspatial::ps_sfc_to_coords(X = 'easting', Y = 'northing') |>
+#   select(name, name_old, source, ele, time, easting, northing)
+#
+# wp <- bind_rows(
+#   wp_kyle,
+#   wp_al
+# )
+#
+# rm(wp_kyle, wp_al)
+#
+# # join with the priorities spreadsheet to get those coords
+# hab_con <- readr::read_csv(file = "./data/habitat_confirmations_priorities.csv")
+#
+#
+# wp_joined <- left_join(
+#   hab_con|> separate(crew_members, into = c('source', 'others')),
+#   wp|> select(name_old, source, easting, northing),
+#   by = c('waypoint' = 'name_old', 'source')
+# )
+#
+# # bring in the locations and insert utms where we don't have them already
+# hab_loc_utm <- left_join(
+#   fpr_import_hab_con(backup = F, col_filter_na = T)|>
+#   purrr::pluck("step_1_ref_and_loc_info"),
+#
+#   wp_joined|> select(alias_local_name, easting, northing),
+#
+#   by = 'alias_local_name'
+# )|>
+#   mutate(
+#     utm_easting = case_when(
+#     is.na(utm_easting) ~ easting,
+#     T ~ utm_easting),
+#     utm_northing = case_when(
+#       is.na(utm_northing) ~ northing,
+#       T ~ utm_northing
+#       )
+#     )
+#
+#

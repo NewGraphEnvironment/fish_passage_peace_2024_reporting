@@ -464,11 +464,7 @@ Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites with
 
 Results are presented in detail within the individual habitat confirmation site appendices in this report and in past reports for the monitoring sites, which can be accessed by searching the site number in Table \@ref(tab:tab-sites-cap) and clicking the _Link Report_.
 
-```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = F}
-knitr::include_graphics("fig/fish_histogram.png")
-
-```
-
+<br>
 
 `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
 
@@ -503,6 +499,13 @@ plot_fish_box_all <- fish_abund |>
 
 
 plot_fish_box_all
+```
+
+<br>
+
+```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = T}
+knitr::include_graphics("fig/fish_histogram.png")
+
 ```
 
 ## Phase 3 - Design
