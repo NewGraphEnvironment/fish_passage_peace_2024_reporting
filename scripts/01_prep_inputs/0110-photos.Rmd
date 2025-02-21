@@ -7,8 +7,8 @@ output:
 params:
   repo_owner: "NewGraphEnvironment"
   repo_name: "fish_passage_peace_2024_reporting"
-  gis_name: "sern_skeena_2023"
-  job_name: "2024-072-sern-skeena-fish-passage"
+  gis_name: "sern_peace_fwcp_2023"
+  job_name: "2024-073-sern-peace-fish-passage"
 ---
 
 
@@ -230,6 +230,29 @@ test <- fpr::fpr_photo_qa(dat = form_pscis_photos_raw) |>
   dplyr::filter(if_any(everything(), is.na))
 ```
 
+
+# Build photo amalgamation for each site
+
+```{r amalg}
+form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'data_field/2024/form_pscis_2024.gpkg'))
+
+# get a list of sites to burn
+sites_l <- fpr::fpr_sp_gpkg_backup(
+  form_new,
+  update_site_id = FALSE,
+  write_to_rdata = FALSE,
+  write_to_csv = FALSE,
+  write_back_to_path = FALSE,
+  return_object = TRUE
+) |> 
+  dplyr::distinct(site_id) |>
+  dplyr::arrange(site_id) |>
+  dplyr::pull(site_id)
+
+# burn the amalgamated photos to onedrive
+sites_l |>
+  purrr::map(fpr::fpr_photo_amalg_cv, dir_photos = paste0(dir_photos_onedrive, "/"))
+```
 
 # FISS Site - Rename the photos from the FISS cards and remove duplicates
 

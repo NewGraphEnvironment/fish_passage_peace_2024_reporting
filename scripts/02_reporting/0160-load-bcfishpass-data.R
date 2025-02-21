@@ -7,9 +7,13 @@
 # but not sure that filtering is actually necessary - we could test and remove if it is not
 my_funding_project_number = "peace_2024_Phase1"
 
+# specify the repo
+repo_name <- "fish_passage_peace_2024_reporting"
+
 
 # name the watershed groups in our study area
 wsg <- c('PARS', 'CARP', 'CRKD')
+
 
 # this object should be called bcfishpass_crossings_vw or something that better reflects what it is
 bcfishpass <- fpr::fpr_db_query(
@@ -22,7 +26,7 @@ bcfishpass <- fpr::fpr_db_query(
 ) |>
   sf::st_drop_geometry()
 
-# grab the bcfishpass spawning and rearing table and put in the database so it can be used to populate the methods
+# grab the bcfishpass modelling parameters for the spawning and rearing tables and put in the database so it can be used to populate the methods
 # like solutions provided here https://github.com/smnorris/bcfishpass/issues/490
 bcfishpass_spawn_rear_model <- fpr::fpr_db_query(
   query = "SELECT * FROM bcfishpass.log_parameters_habitat_thresholds
@@ -44,12 +48,22 @@ pscis_assessment_svw <- fpr::fpr_db_query(
   )
 )
 
+# build a cross reference table for the stream_crossing_id and the external_crossing_reference which is the crossing id we assigned it.??
 xref_pscis_my_crossing_modelled <- pscis_assessment_svw |>
   dplyr::filter(funding_project_number == my_funding_project_number) |>
   dplyr::select(external_crossing_reference, stream_crossing_id) |>
   dplyr::mutate(external_crossing_reference = as.numeric(external_crossing_reference)) |>
   dplyr::arrange(external_crossing_reference) |>
   sf::st_drop_geometry()
+
+
+# Load the cleaned habitat_confirmations tracks for this project
+path_tracks <- fs::path_expand("~/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/gps/gps_2024.gpkg")
+
+habitat_confirmation_tracks <- sf::st_read(dsn = path_tracks,
+                                           layer = "gps_tracks_2024") |>
+  dplyr::filter(repo == repo_name & cleaned == TRUE)
+
 
 
 # Initiliaze the database-----------------------------------------------------------------------------------------------------
@@ -79,18 +93,10 @@ readwritesqlite::rws_drop_table("xref_pscis_my_crossing_modelled", conn = conn)
 readwritesqlite::rws_write(xref_pscis_my_crossing_modelled, exists = F, delete = TRUE,
                            conn = conn, x_name = "xref_pscis_my_crossing_modelled")
 
-# building the comments no longer works so we have `fpr::fpr_xref_crossings` - https://github.com/smnorris/bcfishpass/issues/492 -in the meantime
-# !better way to rename table is ?readwritesqlite::rws_rename_table
-# bcfishpass_column_comments_archive <- readwritesqlite::rws_read_table("bcfishpass_column_comments", conn = conn)
-# rws_write(bcfishpass_column_comments_archive, exists = F, delete = TRUE,
-#           conn = conn, x_name = paste0("bcfishpass_column_comments_archive_", format(Sys.time(), "%Y-%m-%d-%H%m")))
-# readwritesqlite::rws_drop_table("bcfishpass_column_comments", conn = conn) ##now drop the table so you can replace it
-# readwritesqlite::rws_write(bcfishpass_column_comments, exists = F, delete = TRUE,
-#           conn = conn, x_name = "bcfishpass_column_comments")
-# This one is not made but is made like here by matching our field data to `bcfishpass.crossings_vw`
-# https://github.com/NewGraphEnvironment/fish_passage_template_reporting/blob/main/scripts/tutorials/road_tenure.Rmd
-# readwritesqlite::rws_write(xref_pscis_my_crossing_modelled, exists = F, delete = TRUE,
-#                            conn = conn, x_name = "xref_pscis_my_crossing_modelled")
+readwritesqlite::rws_drop_table("habitat_confirmation_tracks", conn = conn)
+readwritesqlite::rws_write(habitat_confirmation_tracks, exists = F, delete = TRUE,
+                           conn = conn, x_name = "habitat_confirmation_tracks")
+
 readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_disconnect(conn)
 

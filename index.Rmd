@@ -33,8 +33,12 @@ params:
   repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting'
   report_url: 'https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/'
   job_name: '2024-073-sern-peace-fish-passage'
-  update_form_pscis: TRUE
+  model_species: "bt"
   update_packages: FALSE
+  update_form_pscis: FALSE
+  update_form_fiss_site: FALSE
+  update_gis: FALSE
+  gis_project_name: "sern_peace_fwcp_2023"
 nocite: |
   @busch_etal2011LandscapeLevelModela, 
   @woll_etal2017SalmonEcological,
@@ -90,10 +94,9 @@ font_set <- 9
 
 ```{r source}
 source('scripts/packages.R')
-source('scripts/functions.R')
 source('scripts/staticimports.R')
-source("scripts/02_reporting/0165-load-sqlite.R")
-# source('scripts/tables.R')
+source("scripts/02_reporting/0165-read-sqlite.R")
+source('scripts/02_reporting/tables.R')
 
 ```
 

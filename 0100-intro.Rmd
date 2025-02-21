@@ -1,5 +1,8 @@
-
 # Introduction
+
+`r if(identical(gitbook_on, FALSE)) knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable."))`
+
+`r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
 
 The health and viability of freshwater fish populations can depend on access to tributary and off channel areas which
 provide refuge during high flows, opportunities for foraging, overwintering habitat, spawning habitat and summer rearing
@@ -30,7 +33,7 @@ This project builds on Society for Ecosystem Restoration Northern BC (SERNbc) wo
 
 <br>
 
-Through this year's project activities (2023/2024) we engaged numerous project partners and were able to identify, complete and
+Through this year's project activities (2024/2025) we engaged numerous project partners and were able to identify, complete and
 catalyze fish passage restoration activities at multiple priority sites. 
 
 <br>
@@ -39,12 +42,7 @@ Through the ongoing development of open source analysis, data presentation and p
 identifying new restoration opportunities, clarifying restoration benefits, communicating with the broader community and 
 implementing on the ground works. 
 
-<br>
-
-`r if(identical(gitbook_on, FALSE))knitr::asis_output("This report is available as pdf and as an online [interactive report](https://newgraphenvironment.github.io/fish_passage_peace_2024_reporting/) at https://newgraphenvironment.github.io/fish_passage_peace_2024_reporting/. We recommend viewing online as the web-hosted version contains more features and is more easily navigable. Please reference the website for the latest version number and download the most up to date pdf from https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/raw/main/docs/Peace2023.pdf")` 
-
 <!-- `r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}` -->
 
-This document can be considered a living document.  Version numbers are logged for each release with modifications, 
-enhancements and other changes tracked [here](https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/blob/main/NEWS.md) 
-with issues and proposed/planned enhancements tracked [here](https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/issues). 
+This document can be considered a living document. Version numbers are logged for each release with modifications, enhancements, and other changes tracked in the [Changelog](#changelog) with issues and proposed/planned enhancements tracked `r ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "issues", anchor_text = "here")`.
+
