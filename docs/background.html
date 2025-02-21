@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Background | Restoring Fish Passage in the Peace Region - 2024</title>
   <meta name="description" content="Restoring Fish Passage in the Peace Region" />
-  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Background | Restoring Fish Passage in the Peace Region - 2024" />
   <meta property="og:type" content="book" />
@@ -54,8 +54,29 @@
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 <script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<link href="libs/lfx-fullscreen-1.0.2/lfx-fullscreen-prod.css" rel="stylesheet" />
+<script src="libs/lfx-fullscreen-1.0.2/lfx-fullscreen-prod.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.33/datatables.js"></script>
 <link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -225,17 +246,52 @@ div.csl-indent {
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#communicate-connectivity-issues"><i class="fa fa-check"></i><b>3.1</b> Communicate Connectivity Issues</a></li>
-<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#fish-passage-assessments"><i class="fa fa-check"></i><b>3.2</b> Fish Passage Assessments</a></li>
-<li class="chapter" data-level="3.3" data-path="methods.html"><a href="methods.html#designs"><i class="fa fa-check"></i><b>3.3</b> Designs</a></li>
-<li class="chapter" data-level="3.4" data-path="methods.html"><a href="methods.html#habitat-confirmation-assessments"><i class="fa fa-check"></i><b>3.4</b> Habitat Confirmation Assessments</a></li>
-<li class="chapter" data-level="3.5" data-path="methods.html"><a href="methods.html#fish-sampling"><i class="fa fa-check"></i><b>3.5</b> Fish Sampling</a></li>
-<li class="chapter" data-level="3.6" data-path="methods.html"><a href="methods.html#remediations"><i class="fa fa-check"></i><b>3.6</b> Remediations</a></li>
-<li class="chapter" data-level="3.7" data-path="methods.html"><a href="methods.html#climate-change-risk-assessment"><i class="fa fa-check"></i><b>3.7</b> Climate Change Risk Assessment</a></li>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#planning"><i class="fa fa-check"></i><b>3.2</b> Planning</a></li>
+<li class="chapter" data-level="3.3" data-path="methods.html"><a href="methods.html#fish-passage-assessments"><i class="fa fa-check"></i><b>3.3</b> Fish Passage Assessments</a></li>
+<li class="chapter" data-level="3.4" data-path="methods.html"><a href="methods.html#designs"><i class="fa fa-check"></i><b>3.4</b> Designs</a></li>
+<li class="chapter" data-level="3.5" data-path="methods.html"><a href="methods.html#habitat-confirmation-assessments"><i class="fa fa-check"></i><b>3.5</b> Habitat Confirmation Assessments</a></li>
+<li class="chapter" data-level="3.6" data-path="methods.html"><a href="methods.html#fish-sampling"><i class="fa fa-check"></i><b>3.6</b> Fish Sampling</a></li>
+<li class="chapter" data-level="3.7" data-path="methods.html"><a href="methods.html#remediations"><i class="fa fa-check"></i><b>3.7</b> Remediations</a></li>
+<li class="chapter" data-level="3.8" data-path="methods.html"><a href="methods.html#climate-change-risk-assessment"><i class="fa fa-check"></i><b>3.8</b> Climate Change Risk Assessment</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="results-and-discussion.html"><a href="results-and-discussion.html"><i class="fa fa-check"></i><b>4</b> Results and Discussion</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results-and-discussion.html"><a href="results-and-discussion.html#site-assessment-data-since-2019"><i class="fa fa-check"></i><b>4.1</b> Site Assessment Data Since 2019</a></li>
+<li class="chapter" data-level="4.2" data-path="results-and-discussion.html"><a href="results-and-discussion.html#collaborative-gis-environment-1"><i class="fa fa-check"></i><b>4.2</b> Collaborative GIS Environment</a></li>
+<li class="chapter" data-level="4.3" data-path="results-and-discussion.html"><a href="results-and-discussion.html#phase-1---fish-passage-assessemnts"><i class="fa fa-check"></i><b>4.3</b> Phase 1 - Fish Passage Assessemnts</a></li>
+<li class="chapter" data-level="4.4" data-path="results-and-discussion.html"><a href="results-and-discussion.html#phase-2---habitat-confirmation-assessments"><i class="fa fa-check"></i><b>4.4</b> Phase 2 - Habitat Confirmation Assessments</a></li>
+<li class="chapter" data-level="4.5" data-path="results-and-discussion.html"><a href="results-and-discussion.html#phase-3---design"><i class="fa fa-check"></i><b>4.5</b> Phase 3 - Design</a></li>
+<li class="chapter" data-level="4.6" data-path="results-and-discussion.html"><a href="results-and-discussion.html#phase-4---remediations"><i class="fa fa-check"></i><b>4.6</b> Phase 4 - Remediations</a></li>
+<li class="chapter" data-level="4.7" data-path="results-and-discussion.html"><a href="results-and-discussion.html#monitoring"><i class="fa fa-check"></i><b>4.7</b> Monitoring</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix---phase-1-fish-passage-assessment-data-and-photos.html"><a href="appendix---phase-1-fish-passage-assessment-data-and-photos.html"><i class="fa fa-check"></i>Appendix - Phase 1 Fish Passage Assessment Data and Photos</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html"><i class="fa fa-check"></i>Tributary to McLeod Lake - 198669 - Appendix</a>
+<ul>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html#site-location"><i class="fa fa-check"></i>Site Location</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html#background-1"><i class="fa fa-check"></i>Background</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html#stream-characteristics-at-crossing-198669"><i class="fa fa-check"></i>Stream Characteristics at Crossing 198669</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html#stream-characteristics-downstream-of-crossing-198669"><i class="fa fa-check"></i>Stream Characteristics Downstream of Crossing 198669</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html#stream-characteristics-upstream-of-crossing-198669"><i class="fa fa-check"></i>Stream Characteristics Upstream of Crossing 198669</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html#structure-remediation-and-cost-estimate"><i class="fa fa-check"></i>Structure Remediation and Cost Estimate</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-mcleod-lake---198669---appendix.html"><a href="tributary-to-mcleod-lake---198669---appendix.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html"><i class="fa fa-check"></i>Tributary to Kerry Lake - 198692 - Appendix</a>
+<ul>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#site-location-1"><i class="fa fa-check"></i>Site Location</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#background-2"><i class="fa fa-check"></i>Background</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#stream-characteristics-at-crossing-198692"><i class="fa fa-check"></i>Stream Characteristics at Crossing 198692</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#stream-characteristics-downstream-of-crossing-198692"><i class="fa fa-check"></i>Stream Characteristics Downstream of Crossing 198692</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#stream-characteristics-upstream-of-crossing-198692"><i class="fa fa-check"></i>Stream Characteristics Upstream of Crossing 198692</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#fish-sampling-2"><i class="fa fa-check"></i>Fish Sampling</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#structure-remediation-and-cost-estimate-1"><i class="fa fa-check"></i>Structure Remediation and Cost Estimate</a></li>
+<li class="chapter" data-level="" data-path="tributary-to-kerry-lake---198692---appendix.html"><a href="tributary-to-kerry-lake---198692---appendix.html#conclusion-1"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="changelog.html"><a href="changelog.html"><i class="fa fa-check"></i>Changelog</a></li>
 <li class="chapter" data-level="" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i>Session Info</a></li>
+<li class="chapter" data-level="" data-path="attach-1-maps.html"><a href="attach-1-maps.html"><i class="fa fa-check"></i><strong>Attachment 1 - Maps</strong></a></li>
+<li class="chapter" data-level="" data-path="raw-dat.html"><a href="raw-dat.html"><i class="fa fa-check"></i><strong>Attachment 2 - Habitat Assessment and Fish Sampling Data</strong></a></li>
+<li class="chapter" data-level="" data-path="attach-3-bayes.html"><a href="attach-3-bayes.html"><i class="fa fa-check"></i><strong>Attachment 3 - Bayesian analysis to map stream discharge and temperature causal effects pathways</strong></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting" target="blank">Scripts and Data</a></li>
 
@@ -259,11 +315,12 @@ div.csl-indent {
 <div id="background" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">2</span> Background<a href="background.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The study area includes the FWCP Peace Region with a focus to date on traditional territories of the Tse’khene First Nations.
-In 2023, field assessments were completed with the Parsnip River, Carp River and Crooked River watershed groups (Figure <a href="background.html#fig:overview-map">2.1</a>).</p>
+In 2024, field assessments were completed with the Parsnip River, Carp River and Crooked River watershed groups (Figure <a href="background.html#fig:overview-map">2.1</a>).</p>
 <p><br></p>
 <p>In 2019/2020, following a literature review, analysis of fish habitat modelling data, the Provincial Stream Crossing Inventory System (PSCIS) and a community scoping exercise within the McLeod Lake Indian Band habitat confirmation assessments were conducted at 17 sites throughout the Parsnip River watershed with 10 crossings rated as high priorities for rehabilitation and three crossings rated as moderate priorities for restoration. An engineering design for site 125179 on a tributary to the Missinka River was also completed through the 2019/2020 project. In 2021/2022, project activities reconvened through FWCP directed project PEA-F22-F-3577-DCA. Partners were engaged, funding was raised, planning was conducted and reporting was completed to initiate restoration activities of high priority crossings. Materials were purchased and permitting was put in place to prep for replacement of the twin culverts on the Missinka River tributary with a clear-span bridge.</p>
 <p><br></p>
-<p>In 2022/2023, this collaborative project leveraged ongoing connectivity restoration initiatives in the province and engaged multiple partners to catalyze fish passage restoration activities at high-priority sites identified in 2019/2020 and 2021/2022. Key accomplishments include the replacement of PSCIS crossing 125179, prioritization of two crossings on the Chuchinka-Table FSR for replacement in 2024-2025 (with engineering designs commissioned and materials purchased), and field assessments including fish sampling at high priority crossing 125000 on a tributary to the Parsnip River near Arctic Lake.</p>
+<p>In 2024/2025, this collaborative project leveraged ongoing connectivity restoration initiatives in the province and engaged multiple partners to catalyze fish passage restoration activities at high-priority sites identified in from 2019-2023. Key accomplishments include the replacement of PSCIS crossing 125231 on a tributary to the Table River and field assessments including effectiveness monitoring at PSCIS crossing 125179 which was replaced in 2022.</p>
+<p><br></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="background.html#cb5-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;fig/fishpassage_2024_fwcp_progress.jpeg&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:overview-map"></span>
 <img src="fig/fishpassage_2024_fwcp_progress.jpeg" alt="Overview map of Study Area" width="100%" />
@@ -276,9 +333,9 @@ Figure 2.1: Overview map of Study Area
 <h2><span class="header-section-number">2.1</span> Tse’khene<a href="background.html#tsekhene" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The Parsnip River watershed is located within the south-eastern portion of the 108,000 km<sup>2</sup> traditional territory of the Tse’khene from the <a href="https://www.mlib.ca/about/History">McLeod Lake Indian Band</a>. The Tse’khene <em>“People of the Rocks”</em> are a south westerly extension of the Athabascan speaking people of northern Canada. They were nomadic hunters whose language belongs to the Beaver-Sarcee-Tse’khene branch of Athapaskan <span class="citation">(<span>“History <span>Who We Are</span>”</span> 2023)</span>. Extensive work is underway to preserve the language with resources such as First Voices available <a href="https://www.firstvoices.com/tsekhene-mcleod">online</a> and in <a href="https://apps.apple.com/us/app/tsekhene-mcleod-lake/id1503929250">app form</a> for iphone and ipad devices.</p>
 <p><br></p>
-<p>The continental divide separates watersheds flowing north into the Arctic Ocean via the Mackenzie River and south and west into the Pacific Ocean via the Fraser River (Figure <a href="background.html#fig:overview-map">2.1</a>). The Parsnip River is a 6th order stream with a watershed that drains an area of 5597km<sup>2</sup>. The mainstem of the river flows within the Rocky Mountain Trench in a north direction into Williston Reservoir starting from the continental divide adjacent to Arctic Lakes. Major tributaries include the Misinchinka, Colbourne, Reynolds, Anzac, Table, Hominka and Missinka sub-basins which drain the western slopes of the Hart Ranges of the Rocky Mountains. The Parsnip River has a mean annual discharge of 150.4 m<sup>3</sup>/s with flow patterns typical of high elevation watersheds on the west side of the northern Rocky Mountains which receive large amounts of precipitation as snow leading to peak levels of discharge during snowmelt, typically from May to July (Figures <a href="background.html#fig:fig-hydrology-plot-flow">2.2</a> - <a href="background.html#fig:fig-hydrology-plot-stats">2.3</a>).</p>
+<p>The continental divide separates watersheds flowing north into the Arctic Ocean via the Mackenzie River and south and west into the Pacific Ocean via the Fraser River (Figure <a href="background.html#fig:overview-map">2.1</a>). The Parsnip River is a 6th order stream with a watershed that drains an area of 5597km<sup>2</sup>. The mainstem of the river flows within the Rocky Mountain Trench in a north direction into Williston Reservoir starting from the continental divide adjacent to Arctic Lakes. Major tributaries include the Misinchinka, Colbourne, Reynolds, Anzac, Table, Hominka and Missinka sub-basins which drain the western slopes of the Hart Ranges of the Rocky Mountains. The Parsnip River has a mean annual discharge of 150.4 m<sup>3</sup>/s with flow patterns typical of high elevation watersheds on the west side of the northern Rocky Mountains which receive large amounts of precipitation as snow leading to peak levels of discharge during snowmelt, typically from May to July (Figure <a href="background.html#fig:fig-hydrology-plot-flow">2.2</a>).</p>
 <p><br></p>
-<p>Construction of the 183 m high and 2134 m long W.A.C. Bennett Dam was completed in 1967 at Hudson’s Hope, BC, creating the Williston Reservoir <span class="citation">(Hirst 1991)</span>. Filling of the 375km<sup>2</sup> reservoir was complete in 1972 and flooded a substantial portion of the Parsnip River and major tributary valleys forming what is now known as the Peace and Parsnip reaches. The replacement of riverine habitat with an inundated reservoir environment resulted in profound changes to the ecology, resource use and human settlement patterns in these systems <span class="citation">(Hagen et al. 2015a; Pearce et al. 2019; Stamford, Hagen, and Williamson 2017)</span>. Prior to the filling of the reservoir, the Pack River, into which McLeod Lake flows, was a major tributary to the Parsnip River. The Pack River currently enters the Williston Reservoir directly as the historic location of the confluence of the two rivers lies within the reservoir’s footprint.</p>
+<p>Construction of the 183m high and 2134m long W.A.C. Bennett Dam was completed in 1967 at Hudson’s Hope, BC, creating the Williston Reservoir <span class="citation">(Hirst 1991)</span>. Filling of the 375km<sup>2</sup> reservoir was complete in 1972 and flooded a substantial portion of the Parsnip River and major tributary valleys forming what is now known as the Peace and Parsnip reaches. The replacement of riverine habitat with an inundated reservoir environment resulted in profound changes to the ecology, resource use and human settlement patterns in these systems <span class="citation">(Hagen et al. 2015a; Pearce et al. 2019; Stamford, Hagen, and Williamson 2017)</span>. Prior to the filling of the reservoir, the Pack River, into which McLeod Lake flows, was a major tributary to the Parsnip River. The Pack River currently enters the Williston Reservoir directly as the historic location of the confluence of the two rivers lies within the reservoir’s footprint.</p>
 <p><br></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="background.html#cb6-1" tabindex="-1"></a><span class="co"># knitr::include_graphics(&quot;fig/hydrology1-1.png&quot;)  ##left this here in case we want to go back to having this build from scratch.</span></span>
 <span id="cb6-2"><a href="background.html#cb6-2" tabindex="-1"></a></span>
@@ -297,12 +354,6 @@ Figure 2.2: Parsnip River Above Misinchinka River (Station #07EE007 - Lat 55.081
 <span id="cb7-2"><a href="background.html#cb7-2" tabindex="-1"></a><span class="co"># grid::grid.raster(img)</span></span>
 <span id="cb7-3"><a href="background.html#cb7-3" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="background.html#cb7-4" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;fig/hydrology_stats_07EE007.png&quot;</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:fig-hydrology-plot-stats"></span>
-<img src="fig/hydrology_stats_07EE007.png" alt="Summary discharge statistics (annual maximum, minimum, mean and standard deviation) for Parsnip River at hydrometric station #07EE007." width="100%" />
-<p class="caption">
-Figure 2.3: Summary discharge statistics (annual maximum, minimum, mean and standard deviation) for Parsnip River at hydrometric station #07EE007.
-</p>
-</div>
 </div>
 <div id="fisheries" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Fisheries<a href="background.html#fisheries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1545,7 +1596,7 @@ it has been observed to span at least a 20-km zone from the waterfall migration 
 <li>trophic relationships between Arctic grayling and bull trout</li>
 </ul>
 <p><br></p>
-<p>A review of available fisheries data for the Parsnip River watershed stratified by different habitat characteristics can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Figures <a href="background.html#fig:fish-plot-grad">2.4</a> - <a href="background.html#fig:fish-plot-wshed">2.6</a>). It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).</p>
+<p>A review of available fisheries data for the Parsnip River watershed stratified by different habitat characteristics can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Figures <a href="background.html#fig:fish-plot-grad">2.3</a> - <a href="background.html#fig:fish-plot-wshed">2.5</a>). It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).</p>
 <p><br></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="background.html#cb9-1" tabindex="-1"></a><span class="co"># fiss_sum &lt;- readr::read_csv(file = paste0(getwd(), &#39;/data/extracted_inputs/fiss_sum.csv&#39;))</span></span>
 <span id="cb9-2"><a href="background.html#cb9-2" tabindex="-1"></a>fiss_sum_grad <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(<span class="fu">getwd</span>(), <span class="st">&#39;/data/inputs_extracted/fiss_sum_grad.csv&#39;</span>))</span>
@@ -1556,7 +1607,7 @@ it has been observed to span at least a 20-km zone from the waterfall migration 
 <span id="cb9-7"><a href="background.html#cb9-7" tabindex="-1"></a></span>
 <span id="cb9-8"><a href="background.html#cb9-8" tabindex="-1"></a></span>
 <span id="cb9-9"><a href="background.html#cb9-9" tabindex="-1"></a><span class="co"># A summary of historical westslope cutthrout trout observations in the Elk River watershed group by average gradient category of associated stream segment is provided in Figure \@ref(fig:fish-wct-bar). Of `r wct_elkr_grad %&gt;% dplyr::filter(gradient_id == 3) %&gt;% pull(total)` observations, `r wct_elkr_grad %&gt;% dplyr::filter(gradient_id == 3) %&gt;% pull(Percent) + wct_elkr_grad %&gt;% dplyr::filter(gradient_id == 5) %&gt;% pull(Percent) + wct_elkr_grad %&gt;% dplyr::filter(gradient_id == 8) %&gt;% pull(Percent)`% were within stream segments with average gradients ranging from 0 - 8%.  A total of `r wct_elkr_grad %&gt;% dplyr::filter(gradient_id == 3) %&gt;% pull(Percent)`% of historic observations were within stream segments with gradients between 0 - 3%, `r wct_elkr_grad %&gt;% dplyr::filter(gradient_id == 5) %&gt;% pull(Percent)`% were within stream segments with gradients ranging from 3 - 5% and `r wct_elkr_grad %&gt;% dplyr::filter(gradient_id == 5) %&gt;% pull(Percent)`% were within stream segments with gradients between 5 - 8% [@data_fish_obs; @norris2020bcfishobs]. </span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="background.html#cb10-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="st">&#39;Summary of historic salmonid observations vs. stream gradient category for the Parsnip River watershed group.&#39;</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="background.html#cb10-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="st">&#39;Summary of historic fish observations vs. stream gradient category for the Parsnip River watershed group.&#39;</span></span>
 <span id="cb10-2"><a href="background.html#cb10-2" tabindex="-1"></a>fiss_sum_grad <span class="sc">%&gt;%</span> </span>
 <span id="cb10-3"><a href="background.html#cb10-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>gradient_id) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-4"><a href="background.html#cb10-4" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(<span class="at">caption_text =</span> my_caption,</span>
@@ -1564,7 +1615,7 @@ it has been observed to span at least a 20-km zone from the waterfall migration 
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-condensed table-responsive" style="font-size: 11px; color: black; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-fish-grad">Table 2.2: </span>Summary of historic salmonid observations vs. stream gradient category for the Parsnip River watershed group.
+<span id="tab:tab-fish-grad">Table 2.2: </span>Summary of historic fish observations vs. stream gradient category for the Parsnip River watershed group.
 </caption>
 <thead>
 <tr>
@@ -1855,13 +1906,13 @@ RB
 <span id="cb11-8"><a href="background.html#cb11-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Average Stream Gradient&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Occurrences (%)&quot;</span>)</span>
 <span id="cb11-9"><a href="background.html#cb11-9" tabindex="-1"></a>plot_grad</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fish-plot-grad"></span>
-<img src="fish_passage_peace_2024_reporting_files/figure-html/fish-plot-grad-1.png" alt="Summary of historic salmonid observations vs. stream gradient category for the Parsnip River watershed group." width="100%" />
+<img src="fish_passage_peace_2024_reporting_files/figure-html/fish-plot-grad-1.png" alt="Summary of historic fish observations vs. stream gradient category for the Parsnip River watershed group." width="100%" />
 <p class="caption">
-Figure 2.4: Summary of historic salmonid observations vs. stream gradient category for the Parsnip River watershed group.
+Figure 2.3: Summary of historic fish observations vs. stream gradient category for the Parsnip River watershed group.
 </p>
 </div>
 <p><br></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="background.html#cb12-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="st">&#39;Summary of historic salmonid observations vs. channel width category for the Parsnip River watershed group.&#39;</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="background.html#cb12-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="st">&#39;Summary of historic fish observations vs. channel width category for the Parsnip River watershed group.&#39;</span></span>
 <span id="cb12-2"><a href="background.html#cb12-2" tabindex="-1"></a>fiss_sum_width <span class="sc">%&gt;%</span> </span>
 <span id="cb12-3"><a href="background.html#cb12-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>width_id) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-4"><a href="background.html#cb12-4" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(<span class="at">caption_text =</span> my_caption,</span>
@@ -1869,7 +1920,7 @@ Figure 2.4: Summary of historic salmonid observations vs. stream gradient categ
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-condensed table-responsive" style="font-size: 11px; color: black; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-fish-width">Table 2.3: </span>Summary of historic salmonid observations vs. channel width category for the Parsnip River watershed group.
+<span id="tab:tab-fish-width">Table 2.3: </span>Summary of historic fish observations vs. channel width category for the Parsnip River watershed group.
 </caption>
 <thead>
 <tr>
@@ -2296,20 +2347,20 @@ RB
 <span id="cb13-8"><a href="background.html#cb13-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Channel Width&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Occurrences (%)&quot;</span>)</span>
 <span id="cb13-9"><a href="background.html#cb13-9" tabindex="-1"></a>plot_width</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fish-plot-width"></span>
-<img src="fish_passage_peace_2024_reporting_files/figure-html/fish-plot-width-1.png" alt="Summary of historic salmonid observations vs. channel width category for the Parsnip River watershed group." width="100%" />
+<img src="fish_passage_peace_2024_reporting_files/figure-html/fish-plot-width-1.png" alt="Summary of historic fish observations vs. channel width category for the Parsnip River watershed group." width="100%" />
 <p class="caption">
-Figure 2.5: Summary of historic salmonid observations vs. channel width category for the Parsnip River watershed group.
+Figure 2.4: Summary of historic fish observations vs. channel width category for the Parsnip River watershed group.
 </p>
 </div>
 <p><br></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="background.html#cb14-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="st">&#39;Summary of historic salmonid observations vs. watershed size category for the Parsnip River watershed group.&#39;</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="background.html#cb14-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="st">&#39;Summary of historic fish observations vs. watershed size category for the Parsnip River watershed group.&#39;</span></span>
 <span id="cb14-2"><a href="background.html#cb14-2" tabindex="-1"></a>fiss_sum_wshed <span class="sc">%&gt;%</span> </span>
 <span id="cb14-3"><a href="background.html#cb14-3" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(<span class="at">caption_text =</span> my_caption,</span>
 <span id="cb14-4"><a href="background.html#cb14-4" tabindex="-1"></a>                 <span class="at">scroll =</span> gitbook_on)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-condensed table-responsive" style="font-size: 11px; color: black; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-fish-wshed">Table 2.4: </span>Summary of historic salmonid observations vs. watershed size category for the Parsnip River watershed group.
+<span id="tab:tab-fish-wshed">Table 2.4: </span>Summary of historic fish observations vs. watershed size category for the Parsnip River watershed group.
 </caption>
 <thead>
 <tr>
@@ -2685,9 +2736,9 @@ RB
 <span id="cb15-8"><a href="background.html#cb15-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
 <span id="cb15-9"><a href="background.html#cb15-9" tabindex="-1"></a>plot_wshed</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fish-plot-wshed"></span>
-<img src="fish_passage_peace_2024_reporting_files/figure-html/fish-plot-wshed-1.png" alt="Summary of historic salmonid observations vs. watershed size category for the Parsnip River watershed group." width="100%" />
+<img src="fish_passage_peace_2024_reporting_files/figure-html/fish-plot-wshed-1.png" alt="Summary of historic fish observations vs. watershed size category for the Parsnip River watershed group." width="100%" />
 <p class="caption">
-Figure 2.6: Summary of historic salmonid observations vs. watershed size category for the Parsnip River watershed group.
+Figure 2.5: Summary of historic fish observations vs. watershed size category for the Parsnip River watershed group.
 </p>
 </div>
 
