@@ -37,6 +37,7 @@ params:
   update_packages: FALSE
   update_form_pscis: FALSE
   update_form_fiss_site: FALSE
+  update_form_monitoring: FALSE
   update_gis: FALSE
   gis_project_name: "sern_peace_fwcp_2023"
 nocite: |
