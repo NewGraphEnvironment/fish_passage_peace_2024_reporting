@@ -61,6 +61,29 @@ The following should be done in QGIS:
 - reorder the columns for easy QA in Q
 
 
+## Backup the data after QA
+
+Backup the data after QA in QGIS and commit with a detailed message.
+
+```{r backup}
+path_form_monitoring <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, "/data_field/2024/form_monitoring_2024.gpkg"))
+
+form_monitoring <- fpr::fpr_sp_gpkg_backup(
+  path_gpkg = path_form_monitoring,
+  dir_backup = "data/backup/",
+  update_utm = TRUE,
+  update_site_id = TRUE, ## This now also checks for duplicates
+  write_back_to_path = FALSE,
+  write_to_csv = TRUE,
+  write_to_rdata = TRUE,
+  return_object = TRUE,
+  col_easting = "utm_easting",
+  col_northing = "utm_northing")
+  
+```
+
+
+
 ## If you need to load an old version of a form
 
 This is code to load an an old old version of a form and reburn to a geopackage 
