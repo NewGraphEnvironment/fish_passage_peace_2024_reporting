@@ -15,6 +15,7 @@ source('scripts/functions.R')
 
 ```{r  load-data-125179}
 my_site <- 125179
+my_site2 <- 125180
 ```
 
 # Tributary to Missinka River - 125179 - Appendix {-}
@@ -41,7 +42,8 @@ In 2018, the Missinka River watershed was designated as a fisheries sensitive wa
 
 <br>
 
-In the summer of 2022, this crossing was replaces with a 15m steel girder permanent bridge with modular timber decks. Detailed background information regarding this crossing can be found in the 2022 report [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179). A map of the watershed is provided in map attachment [`r fpr::fpr_my_bcfishpass(col_pull = dbm_mof_50k_grid)`](`r fpr::fpr_my_mapsheet(wshd = "parsnip", archive_date = "2022-05-27")`).
+The site was originally prioritized for replacement in 2019 by @irvine2020ParsnipRiver, following a habitat confirmation assessment
+which can be found [here](https://www.newgraphenvironment.com/Parsnip_Fish_Passage/03_Parsnip_report_125179.html). In the summer of 2022, the crossing was replaced with a 15m steel girder permanent bridge with modular timber decks [@irvine_winterscheidt2023RestoringFish]. Detailed background information regarding this crossing can be found in the 2022 report [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179). A map of the watershed is provided in map attachment [`r fpr::fpr_my_bcfishpass(col_pull = dbm_mof_50k_grid)`](`r fpr::fpr_my_mapsheet(wshd = "parsnip", archive_date = "2022-05-27")`).
 
 
 <br>
@@ -56,16 +58,13 @@ fpr::fpr_table_wshd_sum(site_id = my_site) |>
 
 <br>
 
-## Monitoring 
+## Monitoring {.unnumbered}
 
-In 2024, crews revisited the site for monitoring purposes, with results summarised in Table \@ref(tab:tab-monitoring-125179). A significant amount of riprap material was present within the channel in the road right-of-way, and there did not appear to have been any riparian planting conducted during construction. The structure appeared stable with no maintenance was required at the time of reporting. Electrofishing was performed upstream and downstream, with results summarised in the section below.
+In 2024, crews revisited the site for monitoring purposes, with results summarised in Table \@ref(tab:tab-monitoring-125179). A significant amount of riprap material was present within the channel in the road right-of-way, and there did not appear to have been any riparian planting conducted during construction. The structure appeared stable with no maintenance required at the time of reporting. Electrofishing was performed upstream and downstream, with results summarised in the section below.
 
 <br>
 
 Photos showing a comparison of the culvert assessment conducted in 2019 versus the completed bridge construction in 2024 are presented in `r if(gitbook_on){knitr::asis_output("Figures \\@ref(fig:photo-125179-01) - \\@ref(fig:photo-125179-02).")}else(knitr::asis_output("Figure \\@ref(fig:photo-125261-d02)."))` 
-
-<!-- During the site visit aerial imagery was collected with a remotely piloted aircraft with resulting images stitched into an orthomosaic and 3-dimensional model -->
-<!-- `r if(gitbook_on){knitr::asis_output(" presented in Figures \\@ref(fig:ortho-caption-125179) - \\@ref(fig:model-caption-125179).")} else knitr::asis_output("presented [here](https://www.mapsmadeeasy.com/maps/public/8e3a0c68656c4480a66e067a6e14c0d3) and [here](https://www.mapsmadeeasy.com/maps/public_3D/8e3a0c68656c4480a66e067a6e14c0d3/).")` Bridge construction details including as-built drawings have been loaded to the PSCIS data portal for upload to the province.  -->
 
 <br>
 
@@ -84,8 +83,17 @@ tab_monitoring |>
 
 <br>
 
+## Aerial Imagery {.unnumbered}
+
+Aerial imagery surveys were conducted with a remotely piloted aircraft in 2022 and 2024 and the resulting images were stitched into orthomosaics. Imagery from 2022 can be in the report [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179) with the most recent aerial imagery from 2024 `r if(gitbook_on){knitr::asis_output(" presented in Figures \\@ref(fig:ortho-caption-125179) - \\@ref(fig:model-caption-125179).")} else knitr::asis_output("presented [here](https://www.mapsmadeeasy.com/maps/public/8e3a0c68656c4480a66e067a6e14c0d3) and [here](https://www.mapsmadeeasy.com/maps/public_3D/8e3a0c68656c4480a66e067a6e14c0d3/). ")` 
+
+<br>
+
+<!-- UPDATE with 2024 imagery -->
+
 ```{r ortho-125179, eval = F}
-# eval = identical(gitbook_on, TRUE)
+
+# identical(gitbook_on, TRUE)
 
 model_url <- '<iframe src="https://www.mapsmadeeasy.com/maps/public/8e3a0c68656c4480a66e067a6e14c0d3" scrolling="no" title="Maps Made Easy" width="100%" height="500" frameBorder ="0"></iframe>'
 
@@ -141,23 +149,38 @@ tab_fish_summary |>
 
 ```
 
-Electrofishing was conducted downstream and upstream of `r fpr_my_pscis_info(dat = form_monitoring, col_pull = road_name, site = my_site)` with results summarised in Tables \@ref(tab:tab-fish-site-125179) - \@ref(tab:tab-fish-dens-125179) and Figure \@ref(fig:plot-fish-box-125179). A total of `r tab_fish_summary |> filter(site_id == paste0(my_site, '_ds')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured downstream and `r tab_fish_summary |> filter(site_id == paste0(my_site, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured upstream, all of which were rainbow trout `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-03) - \\@ref(fig:photo-125179-04)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d02))."))`
+Electrofishing was conducted downstream and upstream of crossing `r as.character(my_site)` on `r fpr_my_pscis_info(dat = form_monitoring, col_pull = road_name, site = my_site)` with results summarised in Tables \@ref(tab:tab-fish-site-125179) - \@ref(tab:tab-fish-dens-125179) and Figure \@ref(fig:plot-fish-box-125179). A total of `r tab_fish_summary |> filter(site_id == paste0(my_site, '_ds')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured downstream and `r tab_fish_summary |> filter(site_id == paste0(my_site, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured upstream, all of which were rainbow trout `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-03) - \\@ref(fig:photo-125179-04)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d02))."))`
 
 <br>
 
+As per the 2022 recommendations, electrofishing was conducted downstream and upstream at PSCIS crossing 125180, a similarly sized stream located approximately 660m east of the subject crossing, where culverts were ranked as barriers in 2019 and sampling was recommended to provide reference site data for comparison [@irvine_winterscheidt2023RestoringFish; @irvine2020ParsnipRiver]. However, the culverts appeared to be embedded and did not seem to pose as significant a barrier as identified in 2019. As a result, the site was deemed unsuitable as a reference site, and only fish lengths were documented (no PIT tagging or weighing). Upon further consideration, crews returned a few days later and conducted additional sampling downstream of the crossing only. During this second assessment, fish lengths and weights were recorded, and all fish with a fork length greater than 60mm were tagged with Passive Integrated Transponders (PIT tags) with data stored [here](r paste0(params$repo_url, "blob/main/data/2024_fish_data_tags_joined.csv")). 
 
-## Recommendations {.unnumbered}
+<br>
+
+Electrofishing results from both sampling days are summarised in Tables \@ref(tab:tab-fish-site-125180) - \@ref(tab:tab-fish-dens-125180) and Figure \@ref(fig:plot-fish-box-125180). A total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured downstream and `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured upstream, all of which were rainbow trout `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-05) - \\@ref(fig:photo-125179-06)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d03))."))`
+
+<br>
+
+## Conclusion {.unnumbered}
+
+Restoration of fish passage at crossing `r as.character(my_site)` was restored in the summer of 2022 with a 15m steel girder permanent bridge with modular timber decks. Partial funding for the project was provided by FWCP through coordination from SERNbc. Replacement of the crossing will provide access to habitat blocked to upstream migrating fish for likely 10 - 20
+years (timeline depending on the rate of down cutting caused by the outlet drops) and the stream has no other anthropogenic
+obstructions to fish passage.
+
+<br>
 
 Resampling of fish at the site in future years of the project is recommended to build our understanding of fish use,
-movement and health in the stream providing valuable data for monitoring the effectiveness of crossing replacement.
-Additionally, acquisition of aerial imagery following structure replacement is recommended so that aerial imagery and 3D
-models generated from the data can be compared to products generated from data gathered in 2023. These comparisons will
+movement and health in the stream providing valuable data for monitoring the effectiveness of the crossing replacement.
+Additionally, yearly acquisition of aerial imagery is recommended so that imagery and 3D
+models generated from the data can be compared to products generated from data gathered in 2023 before the replacement. These comparisons will
 be useful for communications related to the project as well as for providing insight into changes in stream morphology,
 effectiveness of environmental management plans and site rehabilitation efforts following construction.
 
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
-
 <br>
+
+Although PSCIS crossing 125180 was recommended as a reference site in 2022, the crossing was embedded and no longer a fish passage barrier in 2024, therefore it was deemed unsuitable as a reference site [@irvine_winterscheidt2023RestoringFish]. Other reference site options could be explored in the future. 
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 ```{r tab-fish-site-125179, eval=T}
 fpr::fpr_table_fish_site()
@@ -177,6 +200,29 @@ fpr::fpr_table_fish_density()
 my_caption <- paste0('Densites of fish (fish/100m2) captured upstream and downstream of PSCIS crossing ', my_site, '.')
 
 fpr::fpr_plot_fish_box() 
+
+```
+
+<br>
+
+```{r tab-fish-site-125180, eval=T}
+fpr::fpr_table_fish_site(sit = my_site2)
+
+```
+
+<br>
+
+```{r tab-fish-dens-125180, eval=T}
+fpr::fpr_table_fish_density(sit = my_site2)
+
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+```{r plot-fish-box-125180, fig.cap= my_caption, eval=T}
+my_caption <- paste0('Densites of fish (fish/100m2) captured upstream and downstream of PSCIS crossing ', my_site2, '.')
+
+fpr::fpr_plot_fish_box(sit = my_site2) 
 
 ```
 
@@ -219,9 +265,9 @@ knitr::include_graphics(my_photo2)
 <br>
 
 ```{r photo-125179-03-prep, eval=T}
-my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'fish1')
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'us_ef1_typical_1')
 
-my_caption1 = paste0('Rainbow trout captured downstream of ', my_site, '.')
+my_caption1 = paste0('Typical habitat electrofished upstream of PSCIS crossing ', my_site, '.')
 
 
 ```
@@ -245,6 +291,42 @@ knitr::include_graphics(my_photo2)
 ```
 
 ```{r photo-125179-d02, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
+my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
+
+knitr::include_graphics(my_photo1)
+knitr::include_graphics("fig/pixel.png")
+knitr::include_graphics(my_photo2)
+```
+
+<br>
+
+```{r photo-125179-05-prep, eval=T}
+my_photo1 = fpr::fpr_photo_pull_by_str(site = my_site2, str_to_pull = 'ef_us_')
+
+my_caption1 = paste0('Typical habitat electrofished upstream of PSCIS crossing ', my_site2, '.')
+
+
+```
+
+```{r photo-125179-05, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo1)
+```
+
+<br>
+
+```{r photo-125179-06-prep, eval=T}
+my_photo2 = fpr::fpr_photo_pull_by_str(site = my_site2, str_to_pull = 'fish1')
+
+my_caption2 = paste0('Rainbow trout captured upstream of PSCIS crossing ', my_site2, '.')
+
+
+```
+
+```{r photo-125179-06, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo2)
+```
+
+```{r photo-125179-d03, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
 my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
 
 knitr::include_graphics(my_photo1)

@@ -154,8 +154,7 @@ if (params$update_form_monitoring) {
     write_to_csv = FALSE,
     write_to_rdata = FALSE,
     col_easting = "utm_easting",
-    col_northing = "utm_northing") |>
-    sf::st_drop_geometry()
+    col_northing = "utm_northing")
 
 
   # Now burn to the sqlite
