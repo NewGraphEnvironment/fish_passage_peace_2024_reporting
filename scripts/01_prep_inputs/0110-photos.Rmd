@@ -233,7 +233,7 @@ test <- fpr::fpr_photo_qa(dat = form_pscis_photos_raw) |>
 
 # Build photo amalgamation for each site
 
-```{r amalg}
+```{r pscis-amalg}
 form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'data_field/2024/form_pscis_2024.gpkg'))
 
 # get a list of sites to burn
@@ -415,6 +415,28 @@ fpr::fpr_photo_rename(
 
 ```
 
+```{r mon-amalg}
+form_mon <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'data_field/2024/form_monitoring_2024.gpkg'))
+
+# get a list of sites to burn
+sites_l <- fpr::fpr_sp_gpkg_backup(
+  form_mon,
+  update_site_id = FALSE,
+  write_to_rdata = FALSE,
+  write_to_csv = FALSE,
+  write_back_to_path = FALSE,
+  return_object = TRUE
+) |> 
+  dplyr::distinct(pscis_crossing_id) |>
+  dplyr::arrange(pscis_crossing_id) |>
+  dplyr::pull(pscis_crossing_id)
+
+# burn the amalgamated photos to onedrive
+sites_l |>
+  purrr::map(fpr::fpr_photo_amalg_cv, dir_photos = paste0(dir_photos_onedrive, "/"))
+```
+
+# Remove Duplicates
 
 After we sort the photos that came off the camera by hand into their directories we can amalgamate with the renamed photos.
 
