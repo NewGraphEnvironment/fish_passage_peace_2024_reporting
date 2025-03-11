@@ -41,7 +41,8 @@ In 2018, the Missinka River watershed was designated as a fisheries sensitive wa
 
 <br>
 
-In the summer of 2022, this crossing was replaces with a 15m steel girder permanent bridge with modular timber decks. Background information regarding this crossing can be found in the 2022 report [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179). 
+In the summer of 2022, this crossing was replaces with a 15m steel girder permanent bridge with modular timber decks. Detailed background information regarding this crossing can be found in the 2022 report [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179). A map of the watershed is provided in map attachment [`r fpr::fpr_my_bcfishpass(col_pull = dbm_mof_50k_grid)`](`r fpr::fpr_my_mapsheet(wshd = "parsnip", archive_date = "2022-05-27")`).
+
 
 <br>
 
@@ -51,19 +52,6 @@ fpr::fpr_table_wshd_sum(site_id = my_site) |>
            footnote_text = 'Elev P60 = Elevation at which 60% of the watershed area is above',
            scroll = F)
 
-```
-
-<br>
-
-A summary of habitat modelling outputs for the crossing are presented in Table
-\@ref(tab:tab-culvert-bcfp-125179). A map of the watershed is provided in
-map attachment
-[`r fpr::fpr_my_bcfishpass(col_pull = dbm_mof_50k_grid)`](`r fpr::fpr_my_mapsheet(wshd = "parsnip", archive_date = "2022-05-27")`).
-
-<br>
-
-```{r tab-culvert-bcfp-125179, eval = T}
-fpr::fpr_table_bcfp(scroll = F) 
 ```
 
 <br>
@@ -90,7 +78,7 @@ tab_monitoring |>
     names_to = "variable",  # Column names become values in this column
     values_to = "value"  # Data values go into this column
   ) |> 
-  fpr::fpr_kable(caption_text = 'Summary of monitoring metric results.',
+  fpr::fpr_kable(caption_text = paste0('Summary of monitoring metric results for site ', my_site, '.'),
                                        scroll = gitbook_on)
 ```
 
@@ -160,7 +148,12 @@ Electrofishing was conducted downstream and upstream of `r fpr_my_pscis_info(dat
 
 ## Recommendations {.unnumbered}
 
-In future projects, the use of vegetated riprap is recommended, and vegetation removed from the construction footprint should be re-installed within the disturbed area. It is recommended to follow up with eDNA sampling and/or additional electroshocking in the following years.
+Resampling of fish at the site in future years of the project is recommended to build our understanding of fish use,
+movement and health in the stream providing valuable data for monitoring the effectiveness of crossing replacement.
+Additionally, acquisition of aerial imagery following structure replacement is recommended so that aerial imagery and 3D
+models generated from the data can be compared to products generated from data gathered in 2023. These comparisons will
+be useful for communications related to the project as well as for providing insight into changes in stream morphology,
+effectiveness of environmental management plans and site rehabilitation efforts following construction.
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
