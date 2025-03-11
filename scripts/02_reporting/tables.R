@@ -148,7 +148,7 @@ if (params$update_form_monitoring) {
     path_gpkg = path_form_monitoring,
     dir_backup = "data/backup/",
     update_utm = TRUE,
-    update_site_id = FALSE,
+    update_site_id = TRUE,
     write_back_to_path = FALSE,
     return_object = TRUE,
     write_to_csv = FALSE,
@@ -949,3 +949,24 @@ tab_map_phase_2 <- dplyr::left_join(
       'target="_blank">Culvert Photos</a>'
     )
   )
+
+
+# Monitoring --------------------------------------------------------------
+
+# clean up the monitoring form so we can display it in a table
+tab_monitoring <- form_monitoring |>
+  dplyr::select(
+    pscis_crossing_id,
+    stream_name,
+    road_name,
+    crossing_subtype,
+    `span` = diameter_or_span_meters,
+    `width` = length_or_width_meters,
+    assessment_comment,
+    dplyr::matches("_notes$"),
+    -condition_notes,
+    -climate_notes,
+    -priority_notes
+  ) |>
+  janitor::clean_names(case = "title")
+

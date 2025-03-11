@@ -1,0 +1,260 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup-125179, eval = F}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+source('scripts/packages.R')
+source('scripts/tables.R')
+source('scripts/functions.R')
+```
+
+```{r  load-data-125179}
+my_site <- 125179
+```
+
+# Tributary to Missinka River - 125179 - Appendix {-}
+
+
+## Site Location {.unnumbered}
+
+PSCIS crossing `r as.character(my_site)` is located on a `r fpr_my_pscis_info(dat = form_monitoring, site = my_site)`, between kilometer 3 and 4 of `r fpr_my_pscis_info(dat = form_monitoring, col_pull = road_name, site = my_site)`. The crossing is located approximately 660m east of PSCIS crossing 125180 and joins this adjacent stream just before emptying into the Missinka River, approximately 1km downstream. At the location of this crossing, the road is the responsibility of the Winton Global Lumber Ltd. R01821 51A. The crossing is within the Parsnip River watershed group.
+
+<br>
+
+## Background {.unnumbered}
+
+At this location, `r fpr::fpr_my_pscis_info(dat = form_monitoring)` is a
+`r fpr::fpr_my_bcfishpass() |>english::ordinal()` order stream and drains a watershed of approximately
+`r fpr::fpr_my_wshd()`km^2^. The watershed ranges in elevation from
+a maximum of `r fpr::fpr_my_wshd(col = 'elev_max')`m to
+`r fpr::fpr_my_wshd(col = 'elev_min')`m near the crossing (Table
+\@ref(tab:tab-wshd-125179)).
+
+<br>
+
+In 2018, the Missinka River watershed was designated as a fisheries sensitive watershed under the authority of the Forest and Range Practices Act due to significant downstream fisheries values and watershed sensitivity [@beaudry2013Assessmentassignmenta]. Special management is required in the crossing’s watershed to protect habitat for bull trout and arctic grayling and includes measures (among others) to limit equivalent clearcut area, reduce impacts to natural stream channel morphology, retain old growth attributes and maintain fish habitat/movement. 
+
+<br>
+
+In the summer of 2022, this crossing was replaces with a 15m steel girder permanent bridge with modular timber decks. Background information regarding this crossing can be found in the 2022 report [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179). 
+
+<br>
+
+```{r tab-wshd-125179, eval = T}
+fpr::fpr_table_wshd_sum(site_id = my_site) |>
+  fpr::fpr_kable(caption_text = paste0('Summary of derived upstream watershed statistics for PSCIS crossing ', my_site, '.'),
+           footnote_text = 'Elev P60 = Elevation at which 60% of the watershed area is above',
+           scroll = F)
+
+```
+
+<br>
+
+A summary of habitat modelling outputs for the crossing are presented in Table
+\@ref(tab:tab-culvert-bcfp-125179). A map of the watershed is provided in
+map attachment
+[`r fpr::fpr_my_bcfishpass(col_pull = dbm_mof_50k_grid)`](`r fpr::fpr_my_mapsheet(wshd = "parsnip", archive_date = "2022-05-27")`).
+
+<br>
+
+```{r tab-culvert-bcfp-125179, eval = T}
+fpr::fpr_table_bcfp(scroll = F) 
+```
+
+<br>
+
+## Monitoring 
+
+In 2024, crews revisited the site for monitoring purposes, with results summarised in Table \@ref(tab:tab-monitoring-125179). A significant amount of riprap material was present within the channel in the road right-of-way, and there did not appear to have been any riparian planting conducted during construction. The structure appeared stable with no maintenance was required at the time of reporting. Electrofishing was performed upstream and downstream, with results summarised in the section below.
+
+<br>
+
+Photos showing a comparison of the culvert assessment conducted in 2019 versus the completed bridge construction in 2024 are presented in `r if(gitbook_on){knitr::asis_output("Figures \\@ref(fig:photo-125179-01) - \\@ref(fig:photo-125179-02).")}else(knitr::asis_output("Figure \\@ref(fig:photo-125261-d02)."))` 
+
+<!-- During the site visit aerial imagery was collected with a remotely piloted aircraft with resulting images stitched into an orthomosaic and 3-dimensional model -->
+<!-- `r if(gitbook_on){knitr::asis_output(" presented in Figures \\@ref(fig:ortho-caption-125179) - \\@ref(fig:model-caption-125179).")} else knitr::asis_output("presented [here](https://www.mapsmadeeasy.com/maps/public/8e3a0c68656c4480a66e067a6e14c0d3) and [here](https://www.mapsmadeeasy.com/maps/public_3D/8e3a0c68656c4480a66e067a6e14c0d3/).")` Bridge construction details including as-built drawings have been loaded to the PSCIS data portal for upload to the province.  -->
+
+<br>
+
+```{r tab-monitoring-125179}
+tab_monitoring |> 
+  dplyr::filter(`Pscis Crossing Id` == my_site) |> 
+  dplyr::mutate(across(everything(), as.character)) |> 
+  tidyr::pivot_longer(
+    cols = everything(),  # Select all columns
+    names_to = "variable",  # Column names become values in this column
+    values_to = "value"  # Data values go into this column
+  ) |> 
+  fpr::fpr_kable(caption_text = 'Summary of monitoring metric results.',
+                                       scroll = gitbook_on)
+```
+
+<br>
+
+```{r ortho-125179, eval = F}
+# eval = identical(gitbook_on, TRUE)
+
+model_url <- '<iframe src="https://www.mapsmadeeasy.com/maps/public/8e3a0c68656c4480a66e067a6e14c0d3" scrolling="no" title="Maps Made Easy" width="100%" height="500" frameBorder ="0"></iframe>'
+
+knitr::asis_output(model_url)
+```
+
+
+```{r ortho-caption-125179, fig.cap= my_caption, out.width = "0.01%", eval = F}
+my_photo = 'fig/pixel.png'
+
+my_caption = paste0('Orthomosaic of bridge on Tributary to Missinka River. To zoom press "shift" and scroll.')
+
+knitr::include_graphics(my_photo, dpi = NA)
+
+```
+
+<br>
+
+```{r model-125179, eval = F}
+model_url <- '<iframe src="https://www.mapsmadeeasy.com/maps/public_3D/8e3a0c68656c4480a66e067a6e14c0d3" scrolling="no" title="Maps Made Easy" width="100%" height="500" frameBorder ="0"></iframe>'
+
+knitr::asis_output(model_url)
+```
+
+
+```{r model-caption-125179, fig.cap= my_caption, out.width = "0.01%", eval = F}
+my_photo = 'fig/pixel.png'
+
+my_caption = paste0('3D model of newly installed bridge on a tributary to Missinka Creek. ')
+
+knitr::include_graphics(my_photo, dpi = NA)
+
+```
+
+<br>
+
+## Fish Sampling {.unnumbered}
+
+```{r eval=F}
+# species captured downstream
+tab_fish_summary |> 
+  dplyr::filter(site_id == paste0(my_site, '_ds')) |> 
+  dplyr::group_by(site_id) |> 
+  dplyr::distinct(species) |> 
+  dplyr::pull(species)
+
+# species captured upstream
+tab_fish_summary |> 
+  dplyr::filter(site_id == paste0(my_site, '_us')) |> 
+  dplyr::group_by(site_id) |> 
+  dplyr::distinct(species) |> 
+  dplyr::pull(species)
+
+```
+
+Electrofishing was conducted downstream and upstream of `r fpr_my_pscis_info(dat = form_monitoring, col_pull = road_name, site = my_site)` with results summarised in Tables \@ref(tab:tab-fish-site-125179) - \@ref(tab:tab-fish-dens-125179) and Figure \@ref(fig:plot-fish-box-125179). A total of `r tab_fish_summary |> filter(site_id == paste0(my_site, '_ds')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured downstream and `r tab_fish_summary |> filter(site_id == paste0(my_site, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured upstream, all of which were rainbow trout `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-03) - \\@ref(fig:photo-125179-04)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d02))."))`
+
+<br>
+
+
+## Recommendations {.unnumbered}
+
+In future projects, the use of vegetated riprap is recommended, and vegetation removed from the construction footprint should be re-installed within the disturbed area. It is recommended to follow up with eDNA sampling and/or additional electroshocking in the following years.
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+<br>
+
+```{r tab-fish-site-125179, eval=T}
+fpr::fpr_table_fish_site()
+
+```
+
+<br>
+
+```{r tab-fish-dens-125179, eval=T}
+fpr::fpr_table_fish_density()
+
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+```{r plot-fish-box-125179, fig.cap= my_caption, eval=T}
+my_caption <- paste0('Densites of fish (fish/100m2) captured upstream and downstream of PSCIS crossing ', my_site, '.')
+
+fpr::fpr_plot_fish_box() 
+
+```
+
+<br>
+
+```{r photo-125179-01-prep, eval=T}
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'crossing_all_2019')
+
+my_caption1 = paste0('Photos of crossing ', my_site, ' in 2019.')
+
+
+```
+
+```{r photo-125179-01, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo1)
+```
+
+<br>
+
+```{r photo-125179-02-prep, eval=T}
+my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'crossing_all_2024')
+
+my_caption2 = paste0('Photos of crossing ', my_site, ' in 2024.')
+
+
+```
+
+```{r photo-125179-02, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo2)
+```
+
+```{r photo-125179-d01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
+my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
+
+knitr::include_graphics(my_photo1)
+knitr::include_graphics("fig/pixel.png")
+knitr::include_graphics(my_photo2)
+```
+
+<br>
+
+```{r photo-125179-03-prep, eval=T}
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'fish1')
+
+my_caption1 = paste0('Rainbow trout captured downstream of ', my_site, '.')
+
+
+```
+
+```{r photo-125179-03, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo1)
+```
+
+<br>
+
+```{r photo-125179-04-prep, eval=T}
+my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'fish2')
+
+my_caption2 = paste0('Rainbow trout captured upstream of PSCIS crossing ', my_site, '.')
+
+
+```
+
+```{r photo-125179-04, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo2)
+```
+
+```{r photo-125179-d02, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
+my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
+
+knitr::include_graphics(my_photo1)
+knitr::include_graphics("fig/pixel.png")
+knitr::include_graphics(my_photo2)
+```
