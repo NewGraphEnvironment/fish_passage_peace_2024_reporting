@@ -18,7 +18,7 @@ my_site <- 125179
 my_site2 <- 125180
 ```
 
-# Tributary to Missinka River - 125179 - Appendix {-}
+# Tributary to Missinka River - 125179 - Appendix {- #trib-to-missinka}
 
 
 ## Site Location {.unnumbered}
