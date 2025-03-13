@@ -64,7 +64,7 @@ In 2024, crews revisited the site for monitoring purposes, with results summaris
 
 <br>
 
-Photos showing a comparison of the culvert assessment conducted in 2019 versus the completed bridge construction in 2024 are presented in `r if(gitbook_on){knitr::asis_output("Figures \\@ref(fig:photo-125179-01) - \\@ref(fig:photo-125179-02).")}else(knitr::asis_output("Figure \\@ref(fig:photo-125261-d02)."))` 
+Photos showing a comparison of the culvert assessment conducted in 2019 versus the completed bridge construction in 2024 are presented in `r if(gitbook_on){knitr::asis_output("Figures \\@ref(fig:photo-125179-01) - \\@ref(fig:photo-125179-02).")}else(knitr::asis_output("Figure \\@ref(fig:photo-125261-d02)."))` Aerial imagery surveys were conducted with a remotely piloted aircraft in 2022 and the resulting images were stitched into orthomosaics, which can be found [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179).
 
 <br>
 
@@ -79,53 +79,6 @@ tab_monitoring |>
   ) |> 
   fpr::fpr_kable(caption_text = paste0('Summary of monitoring metric results for site ', my_site, '.'),
                                        scroll = gitbook_on)
-```
-
-<br>
-
-## Aerial Imagery {.unnumbered}
-
-Aerial imagery surveys were conducted with a remotely piloted aircraft in 2022 and 2024 and the resulting images were stitched into orthomosaics. Imagery from 2022 can be in the report [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/results-and-discussion.html#tributary-to-missinka-river---pscis-crossing-125179) with the most recent aerial imagery from 2024 `r if(gitbook_on){knitr::asis_output(" presented in Figures \\@ref(fig:ortho-caption-125179) - \\@ref(fig:model-caption-125179).")} else knitr::asis_output("presented [here](https://www.mapsmadeeasy.com/maps/public/8e3a0c68656c4480a66e067a6e14c0d3) and [here](https://www.mapsmadeeasy.com/maps/public_3D/8e3a0c68656c4480a66e067a6e14c0d3/). ")` 
-
-<br>
-
-<!-- UPDATE with 2024 imagery -->
-
-```{r ortho-125179, eval = F}
-
-# identical(gitbook_on, TRUE)
-
-model_url <- '<iframe src="https://www.mapsmadeeasy.com/maps/public/8e3a0c68656c4480a66e067a6e14c0d3" scrolling="no" title="Maps Made Easy" width="100%" height="500" frameBorder ="0"></iframe>'
-
-knitr::asis_output(model_url)
-```
-
-
-```{r ortho-caption-125179, fig.cap= my_caption, out.width = "0.01%", eval = F}
-my_photo = 'fig/pixel.png'
-
-my_caption = paste0('Orthomosaic of bridge on Tributary to Missinka River. To zoom press "shift" and scroll.')
-
-knitr::include_graphics(my_photo, dpi = NA)
-
-```
-
-<br>
-
-```{r model-125179, eval = F}
-model_url <- '<iframe src="https://www.mapsmadeeasy.com/maps/public_3D/8e3a0c68656c4480a66e067a6e14c0d3" scrolling="no" title="Maps Made Easy" width="100%" height="500" frameBorder ="0"></iframe>'
-
-knitr::asis_output(model_url)
-```
-
-
-```{r model-caption-125179, fig.cap= my_caption, out.width = "0.01%", eval = F}
-my_photo = 'fig/pixel.png'
-
-my_caption = paste0('3D model of newly installed bridge on a tributary to Missinka Creek. ')
-
-knitr::include_graphics(my_photo, dpi = NA)
-
 ```
 
 <br>
