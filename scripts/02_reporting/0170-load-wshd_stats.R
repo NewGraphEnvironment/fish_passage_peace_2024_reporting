@@ -8,14 +8,29 @@ source("scripts/02_reporting/0165-read-sqlite.R")
 
 
 ## Filter the bcfishpass data to just the phase 2 sites -------------------------------------------------
+
+# Just phase 2 sites
+# bcfishpass_phase2 <- bcfishpass |>
+#   dplyr::filter(
+#     stringr::str_detect(
+#       stream_crossing_id,
+#       paste0(pscis_phase2 |>
+#                pull(pscis_crossing_id),
+#              collapse = "|")
+#     ))
+
+# Phase 2 sites AND monitoring sites
 bcfishpass_phase2 <- bcfishpass |>
   dplyr::filter(
     stringr::str_detect(
       stream_crossing_id,
-      paste0(pscis_phase2 |>
-               pull(pscis_crossing_id),
-             collapse = "|")
-    ))
+      paste0(c(
+        pscis_phase2 |> pull(pscis_crossing_id),
+        form_monitoring |> pull(site_id)
+      ), collapse = "|")
+    )
+  )
+
 
 
 ## Remove crossings on first order streams -------------------------------------------------

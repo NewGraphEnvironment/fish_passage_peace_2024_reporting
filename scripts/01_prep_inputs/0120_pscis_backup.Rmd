@@ -7,6 +7,7 @@ output:
 params:
   repo_owner: "NewGraphEnvironment"
   repo_name: "fish_passage_peace_2024_reporting"
+  gis_project_name: "sern_peace_fwcp_2023"
 editor_options: 
   chunk_output_type: console
 ---
@@ -32,7 +33,7 @@ Name the project directory we are pulling from and import the data. We use `fpr_
 `update_site_id = TRUE` now checks for duplicate sites.
 
 ```{r import}
-path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024.gpkg')
+path_form_pscis <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_pscis_2024_raw.gpkg"))
 
 form_pscis <- fpr::fpr_sp_gpkg_backup(
   path_gpkg = path_form_pscis,
