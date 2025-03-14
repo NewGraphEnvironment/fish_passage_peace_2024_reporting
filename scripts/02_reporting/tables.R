@@ -197,6 +197,8 @@ pscis_all <- dplyr::left_join(
 
 fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
   janitor::clean_names() |>
+  # if we wanted to pull the first site where we reapeated the sampling
+  # dplyr::filter(local_name != "125180_ds_ef1") |>
   #filter for peace 2024
   dplyr::filter(project_name == project)
 
