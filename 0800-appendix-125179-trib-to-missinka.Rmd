@@ -106,11 +106,11 @@ Electrofishing was conducted downstream and upstream of crossing `r as.character
 
 <br>
 
-As per the 2022 recommendations, electrofishing was conducted downstream and upstream at PSCIS crossing 125180, a similarly sized stream located approximately 660m east of the subject crossing, where culverts were ranked as barriers in 2019 and sampling was recommended to provide reference site data for comparison [@irvine_winterscheidt2023RestoringFish; @irvine2020ParsnipRiver]. However, the culverts appeared to be embedded and did not seem to pose as significant a barrier as identified in 2019. As a result, the site was deemed unsuitable as a reference site, and only fish lengths were documented (no PIT tagging or weighing). Upon further consideration, crews returned a few days later and conducted additional sampling downstream of the crossing only. During this second assessment, fish lengths and weights were recorded, and all fish with a fork length greater than 60mm were tagged with Passive Integrated Transponders (PIT tags) with data stored [here](r paste0(params$repo_url, "blob/main/data/2024_fish_data_tags_joined.csv")). 
+As per the 2022 recommendations, electrofishing was conducted downstream and upstream at PSCIS crossing 125180, a similarly sized stream located approximately 660m east of the subject crossing, where culverts were ranked as barriers in 2019 and sampling was recommended to provide reference site data for comparison [@irvine_winterscheidt2023RestoringFish; @irvine2020ParsnipRiver]. Fish lengths and weights were recorded, and all fish with a fork length greater than 60mm were tagged with Passive Integrated Transponders (PIT tags) with data stored [here](r paste0(params$repo_url, "blob/main/data/2024_fish_data_tags_joined.csv")). Additionally, the downstream site was resampled a few days later (`125180_ds_ef2`), but only fish lengths were documented, with no PIT tagging or weighing conducted. 
 
 <br>
 
-Electrofishing results from both sampling days are summarised in Tables \@ref(tab:tab-fish-site-125180) - \@ref(tab:tab-fish-dens-125180) and Figure \@ref(fig:plot-fish-box-125180). A total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured downstream and `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured upstream, all of which were rainbow trout `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-05) - \\@ref(fig:photo-125179-06)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d03))."))`
+Electrofishing results from all sampling events at crossing `r as.character(my_site2)` are summarised in Tables \@ref(tab:tab-fish-site-125180) - \@ref(tab:tab-fish-dens-125180) and Figure \@ref(fig:plot-fish-box-125179). A total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds') & ef == "ef1") |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured downstream during the first sampling event (`125180_ds_ef1`), and `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` fish were captured upstream, all of which were rainbow trout `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-05) - \\@ref(fig:photo-125179-06)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d03))."))` During the second downstream sampling event (`125180_ds_ef2`), a total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds') & ef == "ef2") |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured. 
 
 <br>
 
@@ -129,10 +129,6 @@ models generated from the data can be compared to products generated from data g
 be useful for communications related to the project as well as for providing insight into changes in stream morphology,
 effectiveness of environmental management plans and site rehabilitation efforts following construction.
 
-<br>
-
-Although PSCIS crossing 125180 was recommended as a reference site in 2022, the crossing was embedded and no longer a fish passage barrier in 2024, therefore it was deemed unsuitable as a reference site [@irvine_winterscheidt2023RestoringFish]. Other reference site options could be explored in the future. 
-
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 ```{r tab-fish-site-125179, eval=T}
@@ -149,15 +145,6 @@ fpr::fpr_table_fish_density()
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
-```{r plot-fish-box-125179, fig.cap= my_caption, eval=T}
-my_caption <- paste0('Densites of fish (fish/100m2) captured upstream and downstream of PSCIS crossing ', my_site, '.')
-
-fpr::fpr_plot_fish_box() 
-
-```
-
-<br>
-
 ```{r tab-fish-site-125180, eval=T}
 fpr::fpr_table_fish_site(sit = my_site2)
 
@@ -172,10 +159,25 @@ fpr::fpr_table_fish_density(sit = my_site2)
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
-```{r plot-fish-box-125180, fig.cap= my_caption, eval=T}
-my_caption <- paste0('Densites of fish (fish/100m2) captured upstream and downstream of PSCIS crossing ', my_site2, '.')
+```{r plot-fish-box-125179, fig.cap= my_caption, eval=T}
+my_caption <- paste0('Densites of fish (fish/100m2) captured upstream and downstream of PSCIS crossings ', my_site, ' and ', my_site2, '.')
 
-fpr::fpr_plot_fish_box(sit = my_site2) 
+# fpr::fpr_plot_fish_box() 
+
+fish_abund |> 
+  dplyr::filter(site %in% c(my_site, my_site2), species_code != "NFC") |> 
+  ggplot2::ggplot(ggplot2::aes(x = location, y = density_100m2)) + 
+  ggplot2::geom_boxplot(fill = "lightgray", color = "black", alpha = 0.7) + 
+  ggplot2::geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 0.8,
+                        fill = "black", color = "black", alpha = 0.7) +
+  ggplot2::facet_wrap(~ site, scales = "fixed") + 
+  ggplot2::theme_light() + 
+  ggplot2::theme(
+    legend.position = "none", 
+    axis.title.x = ggplot2::element_blank()
+  ) + 
+  ggplot2::ylab(expression(Density ~ (fish/100 ~ m^2)))
+
 
 ```
 
