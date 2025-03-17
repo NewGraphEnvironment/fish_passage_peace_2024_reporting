@@ -33,10 +33,9 @@ tab:tab-wshd-125179
 tab:tab-monitoring-125179
 tab:tab-fish-site-125179
 tab:tab-fish-dens-125179
-fig:plot-fish-box-125179
 tab:tab-fish-site-125180
 tab:tab-fish-dens-125180
-fig:plot-fish-box-125180
+fig:plot-fish-box-125179
 fig:photo-125179-01
 fig:photo-125179-02
 fig:photo-125179-03
@@ -92,3 +91,4 @@ fish-sampling-1
 phase-3---design
 phase-4---remediations
 monitoring
+effectiveness-monitoring-checklist
