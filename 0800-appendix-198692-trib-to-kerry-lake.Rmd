@@ -17,7 +17,7 @@ source('scripts/functions.R')
 my_site <- 198692
 ```
 
-`r fpr::fpr_appendix_title()`
+# Tributary to Kerry Lake - 198692 - Appendix {- #trib-to-kerry}
 
 
 ## Site Location {.unnumbered}

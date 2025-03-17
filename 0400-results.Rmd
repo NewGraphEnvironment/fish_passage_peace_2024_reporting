@@ -207,6 +207,7 @@ sites_all |>
   
   my_dt_table(
     cols_freeze_left = 1,
+    page_length = 5,
     escape = FALSE
   )
 ```
@@ -454,7 +455,7 @@ bcfishpass_phase2_plot_prep |>
   ggplot2::geom_bar(stat = "identity") +
   ggplot2::facet_wrap(~name, ncol = 2) +
   # ggdark::dark_theme_bw(base_size = 11) +
-  ggplot2::theme_light(base_size = 11) +
+  ggplot2::theme_bw(base_size = 11) +
   ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   ggplot2::labs(x = "Site", y = "Modelled habitat (km)")
 
@@ -464,11 +465,11 @@ bcfishpass_phase2_plot_prep |>
 
 ### Fish Sampling
 
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in `r knitr::asis_output(if (gitbook_on) "[Attachment 2](#raw-dat)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "attachment-2---habitat-assessment-and-fish-sampling-data.html", anchor_text = "Attachment 2"))`. A summary of density results for all life stages combined of select species is also presented in Figure \@ref(fig:plot-fish-all).
+Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in `r knitr::asis_output(if (gitbook_on) "[Attachment 2](#raw-dat)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "attachment-2---habitat-assessment-and-fish-sampling-data.html", anchor_text = "Attachment 2"))`. A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
 
 <br>
 
-Results are presented in detail within the individual habitat confirmation site appendices in this report and in past reports for the monitoring sites, which can be accessed by searching the site number in Table \@ref(tab:tab-sites-cap) and clicking the _Link Report_.
+Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_skeena_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed by searching the site number in Table \@ref(tab:tab-sites-cap) and clicking the _Link Report_.
 
 <br>
 
@@ -483,7 +484,7 @@ tab_fish_sites_sum |>
 
 <br>
 
-```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of fish captured downstream (ds) and upstream (us) by electrofishing during habitat confirmation assessments.', eval=T}
+```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of rainbow trout captured downstream (ds) and upstream (us) by electrofishing.', eval=T}
 
 plot_fish_box_all <- fish_abund |> 
   dplyr::filter(
@@ -494,12 +495,14 @@ plot_fish_box_all <- fish_abund |>
                          'Sculpin (General)')
   ) |> 
   ggplot2::ggplot(ggplot2::aes(x = location, y = density_100m2)) +
-  ggplot2::geom_boxplot() +
-  ggplot2::facet_grid(site ~ species_code, scales = "fixed", as.table = TRUE) +
+  ggplot2::geom_boxplot(fill = NA) +
+  ggplot2::facet_grid(life_stage ~ site, scales = "free_y", as.table = TRUE) +
+
+  # ggplot2::facet_grid(site ~ species_code, scales = "fixed", as.table = TRUE) +
   ggplot2::theme(legend.position = "none", axis.title.x = ggplot2::element_blank()) +
   ggplot2::geom_dotplot(binaxis = 'y', stackdir = 'center', dotsize = 1) +
   ggplot2::ylab(expression(Density ~ (Fish/100 ~  m^2))) +
-  ggplot2::theme_light()
+  ggplot2::theme_bw()
   # ggdark::dark_theme_bw()
 
 
@@ -516,22 +519,25 @@ knitr::include_graphics("fig/fish_histogram.png")
 
 ## Phase 3 - Design
 
-All sites with a design for remediation of fish passage can be found in Table \@ref(tab:tab-sites-cap) by filtering using Design = yes. 
+No new designs were commissioned in 2024.  All sites with a design for remediation of fish passage can be found in Table \@ref(tab:tab-sites-cap) by filtering using Design = yes. 
 
 
 ## Phase 4 - Remediations
-
-All sites where remediation of fish passage has been completed can be found in Table \@ref(tab:tab-sites-cap) by filtering using Remediation = yes.
+In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at kilometer 21 on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Partial funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
 
 <br>
 
-In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at kilometer 21 on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Partial funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
+All sites where remediation of fish passage has been completed since 2019 can be found in Table \@ref(tab:tab-sites-cap) by filtering using Remediation = yes.
 
 
 ## Monitoring
 
-Two sites were revisited in 2024 to gather data to further inform prioritization and/or to provide data for effectiveness monitoring. Below are the sites visited with details of data collected and links to reporting provided:
+In 2024, baseline or follow up monitoring data was gathered at four sites:
 
-- Following the 2022 replacement of Tributary to Missinka (PSCIS crossing 125179) on Chuchinka-Missinka FSR, effectiveness monitoring was conducted in 2024. Background can be reviewed [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/) with results of the monitoring presented in [Tributary to Missinka River - 125179 - Appendix](#trib-to-missinka).
+- Effectiveness monitoring was conducted on a Tributary to Missinka (PSCIS crossing 125179) on Chuchinka-Missinka FSR which was replaced in 2022. Background can be reviewed [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/) with results of the monitoring presented within this report in [Tributary to Missinka River - 125179 - Appendix](#trib-to-missinka).
 
-- In the summer of 2024, Tributary to Table crossing (PSCIS crossing 125131) on Chuchinka-Table FSR was replaced, with effectiveness monitoring conducted in the fall of 2024. Background information and results of the monitoring can be reviewed [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).
+- In the summer of 2024, Tributary to Table crossing (PSCIS crossing 125131) on Chuchinka-Table FSR was replaced, with effectiveness monitoring conducted in the fall. The initial habitat confirmation for the site is docuemented in @irvine2020ParsnipRiver [here](https://www.newgraphenvironment.com/Parsnip_Fish_Passage/). Baseline monitoring in 2023 along with the results of 2024 effectiveness monitoring (updated reporting) can be reviewed in  [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).
+
+- Baseline fish sampling was conducted at PSCIS crossing 125261 located on Fern Creek near the 2.1km mark of the Chuchinka-Table FSR. Although restoration of this site (in collaboration with Canfor) had been planned for 2025 - remediation has been delayed due to uncertainty regarding forest harvest activities within the greater Table River watershed.  Fish sampling activities including PIT tagging were conducted in 2024 to compliment fish data aquired in 2023.  Documentation is provided in @irvine_winterscheidt2024RestoringFish [here](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/).
+
+- Baseline fish sampling and acquisition of aerial imagery was conducted at PSCIS crossings 198692 is located on Tributary to Kerry Lake, at kilometer 7 of Kerry Lake FSR. Documentation is provided within this report [Tributary to Kerry Lake - 198692 - Appendix](#trib-to-kerry). 
