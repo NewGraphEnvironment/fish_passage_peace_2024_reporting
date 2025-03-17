@@ -519,11 +519,11 @@ knitr::include_graphics("fig/fish_histogram.png")
 
 ## Phase 3 - Design
 
-No new designs were commissioned in 2024.  All sites with a design for remediation of fish passage can be found in Table \@ref(tab:tab-sites-cap) by filtering using Design = yes. 
+No new designs were commissioned in 2024.  All sites where a design for remediation of fish passage has been developed since 2019 can be found in Table \@ref(tab:tab-sites-cap) by filtering with Design = yes. 
 
 
 ## Phase 4 - Remediations
-In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at kilometer 21 on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Partial funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
+In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at kilometer 21 on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Partial funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found within this report [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
 
 <br>
 
@@ -532,7 +532,7 @@ All sites where remediation of fish passage has been completed since 2019 can be
 
 ## Monitoring
 
-In 2024, baseline or follow up monitoring data was gathered at four sites:
+In 2024, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through baseline fish sampling and aquistion of aerial imagery at four sites:
 
 - Effectiveness monitoring was conducted on a Tributary to Missinka (PSCIS crossing 125179) on Chuchinka-Missinka FSR which was replaced in 2022. Background can be reviewed [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/) with results of the monitoring presented within this report in [Tributary to Missinka River - 125179 - Appendix](#trib-to-missinka).
 
