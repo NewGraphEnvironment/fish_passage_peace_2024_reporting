@@ -131,6 +131,66 @@ Electrofishing was conducted downstream and upstream of the `r fpr_my_pscis_info
 
 <br>
 
+## Aerial Imagery {.unnumbered}
+
+An aerial survey was conducted with a remotely piloted aircraft and the resulting imagery was processed into an orthomosaic, digital terrain model (dtm) and a digital surface model (dsm), available to view and download `r if(gitbook_on){knitr::asis_output("in Figure \\@ref(fig:uav-ortho-198692)")}else(knitr::asis_output("here: [orthomosaic](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_orthophoto/odm_orthophoto.tif), [dtm](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_dem/dtm.tif), [dsm](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_dem/dsm.tif)"))`.
+
+```{r eval = F}
+# Use when dtm and dsm models are working again. 
+# `r if(gitbook_on){knitr::asis_output("in Figures \\@ref(fig:uav-ortho-198692) - \\@ref(fig:uav-dtm-198692) - \\@ref(fig:uav-dsm-198692)")}else(knitr::asis_output("here: [orthomosaic](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_orthophoto/odm_orthophoto.tif), [dtm](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_dem/dtm.tif), [dsm](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_dem/dsm.tif)"))`.
+```
+
+
+<br>
+
+```{r uav-ortho-198692-prep, eval = gitbook_on}
+viewer_url <- '<iframe src="https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_orthophoto/odm_orthophoto.tif" scrolling="no" title="UAV Viewer" width="100%" height="600" frameBorder="0"></iframe>'
+
+knitr::asis_output(viewer_url)
+```
+
+```{r uav-ortho-198692, out.width = "0.01%", eval = gitbook_on, fig.cap= my_caption}
+my_photo = 'fig/pixel.png'
+
+my_caption = paste0('Orthomosaic of PSCIS crossing ', my_site, '.')
+
+knitr::include_graphics(my_photo, dpi = NA)
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")}`
+
+```{r uav-dtm-198692-prep, eval = F}
+viewer_url <- '<iframe src="https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_dem/dtm.tif" scrolling="no" title="UAV Viewer" width="100%" height="600" frameBorder="0"></iframe>'
+
+knitr::asis_output(viewer_url)
+```
+
+```{r uav-dtm-198692, out.width = "0.01%", eval = F, fig.cap= my_caption}
+my_photo = 'fig/pixel.png'
+
+my_caption = paste0('Digital terrain model of PSCIS crossing ', my_site, '.')
+
+knitr::include_graphics(my_photo, dpi = NA)
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")}`
+
+```{r uav-dsm-198692-prep, eval = F}
+viewer_url <- '<iframe src="https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/mackenzie/carp/2024/198692_kerry_lake_trib/odm_dem/dsm.tif" scrolling="no" title="UAV Viewer" width="100%" height="600" frameBorder="0"></iframe>'
+
+knitr::asis_output(viewer_url)
+```
+
+```{r uav-dsm-198692, out.width = "0.01%", eval = F, fig.cap= my_caption}
+my_photo = 'fig/pixel.png'
+
+my_caption = paste0('Digital surface model of PSCIS crossing ', my_site, '.')
+
+knitr::include_graphics(my_photo, dpi = NA)
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")}`
+
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
 If there are no plans for further logging in the area, removing the crossing and deactivating the road should be considered as a fish passage remediation option. If logging activities are planned to continue and restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)` m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
