@@ -53,22 +53,24 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
 #################################################################################################
 ##move the phase 1 appendix out of the main directory to a backup file or else the file is too big
 
+staticimports::import()
+source('scripts/staticimports.R')
 
 # define the _bookfile_name from _bookdown.yml
-filename_html <- 'fish_passage_peace_2024'
+filename_html <- 'fish_passage_peace_2024_reporting'
 
 {
 
   ## move large appendices to hold for pdf build
   ## not required for template
-  # file.rename('0600-appendix.Rmd', 'hold/0600-appendix.Rmd')
+  file.rename('0600-appendix.Rmd', 'hold/0600-appendix.Rmd')
 
   ##   then make our printable pdf
   rmarkdown::render_site(output_format = 'pagedown::html_paged',
                          encoding = 'UTF-8')
 
   ## move large appendices back to main directory
-  # file.rename('hold/0600-appendix.Rmd', '0600-appendix.Rmd')
+  file.rename('hold/0600-appendix.Rmd', '0600-appendix.Rmd')
 
   # print to pdf
   pagedown::chrome_print(
