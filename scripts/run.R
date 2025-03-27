@@ -97,7 +97,7 @@ filename_html <- 'fish_passage_peace_2024_reporting'
                     gs_quality = 'screen',
                     ##this was on the windows machine
                     # gs_cmd = "C:/Program Files/gs/gs9.56.1/bin/gswin64.exe"
-                    gs_cmd = "opt/homebrew/bin/gs"
+                    gs_cmd = "/opt/homebrew/bin/gs"
   )
 
   # get rid of the html as its too big and not needed
@@ -154,5 +154,5 @@ tools::compactPDF("docs/Appendix_1.pdf",
                   gs_quality = 'screen',
                   ##this was on the windows machine
                   # gs_cmd = "C:/Program Files/gs/gs9.56.1/bin/gswin64.exe"
-                  gs_cmd = "opt/homebrew/bin/gs"
+                  gs_cmd = "/opt/homebrew/bin/gs"
 )
