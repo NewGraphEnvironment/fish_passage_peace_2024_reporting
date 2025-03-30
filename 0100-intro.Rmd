@@ -1,6 +1,6 @@
 # Introduction
 
-`r if(identical(gitbook_on, FALSE)) knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable."))`
+`r if(identical(gitbook_on, FALSE)) knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable. Please reference the website for the latest PDF from ", ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "raw/main/docs/fish_passage_peace_2024_reporting.pdf", anchor_text = "fish_passage_peace_2024_reporting.pdf"), "."))`
 
 `r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
 
@@ -42,7 +42,7 @@ Through the ongoing development of open source analysis, data presentation and p
 identifying new restoration opportunities, clarifying restoration benefits, communicating with the broader community and 
 implementing on the ground works. 
 
-<!-- `r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}` -->
+<br>
 
 This document can be considered a living document. Version numbers are logged for each release with modifications, enhancements, and other changes tracked in the [Changelog](#changelog) with issues and proposed/planned enhancements tracked `r ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "issues", anchor_text = "here")`.
 

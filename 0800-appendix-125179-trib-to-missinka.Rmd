@@ -62,7 +62,7 @@ fpr::fpr_table_wshd_sum(site_id = my_site) |>
 
 ### Effectiveness Monitoring Checklist
 
-Monitoring results gathered on a effectiveness monitoring checklist are summarised in Table \@ref(tab:tab-monitoring-125179). In general - the structure appeared stable with no maintenance required at the time of reporting. Lessons learned from the work - to be leveraged towards future projects - include reducing the amount of riprap material placed within the bankfull channel width and replanting of areas where riparian vegetation is removed during construction. Photos showing a comparison of the culvert assessment conducted in 2019 versus the completed bridge construction in 2024 are presented in `r if(gitbook_on){knitr::asis_output("Figures \\@ref(fig:photo-125179-01) - \\@ref(fig:photo-125179-02).")}else(knitr::asis_output("Figure \\@ref(fig:photo-125261-d02)."))`.
+Monitoring results gathered on a effectiveness monitoring checklist are summarised in Table \@ref(tab:tab-monitoring-125179). In general - the structure appeared stable with no maintenance required at the time of reporting. Lessons learned from the work - to be leveraged towards future projects - include reducing the amount of riprap material placed within the bankfull channel width and replanting of areas where riparian vegetation is removed during construction. Photos showing a comparison of the culvert assessment conducted in 2019 versus the completed bridge construction in 2024 are presented in `r if(gitbook_on){knitr::asis_output("Figures \\@ref(fig:photo-125179-01) - \\@ref(fig:photo-125179-02).")}else(knitr::asis_output("Figure \\@ref(fig:photo-125179-d01)."))`
 
 <br>
 
