@@ -22,7 +22,7 @@ author: |
 
 date: |
  |
- | DRAFT Version `r desc::desc_get_version()` `r format(Sys.Date(), "%Y-%m-%d")`
+ | DRAFT Version 0.1.0 `r format(Sys.Date(), "%Y-%m-%d")`
 toc-title: Table of Contents
 site: bookdown::bookdown_site
 output: 
@@ -62,7 +62,7 @@ lof: true
 
 ```{r switch-gitbook-html, echo=FALSE}
 gitbook_on <- TRUE
-# gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
+gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
 
 ```
 

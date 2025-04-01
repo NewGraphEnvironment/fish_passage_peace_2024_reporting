@@ -1,0 +1,9 @@
+
+
+# **Attachment 4 - Phase 1 Data and Photos** {-}
+
+Data and photos for all Phase 1 (fish passage assessments) are provided in `r ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "raw/main/docs/Appendix_1.pdf", anchor_text = "Appendix 1")`
+
+
+
+

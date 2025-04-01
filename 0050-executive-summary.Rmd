@@ -1,0 +1,95 @@
+
+# Executive Summary {-}
+
+`r if(identical(gitbook_on, FALSE)) knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable. Please reference the website for the latest version stamped PDF from ", ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "raw/main/docs/fish_passage_peace_2024_reporting.pdf", anchor_text = "fish_passage_peace_2024_reporting.pdf"), "."))`
+
+
+`r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
+
+Since 2019, the Society for Ecosystem Restoration in Northern BC (SERNbc) is working together with the McLeod Lake Indian Band, the
+Peace Region Fish and Wildlife Compensation Program (FWCP), the Provincial Fish Passage Technical Working Group (FPTWG),
+road/rail tenure holders and other stakeholders/partners to prioritize, plan and fund the restoration of fish
+passage at road crossing structure barriers within the Parsnip River, Carp River and Crooked River watershed groups.
+
+<br>
+
+The primary objective of this project is to identify and prioritize fish passage barriers within these study areas,
+develop comprehensive restoration plans to address these barriers, and foster momentum for broader ecosystem restoration
+initiatives. While the primary focus is on fish passage, this work also serves as a lens through which to view the
+broader ecosystems, leveraging efforts to build capacity for ecosystem restoration and improving our understanding of
+watershed health. We recognize that the health of life - such as our own - and the health of our surroundings are
+interconnected, with our overall well-being dependent on the health of our environment.
+
+<br>
+
+Although the main purpose of this report is to document 2024 field work data and results, it also builds on reporting 
+from field activities conducted from 2020 to 2023. In addition to the numerous assessments at sites undocumented in past
+years of the project, field activities in 2024 were also conducted at sites where habitat confirmations
+were previously documented within the reports linked below. 
+
+
+- [Parsnip River Watershed – Fish Habitat Confirmations (PEA-F20-F-2967)](https://newgraphenvironment.github.io/Parsnip_Fish_Passage/){target="_blank"} [@irvine2020ParsnipRiver]
+- [PEA-F22-F-3577-DCA Restoring Fish Passage in the Peace Region](https://www.newgraphenvironment.com/fish_passage_parsnip_2021_reporting/){target="_blank"} [@irvine2022PEAF22F3577DCARestoring]  
+- [Restoring Fish Passage in the Peace Region - 2022 - PEA-F23-F-3761-DCA](https://newgraphenvironment.github.io/fish_passage_peace_2022_reporting/){target="_blank"} [@irvine_winterscheidt2023RestoringFish]  
+- [Restoring Fish Passage in the Peace Region - 2023](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/){target="_blank"} [@irvine_winterscheidt2024RestoringFish]
+
+
+Fish passage assessment procedures conducted through SERNbc in the Skeena River Watershed since 2020 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`
+which includes links to project reporting for each site.  
+
+<br>
+
+In 2024, fish passage assessments were completed at 15 sites (11 new Phase 1 sites and 4 reassessments), focusing on 
+structures with potential barriers to upstream fish movement using standard provincial criteria.
+
+<br>
+  
+Habitat confirmation assessments were conducted at multiple sites within the Crooked and Carp River watersheds, 
+  covering over 2 km of stream length. Detailed habitat metrics were 
+  documented alongside electrofishing surveys to evaluate habitat quality and presence of fish species. 
+
+<br>
+
+
+  Fish sampling occurred at 16 sites across 6 streams, yielding 319 fish captures. All fish were measured for fork length 
+  and weight, with life stages classified by size. Salmonids over 60 mm were PIT-tagged under a scientific permit to support 
+  long-term tracking of individual fish health and movement.  
+
+<br>
+
+ 
+  Monitoring was conducted at four sites, including post-remediation evaluations at PSCIS crossings 125179 and 125231. 
+  Monitoring included electrofishing, habitat observations, and UAV-based imagery. A custom effectiveness monitoring form 
+  was developed, drawing from the @forestinvestmentaccount2003Guidelinesinstream framework but tailored to fish passage projects. 
+  Metrics assessed included flow velocity, substrate condition, channel constriction, riparian condition, and cover 
+  availability.  
+  
+  <br>
+
+  
+A major challenge in advancing fish passage restoration is the complexity of working across jurisdictions and with multiple stakeholders—rail and highway authorities, forestry ministries, licensees, and private landowners. These partners are often being asked to accommodate priorities that originate outside their mandates and budgets. Convincing them to invest in difficult, high-cost interventions—like modifying crossings or relocating infrastructure—requires navigating uncertainty about costs and ecological outcomes, as well as a disconnect between the benefits to watershed health and the internal pressures or performance goals of these agencies. It’s a tough ask: to take on massive, uncertain projects when they’re already stretched thin with their own responsibilities.
+
+<br>
+
+Fish passage restoration  across British Columbia is further complicated by the legacy of infrastructure deeply embedded in the landscape. Roads, railways, highways, community infrastructure and private assets often constrain floodplains and disrupt natural hydrological processes. While targeted repairs to individual barriers are essential, they won’t resolve the broader systemic issues without rethinking and restructuring how infrastructure interacts with watershed function. Loss of riparian vegetation and intensive beaver management only add to the degradation. Addressing these challenges means making strategic, well-communicated choices—picking battles carefully, building trust, and staying committed to a longer-term transformation.
+
+<br>
+
+While preliminary top remediation priorities are provided by watershed group, these rankings are inherently subjective and can depend on the capacity and willingness of infrastructure owners and tenure holders to support implementation—both financially and over the often multi-year project timelines. In practice, we must often act opportunistically, pursuing simpler, lower-cost options to maintain momentum and achieve near-term progress.
+
+<br>
+
+To enhance fish passage restoration in the FWCP Peace Region:
+
+- Maintain strong partnerships to support funding, site selection, remediation, and monitoring through adaptive management informed by traditional knowledge and real-time data.
+- Prioritize detailed assessments in areas with blockages and high habitat potential, especially near McLeod Lake.
+- Use climate modeling to prioritize crossings that enable access to cold, drought-resistant habitats.
+- Secure financial commitments for Fern Creek remediation despite uncertainties in harvest planning.
+- Continue effectiveness monitoring at key sites using fish sampling, eDNA, PIT tagging, temperature data, and aerial imagery.
+- Continue to develop a cost-effective monitoring framework to assess productivity gains from improved passage.
+- Collaborate with WLRS, UNC, local fisheries experts, FWCP, and the CEMPRA Project working group.
+- Utilize environmental DNA (eDNA) to better understand bull trout and Arctic grayling habitat use at both potential and remediated sites. This will refine prioritization and assess fish passage effectiveness.  
+
+
+
+
