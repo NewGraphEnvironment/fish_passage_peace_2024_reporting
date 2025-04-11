@@ -5,32 +5,48 @@
 # `0165-read-sqlite.R` reads in the `bcfishpass` object
 source("scripts/02_reporting/0165-read-sqlite.R")
 
+# name the watershed groups in our study area
+wsg <- c('PARS', 'CARP', 'CRKD')
 
+
+
+# 1 - Retrieve the watershed polygons for the watersheds included in the project study area (big scale)  -------------------------------------------------
+
+# Grab the watershed polygons included in the project study area - this is displayed in the interactive map
+wshd_study_areas <- fpr::fpr_db_query(
+  glue::glue( "SELECT * FROM whse_basemapping.fwa_watershed_groups_poly a
+              WHERE a.watershed_group_code IN ({glue::glue_collapse(glue::single_quote(wsg), sep = ', ')})"
+  )) |>
+  # casts geometries to type "POLYGON" (instead of Multipolygon)
+  sf::st_cast("POLYGON") |>
+  sf::st_transform(crs = 4326)
+
+
+# Add to the sqlite
+conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+readwritesqlite::rws_list_tables(conn)
+
+# load the watersheds for the  phase 2 habitat confirmation sites
+readwritesqlite::rws_drop_table("wshd_study_areas", conn = conn) ##now drop the table so you can replace it
+readwritesqlite::rws_write(wshd_study_areas, exists = F, delete = TRUE,
+                           conn = conn, x_name = "wshd_study_areas")
+
+readwritesqlite::rws_list_tables(conn)
+readwritesqlite::rws_disconnect(conn)
+
+
+
+# 2 - Retrieve the upstream watershed stats and site elevations for the phase 2 habitat confirmation sites (small scale)  -------------------------------------------------
 
 ## Filter the bcfishpass data to just the phase 2 sites -------------------------------------------------
-
-# Just phase 2 sites
-# bcfishpass_phase2 <- bcfishpass |>
-#   dplyr::filter(
-#     stringr::str_detect(
-#       stream_crossing_id,
-#       paste0(pscis_phase2 |>
-#                pull(pscis_crossing_id),
-#              collapse = "|")
-#     ))
-
-# Phase 2 sites AND monitoring sites
 bcfishpass_phase2 <- bcfishpass |>
   dplyr::filter(
     stringr::str_detect(
       stream_crossing_id,
-      paste0(c(
-        pscis_phase2 |> pull(pscis_crossing_id),
-        form_monitoring |> pull(site_id)
-      ), collapse = "|")
-    )
-  )
-
+      paste0(pscis_phase2 |>
+               pull(pscis_crossing_id),
+             collapse = "|")
+    ))
 
 
 ## Remove crossings on first order streams -------------------------------------------------
@@ -168,7 +184,7 @@ wshds <-  dplyr::left_join(
 
 
 ## Add to the geopackage -------------------------------------------------
-path_gis_wshds <- fs::path("~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/fishpass_mapping.gpkg")
+path_gis_wshds <- fs::path("~/Projects/gis/sern_skeena_2023/data_field/2024/fishpass_mapping.gpkg")
 
 wshds |>
   sf::st_write(dsn = path_gis_wshds,
@@ -180,11 +196,11 @@ wshds |>
 ## Burn to a kml -------------------------------------------------
 #burn to kml as well so we can see elevations
 sf::st_write(wshds |>
-        rename(name = stream_crossing_id),
-         append = F,
-         delete_layer = T,
-         driver = 'kml',
-         dsn = "data/inputs_extracted/wshds.kml")
+               rename(name = stream_crossing_id),
+             append = F,
+             delete_layer = T,
+             driver = 'kml',
+             dsn = "data/inputs_extracted/wshds.kml")
 
 
 
@@ -193,6 +209,6 @@ conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_drop_table("wshds", conn = conn) ##now drop the table so you can replace it
 readwritesqlite::rws_write(wshds, exists = F, delete = TRUE,
-          conn = conn, x_name = "wshds")
+                           conn = conn, x_name = "wshds")
 readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_disconnect(conn)
