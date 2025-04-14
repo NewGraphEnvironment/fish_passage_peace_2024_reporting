@@ -36,24 +36,17 @@ Construction of the 183m high and 2134m long W.A.C. Bennett Dam was completed in
 <br>
 
 
-```{r fig-hydrology-plot-flow, eval = T, fig.dim = c(5.1, 3.4), fig.cap='Parsnip River Above Misinchinka River (Station #07EE007 - Lat 55.08194 Lon -122.913063). Available daily discharge data from 1967 to 2019.'}
-# knitr::include_graphics("fig/hydrology1-1.png")  ##left this here in case we want to go back to having this build from scratch.
+```{r fig-hydrology-plot-flow, eval = T, fig.dim = c(5.1, 3.4), fig.cap='Hydrograph for Parsnip River above Misinchinka River (Station #07EE007).'}
 
-# img <- png::readPNG("fig/hydrology1.png")
-# grid::grid.raster(img)
+plot1 <- fasstr::plot_longterm_monthly_stats(
+  station_number = "07EE007",
+  ignore_missing = TRUE
+)
 
-knitr::include_graphics("fig/hydrograph_07EE007.png")
+print(plot1$`Long-term_Monthly_Statistics`)
 
 ```
 
-<br>
-
-```{r fig-hydrology-plot-stats, fig.dim = c(5.1, 3.4), fig.cap="Summary discharge statistics (annual maximum, minimum, mean and standard deviation) for Parsnip River at hydrometric station #07EE007.", eval=FALSE}
-# img <- png::readPNG("fig/hydrology2.png")
-# grid::grid.raster(img)
-
-knitr::include_graphics("fig/hydrology_stats_07EE007.png")
-```
 
 ## Fisheries
 Fish species recorded in the Parsnip River watershed are detailed in Table \@ref(tab:fiss-species-table) [@data_fish_obs]. In addition to flooding related to the formation of the Williston Reservoir, transmission lines, gas pipelines, rail, road networks, forestry, elevated water temperatures, interrupted connectivity, invasion from non-native species and insect infestations affecting forested areas pose threats to fisheries values in the Parsnip River watershed  [@hagen_2015_critical_habs; @stamford_etal2017FWCPArctic; @bull_trout_synthesis; @bt_cosewic]. A brief summary of trends and knowledge status related to Arctic grayling, bull trout, kokanee, mountain whitefish and rainbow trout in Williston Watershed streams is provided in @fishandwildlifecompensationprogram2020PeaceRegion with a more detailed review of the state of knowledge for Parsnip River watershed populations of Arctic grayling and bull trout provided below.
