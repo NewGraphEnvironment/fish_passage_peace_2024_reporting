@@ -572,7 +572,7 @@ Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites with
 
 <br>
 
-Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_skeena_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
+Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
 
 <br>
 
