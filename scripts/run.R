@@ -20,8 +20,8 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
 
   # These files are included in the gitbook version already so we move them out of the build
   files_to_move <- list.files(pattern = ".Rmd$") |>
-    # 2400 is the phase 1 data and photos used in the pdf version
-    stringr::str_subset('2500', negate = F) #move the attachments out
+    # 2300 is the phase 1 data and photos used in the pdf version
+    stringr::str_subset('2300', negate = F) #move the attachments out
   files_destination <- paste0('hold/', files_to_move)
 
   ##move the files
