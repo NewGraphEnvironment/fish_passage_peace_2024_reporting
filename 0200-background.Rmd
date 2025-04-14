@@ -36,7 +36,7 @@ Construction of the 183m high and 2134m long W.A.C. Bennett Dam was completed in
 <br>
 
 
-```{r fig-hydrology-plot-flow, eval = T, fig.dim = c(5.1, 3.4), fig.cap='Hydrograph for Parsnip River above Misinchinka River (Station #07EE007).'}
+```{r fig-hydrology-plot-flow, fig.cap='Hydrograph for Parsnip River above Misinchinka River (Station #07EE007).', eval = T}
 
 plot1 <- fasstr::plot_longterm_monthly_stats(
   station_number = "07EE007",
