@@ -69,8 +69,8 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
 staticimports::import()
 source('scripts/staticimports.R')
 
-# define the _bookfile_name from _bookdown.yml
-filename_html <- 'fish_passage_peace_2024_reporting'
+# define the _bookfile_name from _bookdown.yml - need to run a chunk of  the index
+filename_html <- basename(params$repo_url)
 
 {
 
