@@ -47,6 +47,7 @@ print(plot1$`Long-term_Monthly_Statistics`)
 
 ```
 
+<br>
 
 ## Fisheries
 Fish species recorded in the Parsnip River watershed are detailed in Table \@ref(tab:fiss-species-table) [@data_fish_obs]. In addition to flooding related to the formation of the Williston Reservoir, transmission lines, gas pipelines, rail, road networks, forestry, elevated water temperatures, interrupted connectivity, invasion from non-native species and insect infestations affecting forested areas pose threats to fisheries values in the Parsnip River watershed  [@hagen_2015_critical_habs; @stamford_etal2017FWCPArctic; @bull_trout_synthesis; @bt_cosewic]. A brief summary of trends and knowledge status related to Arctic grayling, bull trout, kokanee, mountain whitefish and rainbow trout in Williston Watershed streams is provided in @fishandwildlifecompensationprogram2020PeaceRegion with a more detailed review of the state of knowledge for Parsnip River watershed populations of Arctic grayling and bull trout provided below.
