@@ -379,7 +379,7 @@ crossing structure are also included within an `sqlite` database within this yea
 Initial mapping of stream discharge and temperature causal effects pathways for the future purpose of focusing aquatic restoration 
 actions in areas of highest potential for positive impacts on fisheries values (ie. elimination of areas from intrinsic models 
 where water temperatures are likely too cold to support fish production) are detailed in @hill_etal2024Spatialstream which is 
-included as [Attachment 3](#attach-bayes). 
+included as [Attachment - Water Temperature Modelling](#attach-bayes). 
 
 ## Fish Passage Assessemnts
 
@@ -423,11 +423,12 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @mo
 
 ## Habitat Confirmation Assessments
 
-During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in `r knitr::asis_output(if (gitbook_on) "[Attachment 1](#attach-1-maps)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "attach-1-maps.html", anchor_text = "Attachment 1"))`.
+During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in [Attachment - Maps](#attach-maps).
 
 <br>
 
-As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in `r knitr::asis_output(if (gitbook_on) "[Attachment 2](#raw-dat)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "raw-dat.html", anchor_text = "Attachment 2"))`. A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+
 
 `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
 
@@ -567,7 +568,7 @@ bcfishpass_phase2_plot_prep |>
 
 ### Fish Sampling
 
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in `r knitr::asis_output(if (gitbook_on) "[Attachment 2](#raw-dat)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "raw-dat.html", anchor_text = "Attachment 2"))`. A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
+Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
 
 <br>
 
