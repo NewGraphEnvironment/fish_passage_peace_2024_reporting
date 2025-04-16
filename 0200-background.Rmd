@@ -1,5 +1,13 @@
 # Background
 
+```{r setup-background}
+# See https://github.com/NewGraphEnvironment/mybookdown-template/issues/64
+ knitr::opts_chunk$set(fig.path = "fig/background/", dev = "png")
+ 
+```
+
+## Project Location
+
 The study area includes the FWCP Peace Region with a focus to date on traditional territories of the Tse'khene First Nations.
 In 2024, field assessments were completed with the Parsnip River, Carp River and Crooked River watershed groups (Figure \@ref(fig:overview-map)).  
 
