@@ -184,7 +184,7 @@ wshds <-  dplyr::left_join(
 
 
 ## Add to the geopackage -------------------------------------------------
-path_gis_wshds <- fs::path("~/Projects/gis/sern_skeena_2023/data_field/2024/fishpass_mapping.gpkg")
+path_gis_wshds <- fs::path("~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/fishpass_mapping.gpkg")
 
 wshds |>
   sf::st_write(dsn = path_gis_wshds,

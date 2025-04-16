@@ -392,7 +392,7 @@ but also for detecting change following restoration.
 
 To support consistent and targeted assessment, a custom field form was developed for routine effectiveness monitoring based
 loosely on @forestinvestmentaccount2003Guidelinesinstream but tailored specifically for fish passage projects. 
-Table \@ref(tab:tab-monitoring-metrics)) outlines the monitoring metrics used.
+Table \@ref(tab:tab-monitoring-metrics) outlines the monitoring metrics used.
 
 <br>
 
