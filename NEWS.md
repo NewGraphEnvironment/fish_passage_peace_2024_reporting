@@ -1,3 +1,11 @@
+# fish_passage_peace_2024_reporting 0.1.1 (2025-04-23)
+
+- add table of modelling outputs for each crossing to results
+- pull UAV summary from amalgamated results as per https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/issues/26
+- Convert amalgamated summary of sites completed to kable so can be included in pdf report
+- all updates as per https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/pull/23
+
+
 # fish_passage_peace_2024_reporting 0.1.0 (2025-03-31)
 
 - add Exec summary
