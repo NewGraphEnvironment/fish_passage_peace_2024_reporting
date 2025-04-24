@@ -23,9 +23,9 @@ map <- leaflet::leaflet(height=500, width=780) |>
   # leaflet::addProviderTiles(providers$"Esri.DeLorme") |> 
   leaflet::addProviderTiles("Esri.WorldTopoMap", group = "Topo") |>
   leaflet::addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") |> 
-  # leaflet::addPolygons(data = wshd_study_areas, color = "#F29A6E", weight = 1, smoothFactor = 0.5,
-  #             opacity = 1.0, fillOpacity = 0,
-  #             fillColor = "#F29A6E", label = wshd_study_areas$watershed_group_name) |>
+  leaflet::addPolygons(data = wshd_study_areas, color = "#F29A6E", weight = 1, smoothFactor = 0.5,
+              opacity = 1.0, fillOpacity = 0,
+              fillColor = "#F29A6E", label = wshd_study_areas$watershed_group_name) |>
   leaflet::addPolygons(data = wshds, color = "#0859C6", weight = 1, smoothFactor = 0.5,
               opacity = 1.0, fillOpacity = 0.25,
               fillColor = "#00DBFF",
@@ -117,6 +117,10 @@ map
 ## Site Assessment Data Since 2019
 
 Fish passage assessment procedures conducted through FWCP in the Peace River Region since 2019 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap).")}`
+
+<br>
+
+Since 2019, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at", params$report_url, "/results-and-discussion.html")))`. 
 
 <br>
 
@@ -212,6 +216,90 @@ sites_all |>
   )
 ```
 
+<br>
+
+```{r api1, eval = F}
+
+# only needs to be run at the beginning or if we want to update
+
+# Grab the imagery from the stac
+
+# bc bounding box
+bcbbox <-  as.numeric(
+  sf::st_bbox(bcmaps::bc_bound()) |> sf::st_transform(crs = 4326)
+)
+
+# use rstac to query the collection
+q <- rstac::stac("https://images.a11s.one/") |>
+    rstac::stac_search(
+      # collections = "uav-imagery-bc",
+      collections = "imagery-uav-bc-prod",
+                      bbox = bcbbox
+                      
+                     ) |>
+  rstac::post_request()
+
+# get deets of the items
+r <- q |>
+  rstac::items_fetch()
+```
+
+
+```{r uav-clean-burn, eval = F}
+
+# build the table to display the info
+tab_uav <- tibble::tibble(url_download = purrr::map_chr(r$features, ~ purrr::pluck(.x, "assets", "image", "href"))) |> 
+  dplyr::mutate(stub = stringr::str_replace_all(url_download, "https://imagery-uav-bc.s3.amazonaws.com/", "")) |> 
+  tidyr::separate(
+    col = stub, 
+    into = c("region", "watershed_group", "year", "item", "rest"),
+    sep = "/",
+    extra = "drop"
+  ) |> 
+  dplyr::mutate(
+    link_view = 
+                  dplyr::case_when(
+                    !tools::file_path_sans_ext(basename(url_download)) %in% c("dsm", "dtm") ~ 
+                      ngr::ngr_str_link_url(
+                        url_base = "https://viewer.a11s.one/?cog=",
+                        url_resource = url_download, 
+                        url_resource_path = FALSE,
+                        # anchor_text= "URL View"
+                        anchor_text= tools::file_path_sans_ext(basename(url_download))),
+                    T ~ "-"),
+                        link_download = ngr::ngr_str_link_url(url_base = url_download, anchor_text = url_download)
+    )|> 
+  dplyr::select(region, watershed_group, year, item, link_view, link_download)
+
+
+# grab the imagery for this project area
+project_region <- "mackenzie"
+
+project_uav <- tab_uav |> 
+  dplyr::filter(region == project_region)
+
+# Burn to sqlite 
+conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+readwritesqlite::rws_list_tables(conn)
+readwritesqlite::rws_drop_table("project_uav", conn = conn)
+readwritesqlite::rws_write(project_uav, exists = F, delete = TRUE,
+                           conn = conn, x_name = "project_uav")
+readwritesqlite::rws_disconnect(conn)
+
+```
+
+```{r tab-uav-imagery-cap, results="asis", eval= gitbook_on}
+my_caption <- "Drone imagery download and viewer links."
+
+my_tab_caption()
+```
+
+```{r tab-uav-imagery, eval= gitbook_on}
+project_uav |>
+  my_dt_table(cols_freeze_left = 2, escape = FALSE)
+```
+
+
 `r if(gitbook_on){knitr::asis_output("<br>")}`
 
 ## Collaborative GIS Environment
@@ -291,7 +379,7 @@ crossing structure are also included within an `sqlite` database within this yea
 Initial mapping of stream discharge and temperature causal effects pathways for the future purpose of focusing aquatic restoration 
 actions in areas of highest potential for positive impacts on fisheries values (ie. elimination of areas from intrinsic models 
 where water temperatures are likely too cold to support fish production) are detailed in @hill_etal2024Spatialstream which is 
-included as [Attachment 3](#attach-bayes). 
+included as [Attachment - Water Temperature Modelling](#attach-bayes). 
 
 ## Fish Passage Assessemnts
 
@@ -309,7 +397,7 @@ Reassessments were completed at `r pscis_reassessments |> nrow()` sites where PS
 
 <br>
 
-A summary of crossings assessed, a rough cost estimate for remediation, and a priority ranking for follow-up for Phase 1 sites is presented in Table \@ref(tab:cost-est-phase-1). Detailed data with photos are presented in `r if(gitbook_on){knitr::asis_output("[Appendix - Phase 1 Fish Passage Assessment Data and Photos]")} else knitr::asis_output(ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "appendix---phase-1-fish-passage-assessment-data-and-photos.html", anchor_text = "Appendix 1"))`.
+A summary of crossings assessed, a rough cost estimate for remediation, and a priority ranking for follow-up for Phase 1 sites is presented in Table \@ref(tab:cost-est-phase-1). Detailed data with photos are presented in `r if(gitbook_on){knitr::asis_output("[Appendix - Phase 1 Fish Passage Assessment Data and Photos]")}else(knitr::asis_output("[Attachment - Phase 1 Data and Photos](#attach-pdf-phase1-dat)"))`.
 
 
 <br>
@@ -335,11 +423,12 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @mo
 
 ## Habitat Confirmation Assessments
 
-During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in `r knitr::asis_output(if (gitbook_on) "[Attachment 1](#attach-1-maps)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "attach-1-maps.html", anchor_text = "Attachment 1"))`.
+During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in [Attachment - Maps](#attach-maps).
 
 <br>
 
-As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in `r knitr::asis_output(if (gitbook_on) "[Attachment 2](#raw-dat)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "raw-dat.html", anchor_text = "Attachment 2"))`. A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+
 
 `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
 
@@ -479,11 +568,11 @@ bcfishpass_phase2_plot_prep |>
 
 ### Fish Sampling
 
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in `r knitr::asis_output(if (gitbook_on) "[Attachment 2](#raw-dat)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "raw-dat.html", anchor_text = "Attachment 2"))`. A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
+Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
 
 <br>
 
-Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_skeena_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
+Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
 
 <br>
 
@@ -527,97 +616,29 @@ plot_fish_box_all
 <br>
 
 ```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = T}
-knitr::include_graphics("fig/fish_histogram.png")
 
-```
+# Fish histogram -----------------------------------------------------------------------
+bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
+bin_n <- ceiling(max(fish_data_complete$length, na.rm = TRUE) / 5) * 5
+bins <- seq(bin_1, bin_n, by = 5)
 
+# Check what species we have and filter out any we don't want
+# fish_data_complete |> dplyr::distinct(species)
 
+plot_fish_hist <- ggplot2::ggplot(
+  fish_data_complete |> dplyr::filter(!species %in% c('Fish Unidentified Species', 'Sculpin (General)', 'NFC')),
+  ggplot2::aes(x = length)
+) +
+  ggplot2::geom_histogram(breaks = bins, alpha = 0.75,
+                          position = "identity", size = 0.75) +
+  ggplot2::labs(x = "Fork Length (mm)", y = "Count (#)") +
+  ggplot2::facet_wrap(~species) +
+  ggplot2::theme_bw(base_size = 8) +
+  ggplot2::scale_x_continuous(breaks = bins[seq(1, length(bins), by = 2)]) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
 
-### Aerial Imagery
+plot_fish_hist
 
-Orthoimagery has been gathered for several crossings as part of fish passage restoration planning efforts in the Peace River watershed. Data has been stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = "here"))`. 
-
-<br>
-
-```{r api1, eval = F}
-
-# only needs to be run at the beginning or if we want to update
-
-# Grab the imagery from the stac
-
-# bc bounding box
-bcbbox <-  as.numeric(
-  sf::st_bbox(bcmaps::bc_bound()) |> sf::st_transform(crs = 4326)
-)
-
-# use rstac to query the collection
-q <- rstac::stac("https://images.a11s.one/") |>
-    rstac::stac_search(
-      # collections = "uav-imagery-bc",
-      collections = "imagery-uav-bc-prod",
-                      bbox = bcbbox
-                      
-                     ) |>
-  rstac::post_request()
-
-# get deets of the items
-r <- q |>
-  rstac::items_fetch()
-```
-
-
-```{r uav-clean-burn, eval = F}
-
-# build the table to display the info
-tab_uav <- tibble::tibble(url_download = purrr::map_chr(r$features, ~ purrr::pluck(.x, "assets", "image", "href"))) |> 
-  dplyr::mutate(stub = stringr::str_replace_all(url_download, "https://imagery-uav-bc.s3.amazonaws.com/", "")) |> 
-  tidyr::separate(
-    col = stub, 
-    into = c("region", "watershed_group", "year", "item", "rest"),
-    sep = "/",
-    extra = "drop"
-  ) |> 
-  dplyr::mutate(
-    link_view = 
-                  dplyr::case_when(
-                    !tools::file_path_sans_ext(basename(url_download)) %in% c("dsm", "dtm") ~ 
-                      ngr::ngr_str_link_url(
-                        url_base = "https://viewer.a11s.one/?cog=",
-                        url_resource = url_download, 
-                        url_resource_path = FALSE,
-                        # anchor_text= "URL View"
-                        anchor_text= tools::file_path_sans_ext(basename(url_download))),
-                    T ~ "-"),
-                        link_download = ngr::ngr_str_link_url(url_base = url_download, anchor_text = url_download)
-    )|> 
-  dplyr::select(region, watershed_group, year, item, link_view, link_download)
-
-
-# grab the imagery for this project area
-project_region <- "mackenzie"
-
-project_uav <- tab_uav |> 
-  dplyr::filter(region == project_region)
-
-# Burn to sqlite 
-conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
-readwritesqlite::rws_list_tables(conn)
-readwritesqlite::rws_drop_table("project_uav", conn = conn)
-readwritesqlite::rws_write(project_uav, exists = F, delete = TRUE,
-                           conn = conn, x_name = "project_uav")
-readwritesqlite::rws_disconnect(conn)
-
-```
-
-```{r tab-uav-imagery-cap, results="asis", eval= gitbook_on}
-my_caption <- "Drone imagery download and viewer links."
-
-my_tab_caption()
-```
-
-```{r tab-uav-imagery, eval= gitbook_on}
-project_uav |>
-  my_dt_table(cols_freeze_left = 2, escape = FALSE)
 ```
 
 
@@ -626,7 +647,6 @@ project_uav |>
 No new designs were commissioned in 2024 due to uncertainty related to forest harvesting activities and lack of funding
 for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Design = yes")}`.
 
-<br>
 
 ## Remediations
 
@@ -637,7 +657,6 @@ on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge b
 
 All sites where remediation of fish passage has been completed can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Remediation = yes")}`. 
 
-<br>
 
 ## Monitoring
 
