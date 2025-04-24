@@ -116,7 +116,7 @@ map
 
 ## Site Assessment Data Since 2019
 
-Fish passage assessment procedures conducted through FWCP in the Peace River Region since 2019 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap).")}`
+Fish passage assessment procedures conducted through FWCP in the Peace River Region since 2019 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0(" within Table \\@ref(tab:tab-sites-sum-kable) - with detailed outputs located online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-kable)) - \\@ref(tab:tab-sites-cap).")}`
 
 <br>
 
@@ -174,18 +174,28 @@ sites_all_summary <- sites_all |>
     dplyr::mutate(across(everything(), as.character))
 ```
 
-```{r tab-sites-sum-cap, results="asis", eval = gitbook_on}
+```{r tab-sites-sum-cap, results="asis", eval = F}
 my_caption = "Summary of fish passage assessment procedures conducted in the FWCP Peace Region since 2019."
 my_tab_caption(tip_flag = F)
 
 ```
 
-```{r tab-sites-sum, eval = gitbook_on}
+```{r tab-sites-sum, eval = F}
 sites_all_summary |> 
   my_dt_table(
     page_length = 20,
     cols_freeze_left = 0
               )
+```
+
+```{r tab-sites-sum-kable}
+my_caption = "Summary of fish passage assessment procedures conducted by SERNbc in the FWCP Peace Region since 2019."
+sites_all_summary |> 
+  fpr::fpr_kable(
+    caption_text = my_caption,
+    scroll = gitbook_on,
+        scroll_box_height = "200px",
+    )
 ```
 
 `r if(gitbook_on){knitr::asis_output("<br>")}`

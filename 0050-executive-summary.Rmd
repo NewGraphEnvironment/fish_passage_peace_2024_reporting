@@ -34,7 +34,7 @@ were previously documented within the reports linked below.
 - [Restoring Fish Passage in the Peace Region - 2023](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/){target="_blank"} [@irvine_winterscheidt2024RestoringFish]
 
 
-Fish passage assessment procedures conducted through SERNbc in the Peace River Watershed since 2020 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`
+Fish passage assessment procedures conducted through SERNbc in the Peace River Watershed since 2020 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("within Table \\@ref(tab:tab-sites-sum-kable) - with detailed outputs located online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-kable) - \\@ref(tab:tab-sites-cap)")}`
 which includes links to project reporting for each site.  
 
 <br>
