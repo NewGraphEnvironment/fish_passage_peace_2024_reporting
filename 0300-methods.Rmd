@@ -141,7 +141,7 @@ The data used for the model were sourced from the following locations, for years
   
 ### Bull Trout and Arctic Grayling Critical Habitat
 
-We have incorporate Arctic Grayling  critical habitat data related to @bottoms_etal2023Criticalhabitats work on
+We have incorporate Arctic grayling critical habitat data related to @bottoms_etal2023Criticalhabitats work on
 grayling in the Peace region and are custodianing 
   
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\newpage")`
@@ -356,7 +356,9 @@ Fish sampling was conducted on a subset of sites when biological data was consid
 
 
 #### Fish Handling and Processing
-Captured fish were held in buckets with sufficient water to minimize stress until processing, and multiple buckets were used when catch numbers were high. For each fish captured, fork length, weight and species was recorded with results documented in the fish data submission spreadsheet.
+Captured fish were held in buckets with sufficient water to minimize stress until processing, and multiple buckets were used when catch numbers were high. For each fish captured, fork length, weight and species was recorded in accordance with the provincial [Fish Data Submission Template](
+https://www2.gov.bc.ca/gov/content/environment/plants-animals-ecosystems/fish/fish-and-fish-habitat-data-information/fish-data-submission/submit-fish-data). 
+
 
 #### Pit Tagging
 
