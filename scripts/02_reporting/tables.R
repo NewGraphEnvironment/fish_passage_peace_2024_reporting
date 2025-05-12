@@ -48,7 +48,7 @@ rear_gradient <- bcfishpass_spawn_rear_model |>
   dplyr::mutate(rear_gradient_max = round((rear_gradient_max*100), 1)) |>
   dplyr::pull(rear_gradient_max)
 
-sp_rearing_caption <- paste0(model_species_name," rearing model used for habitat estimates (total length of stream network <", rear_gradient, "% gradient).")
+sp_rearing_caption <- paste0(model_species_name," rearing model used for habitat estimates (total length of stream network &lt;", rear_gradient, "% gradient).")
 
 
 #pull out the max spawning gradient as well, used in the caption for plot-model-all
