@@ -570,6 +570,8 @@ tab_cost_est_phase2 |>
 
 ```{r tab-wshd-sum-all}
 fpr::fpr_table_wshd_sum() |> 
+  #exclude stats for 125179 because not a hab con sites, but stats needed for memo
+  dplyr::filter(Site != 125179) |> 
   fpr::fpr_kable(caption_text = paste0('Summary of watershed area statistics upstream of Phase 2 crossings.'),
                                  footnote_text = 'Elev P60 = Elevation at which 60% of the watershed area is above', scroll = F)
 
