@@ -638,22 +638,34 @@ tab_fish_summary |>
   stringr::str_to_lower() 
 ```
 
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured, including rainbow trout and sculpin (general). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). Fork length, weight, and species were documented for each fish. Rainbow trout with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate rainbow trout based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) with results visually presented in Figure \@ref(fig:fish-histogram). Rainbow trout density results (fish/100m²) upstream and downstream of crossings are summarized by site and life stage in Figure \@ref(fig:plot-fish-all).
+Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::filter(species != "NFC") |>  dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured, including `r tab_fish_summary |> dplyr::filter(species == "Rainbow Trout") |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` rainbow trout and `r tab_fish_summary |> dplyr::filter(species == "Sculpin (General)") |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` sculpin (general). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary) with site-specific abundance and density results presented in Table \@ref(tab:tab-fish-dens). 
+<br>
+
+Fork length, weight, and species were documented for each fish. Rainbow trout with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate rainbow trout based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) with results visually presented in Figure \@ref(fig:fish-histogram). Rainbow trout density results (fish/100m²) upstream and downstream of crossings are summarized by site and life stage in Figure \@ref(fig:plot-fish-all). Sculpin (general) were excluded from figures as they are not a target species for this project. Raw data is provided in [Attachment - Data](#attach-dat).
 
 <br>
 
 Sites were sampled to support baseline data collection, effectiveness monitoring, follow-up sampling, or reference comparisons, with detailed results presented across multiple reporting years. Individual site-specific appendices in this report include results for PSCIS crossings 198692 (baseline sampling), 125179 (effectiveness monitoring), and 125180 (reference site comparison to 125179). In the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting), results are available for crossings 125231 (effectiveness monitoring) and 125261 (baseline sampling). Crossing 125194 was sampled as follow-up to a 2022 habitat confirmation assessment, with results presented in the [2022 report](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/). Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
 
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("<br><br><br><br>")`
+<br>
 
 ```{r tab-fish-site-summary}
 tab_fish_sites_sum |> 
-  fpr::fpr_kable(caption_text = 'Summary of electrofishing sites.')
+  fpr::fpr_kable(caption_text = 'Summary of electrofishing site characteristics.',
+                 scroll = gitbook_on)
 ```
 
 <br>
 
-```{r fish-histogram, fig.cap= 'Histogram of rainbow trout fork lengths captured by electrofishing.', eval = T}
+```{r tab-fish-dens}
+fish_abund |> 
+  fpr::fpr_kable(caption_text = 'Summary of species abundance and density at electrofishing sites.',
+                 scroll = gitbook_on)
+```
+
+<br>
+
+```{r fish-histogram, fig.cap= 'Histogram of rainbow trout fork lengths captured by electrofishing (n = 301).', eval = T}
 
 # Fish histogram -----------------------------------------------------------------------
 bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
