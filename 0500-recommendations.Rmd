@@ -13,14 +13,16 @@ While preliminary top remediation priorities are provided by watershed group, th
 
 <br>
 
-Government, community groups, landowners, non-profits, industry and other stakeholders should work collaboratively to address high and moderate priority barriers identified `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap)")}`. Although the table presents many options - currently - linked reports specify whether each site is a low, moderate, or high priority. Progress on any front is meaningful, and aiming to remediate at least one high-priority site per year per watershed group—regardless of its overall rank—is a practical and effective approach.
+Government, community groups, landowners, non-profits, industry and other stakeholders should work collaboratively to address high and moderate priority barriers identified `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap)")}`. Although the table presents many options - currently - linked reports specify whether each site is a low, moderate, or high priority. Progress on any front is meaningful, and aiming to remediate at least one high-priority site per year per watershed group is a practical and effective approach.
+
+<br>
 
 To enhance fish passage restoration in the FWCP Peace Region:
 
 - Maintain strong partnerships to support funding, site selection, remediation, and monitoring through adaptive management informed by traditional knowledge and real-time data.
 - Prioritize detailed assessments in areas with blockages and high habitat potential, especially near McLeod Lake.
 - Use climate modeling to prioritize crossings that enable access to cold, drought-resistant habitats.
-- Secure financial commitments for Fern Creek remediation despite uncertainties in harvest planning.
+- Secure financial commitments for Fern Creek (PSCIS 125261) remediation despite uncertainties in harvest planning.
 - Continue effectiveness monitoring at key sites using fish sampling, eDNA, PIT tagging, temperature data, and aerial imagery.
 - Continue to develop a cost-effective monitoring framework to assess productivity gains from improved passage.
 - Collaborate with WLRS, UNC, local fisheries experts, FWCP, and the CEMPRA Project working group.
