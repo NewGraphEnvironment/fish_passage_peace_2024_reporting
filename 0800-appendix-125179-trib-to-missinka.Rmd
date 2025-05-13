@@ -23,7 +23,7 @@ my_site2 <- 125180
 
 ## Site Location {.unnumbered}
 
-PSCIS crossing `r as.character(my_site)` is located on a `r fpr_my_pscis_info(dat = form_monitoring, site = my_site)`, between kilometer 3 and 4 of `r fpr_my_pscis_info(dat = form_monitoring, col_pull = road_name, site = my_site)`. The crossing is located approximately 660m east of PSCIS crossing 125180 and joins this adjacent stream just before emptying into the Missinka River, approximately 1km downstream. At the crossing location, the road is the responsibility of Sinclar Forest Group R01821 51A. The crossing is within the Parsnip River watershed group.
+PSCIS crossing `r as.character(my_site)` is located on a `r fpr_my_pscis_info(dat = form_monitoring, site = my_site)`, between kilometer 3 and 4 of `r fpr_my_pscis_info(dat = form_monitoring, col_pull = road_name, site = my_site)`, in the Parsnip River watershed group. The crossing is located approximately 660m east of PSCIS crossing 125180 and joins this adjacent stream just before emptying into the Missinka River, approximately 1km downstream. At the crossing location, the road is the responsibility of Sinclar Forest Group R01821 51A.
 
 <br>
 
@@ -60,7 +60,7 @@ fpr::fpr_table_wshd_sum(site_id = my_site) |>
 
 ## Monitoring {.unnumbered}
 
-### Effectiveness Monitoring Checklist
+### Effectiveness Monitoring Checklist {-}
 
 Monitoring results gathered on a effectiveness monitoring checklist are summarised in Table \@ref(tab:tab-monitoring-125179). In general - the structure appeared stable with no maintenance required at the time of reporting. Lessons learned from the work - to be leveraged towards future projects - include reducing the amount of riprap material placed within the bankfull channel width and replanting of areas where riparian vegetation is removed during construction. Photos showing a comparison of the culvert assessment conducted in 2019 versus the completed bridge construction in 2024 are presented in `r if(gitbook_on){knitr::asis_output("Figures \\@ref(fig:photo-125179-01) - \\@ref(fig:photo-125179-02).")}else(knitr::asis_output("Figure \\@ref(fig:photo-125179-d01)."))`
 
@@ -83,11 +83,22 @@ tab_monitoring |>
 
 ### Fish Sampling {.unnumbered}
 
-As per recommendations in @irvine2020ParsnipRiver and @irvine_winterscheidt2023RestoringFish - to provide reference site data for comparison, electrofishing was conducted not only at the site of the remediation - but also at PSCIS crossing 125180, a similarly sized culverted stream - located approximately 660m east of the subject crossing [@irvine_winterscheidt2023RestoringFish; @irvine2020ParsnipRiver]. Another site (PSCIS crossing 125186) was also scoped for potential as as reference site - however the stream was almost completely dry in 2024 (with the exception of the outlet pool and intermittent shallow pool sections).  
+Electrofishing was conducted downstream and upstream of the PSCIS crossing `r as.character(my_site)` with results summarised in Tables \@ref(tab:tab-fish-site-125179) - \@ref(tab:tab-fish-dens-125179) and Figure \@ref(fig:plot-fish-box-125179). A total of `r tab_fish_summary |> filter(site_id == paste0(my_site, '_ds')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured downstream and `r tab_fish_summary |> filter(site_id == paste0(my_site, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured upstream of crossing `r as.character(my_site)` `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-03) - \\@ref(fig:photo-125179-04)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d02))."))`
 
 <br>
 
-Upstream on the reference site (`125180_us_ef1`) - fish lengths and weights were recorded, and all fish with a fork length greater than 60mm were tagged with Passive Integrated Transponders (PIT tags - data stored [here](r paste0(params$repo_url, "blob/main/data/2024_fish_data_tags_joined.csv")). On the first sampling event downstream (`125180_ds_ef1`) - only species and length data was collected.  However, the same site was revisited a few days later (`125180_ds_ef2`) with length/weight collected and PIT tagging conducted. Results are summarised in Tables \@ref(tab:tab-fish-site-125179) - \@ref(tab:tab-fish-dens-125179) and Figure \@ref(fig:plot-fish-box-125179).
+As per recommendations in @irvine2020ParsnipRiver and @irvine_winterscheidt2023RestoringFish - to provide reference site data for comparison, electrofishing was conducted not only at the site of the remediation (PSCIS `r as.character(my_site)`) - but also at PSCIS crossing 125180, a similarly sized culverted stream - located approximately 660m east of the subject crossing [@irvine_winterscheidt2023RestoringFish; @irvine2020ParsnipRiver]. Another site (PSCIS crossing 125186) was also scoped as a potential reference site - however the stream was almost completely dry in 2024 (with the exception of the outlet pool and intermittent shallow pool sections).  
+
+<br>
+
+Upstream on the reference site (`125180_us_ef1`) - fish lengths and weights were recorded, and all fish with a fork length greater than 60mm were tagged with Passive Integrated Transponders (PIT tags - data stored [here](r paste0(params$repo_url, "blob/main/data/2024_fish_data_tags_joined.csv")). On the first sampling event downstream (`125180_ds_ef1`) - only species and length data was collected.  However, the same site was revisited a few days later (`125180_ds_ef2`) with length/weight collected and PIT tagging conducted. Results are summarised in Tables \@ref(tab:tab-fish-site-125180) - \@ref(tab:tab-fish-dens-125180) and Figure \@ref(fig:plot-fish-box-125179).
+
+<br>
+
+A total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds') & ef == "ef1") |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured downstream during the first sampling event (`125180_ds_ef1`), and `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured upstream `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-05) - \\@ref(fig:photo-125179-06)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d03))."))` During the second downstream sampling event (when PIT tagging was conducted - `125180_ds_ef2`), a total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds') & ef == "ef2") |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured. The lower density of rainbow trout parr captured on the second round of sampling within the same section of stream is not surprising since disturbance of the site and handling of fish a few days earlier likely impacted the recapture rate.
+
+<br>
+
 
 ```{r eval=F}
 # species captured downstream
@@ -106,17 +117,10 @@ tab_fish_summary |>
 
 ```
 
-A total of `r tab_fish_summary |> filter(site_id == paste0(my_site, '_ds')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured downstream and `r tab_fish_summary |> filter(site_id == paste0(my_site, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured upstream of crossing `r as.character(my_site)` `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-03) - \\@ref(fig:photo-125179-04)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d02))."))`
-
-
-<br>
-
-A total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds') & ef == "ef1") |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured downstream during the first sampling event (`125180_ds_ef1`), and `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_us')) |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured upstream `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-125179-05) - \\@ref(fig:photo-125179-06)).")}else(knitr::asis_output("(Figures \\@ref(fig:photo-125179-d03))."))` During the second downstream sampling event (when PIT tagging was conducted - `125180_ds_ef2`), a total of `r tab_fish_summary |> filter(site_id == paste0(my_site2, '_ds') & ef == "ef2") |> group_by(site_id) |> janitor::adorn_totals() |> filter(site_id == 'Total') |> pull(count_fish)` rainbow trout were captured. The lower density of rainbow trout parr captured on the second round of sampling within the same section of stream is not surprising since disturbance of the site and handling of fish a few days earlier likely impacted the recapture rate.
-
-<br>
-
 ## Conclusion {.unnumbered}
 Fish passage at crossing `r as.character(my_site)` was restored in the summer of 2022 with a 15m steel girder permanent bridge with modular timber decks. Partial funding for the project was provided by FWCP through coordination from SERNbc. Effectiveness monitoring at the site was conducted in 2024 with the structure in stable condition with no maintenance required at the time of reporting. Lessons learned from the work - to be leveraged towards future projects - include reducing the amount of riprap material placed within the bankfull channel width and replanting of areas where riparian vegetation is removed during construction.
+
+<!-- This outcome provides a clear example of successful implementation and informs future restoration design and prioritization efforts, helping to build confidence among stakeholders in the Phase 2 process and associated recommendations for high-priority systems. -->
 
 <br>
 
