@@ -494,7 +494,7 @@ An overview of site characteristics, fish presence, and priority ranking is prov
 
 Modelled estimates of rearing and spawning habitat potentially accessible upstream are shown in Figure \@ref(fig:plot-model-all). Modelling data for all crossings assessed are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-bcfishpass-sum-cap)")}`. Raw habitat and fish sampling data are included in [Attachment - Data](#attach-dat). Detailed site-level information (including maps) is available in the appendices.
 
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("<br><br><br><br>")`
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 
 ```{r tab-overview, eval = TRUE}
@@ -532,16 +532,14 @@ tab_hab_summary |>
 
 ```
 
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+<br>
 
 ```{r phase-2-cv-assess-sum}
 fpr::fpr_table_cv_summary(dat = pscis_phase2)  |>  
   fpr::fpr_kable(caption_text = 'Summary of Phase 2 fish passage reassessments.', scroll = F)
 ```
 
-
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
-
+<br>
 
 ```{r cost-est-phase-2, eval=T}
 tab_cost_est_phase2 |>
@@ -562,9 +560,6 @@ tab_cost_est_phase2 |>
                  scroll = F)
 
 ```
-
-
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 <br>
 
@@ -634,7 +629,16 @@ bcfishpass_phase2_plot_prep |>
 
 ### Fish Sampling
 
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) with results visually presented in Figure \@ref(fig:fish-histogram). Fish density results (fish/100m²) upstream and downstream of crossings are summarized by site and life stage in Figure \@ref(fig:plot-fish-all).
+```{r fiss-species, eval = F}
+tab_fish_summary |>
+  dplyr::ungroup() |>
+  dplyr::filter(species != "NFC") |>
+  dplyr::distinct(species) |>
+  dplyr::pull(species) |> 
+  stringr::str_to_lower() 
+```
+
+Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured, including rainbow trout and sculpin (general). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). Fork length, weight, and species were documented for each fish. Rainbow trout with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate rainbow trout based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) with results visually presented in Figure \@ref(fig:fish-histogram). Rainbow trout density results (fish/100m²) upstream and downstream of crossings are summarized by site and life stage in Figure \@ref(fig:plot-fish-all).
 
 <br>
 
@@ -649,7 +653,7 @@ tab_fish_sites_sum |>
 
 <br>
 
-```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = T}
+```{r fish-histogram, fig.cap= 'Histogram of rainbow trout fork lengths captured by electrofishing.', eval = T}
 
 # Fish histogram -----------------------------------------------------------------------
 bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
