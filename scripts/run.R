@@ -92,13 +92,14 @@ filename_html <- basename(params$repo_url)
     timeout = 180
   )
 
+  # for peace 2024 - don't compact pdf because it reduces quality too much and the map isn't legible - pdf is already small (9.4mb) so doesn't need to be compacted
   # reduce the size
-  tools::compactPDF(paste0("docs/", filename_html, ".pdf"),
-                    gs_quality = 'ebook',
-                    ##this was on the windows machine
-                    # gs_cmd = "C:/Program Files/gs/gs9.56.1/bin/gswin64.exe"
-                    gs_cmd = "/opt/homebrew/bin/gs"
-  )
+  # tools::compactPDF(paste0("docs/", filename_html, ".pdf"),
+  #                   gs_quality = 'ebook',
+  #                   ##this was on the windows machine
+  #                   # gs_cmd = "C:/Program Files/gs/gs9.56.1/bin/gswin64.exe"
+  #                   gs_cmd = "/opt/homebrew/bin/gs"
+  # )
 
   # get rid of the html as its too big and not needed
   file.remove(paste0(filename_html, '.html'))
