@@ -118,9 +118,7 @@ tab_fish_summary |>
 ```
 
 ## Conclusion {.unnumbered}
-Fish passage at crossing `r as.character(my_site)` was restored in the summer of 2022 with a 15m steel girder permanent bridge with modular timber decks. Partial funding for the project was provided by FWCP through coordination from SERNbc. Effectiveness monitoring at the site was conducted in 2024 with the structure in stable condition with no maintenance required at the time of reporting. Lessons learned from the work - to be leveraged towards future projects - include reducing the amount of riprap material placed within the bankfull channel width and replanting of areas where riparian vegetation is removed during construction.
-
-<!-- This outcome provides a clear example of successful implementation and informs future restoration design and prioritization efforts, helping to build confidence among stakeholders in the Phase 2 process and associated recommendations for high-priority systems. -->
+Fish passage at crossing `r as.character(my_site)` was restored in the summer of 2022 with a 15m steel girder permanent bridge with modular timber decks. Partial funding for the project was provided by FWCP through coordination from SERNbc. Effectiveness monitoring at the site was conducted in 2024 with the structure in stable condition with no maintenance required at the time of reporting. Lessons learned from the work - to be leveraged towards future projects - include reducing the amount of riprap material placed within the bankfull channel width and replanting of areas where riparian vegetation is removed during construction. This crossing serves as an example of a successful replacement, and the lessons learned through its implementation can help build stakeholder confidence in advancing additional fish passage remediation projects.
 
 <br>
 
