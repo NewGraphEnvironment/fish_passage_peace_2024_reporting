@@ -1,3 +1,6 @@
+# fish_passage_peace_2024_reporting 0.1.2 (2025-05-15)
+- update report with FWCP edits 
+
 # fish_passage_peace_2024_reporting 0.1.1 (2025-04-23)
 
 - add table of modelling outputs for each crossing to results

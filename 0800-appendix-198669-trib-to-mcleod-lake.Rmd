@@ -118,7 +118,7 @@ Should restoration/maintenance activities proceed, replacement of the Hart Highw
 
 ## Conclusion {.unnumbered}
 
-Approximately 5km of bull trout rearing habitat is modelled upstream, and the habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |> stringr::str_to_lower()` value for anadromous spawning and rearing. The culvert was in extremely poor condition, with a deep outlet pool and significant erosion around the pipe inlet, indicating that the culvert is severely undersized for the stream. The 0.36m outlet drop likely inhibits juvenile fish passage. The crossing is a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement. Due to this crossing being situated on the Hart Highway, construction would be complex and costly.
+Approximately 5km of bull trout rearing habitat is modelled upstream, and the habitat was rated as medium value for anadromous spawning and rearing; the channel would also be suitable for non-anadromous species. The culvert was in extremely poor condition, with a deep outlet pool and significant erosion around the pipe inlet, indicating that the culvert is severely undersized for the stream. The 0.36m outlet drop likely inhibits juvenile fish passage. The crossing is a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement. Due to this crossing being situated on the Hart Highway, construction would be complex and costly.
 
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`

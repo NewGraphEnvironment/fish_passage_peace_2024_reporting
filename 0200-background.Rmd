@@ -13,7 +13,7 @@ In 2024, field assessments were completed with the Parsnip River, Carp River and
 
 <br>
 
-In 2019/2020, following a literature review, analysis of fish habitat modelling data, the Provincial Stream Crossing Inventory System (PSCIS) and a community scoping exercise within the McLeod Lake Indian Band habitat confirmation assessments were conducted at 17 sites throughout the Parsnip River watershed with 10 crossings rated as high priorities for rehabilitation and three crossings rated as moderate priorities for restoration. An engineering design for site 125179 on a tributary to the Missinka River was also completed through the 2019/2020 project.  In 2021/2022, project activities reconvened through FWCP directed project PEA-F22-F-3577-DCA. Partners were engaged, funding was raised, planning was conducted and reporting was completed to initiate restoration activities of high priority crossings. Materials were purchased and permitting was put in place to prep for replacement of the twin culverts on the Missinka River tributary with a clear-span bridge.  
+In 2019/2020, following a literature review, analysis of fish habitat modelling data, the Provincial Stream Crossing Inventory System (PSCIS) and a community scoping exercise within the McLeod Lake Indian Band habitat confirmation assessments were conducted at 17 sites throughout the Parsnip River watershed with 10 crossings rated as high priorities for rehabilitation and three crossings rated as moderate priorities for restoration. An engineering design for site 125179 on a tributary to the Missinka River was also completed through the 2019/2020 project.  In 2021/2022, project activities reconvened through FWCP directed project PEA-F22-F-3577-DCA. Partners were engaged, funding was raised, planning was conducted and reporting was completed to initiate restoration activities of high priority crossings. Materials were purchased and permitting was put in place to prepare for replacement of the twin culverts on the Missinka River tributary with a clear-span bridge.  
 
 <br>
 
@@ -39,8 +39,6 @@ The continental divide separates watersheds flowing north into the Arctic Ocean 
 
 Construction of the 183m high and 2134m long W.A.C. Bennett Dam was completed in 1967 at Hudson's Hope, BC, creating the Williston Reservoir [@hirst1991Impactsoperations]. Filling of the 375km^2^ reservoir was complete in 1972 and flooded a substantial portion of the Parsnip River and major tributary valleys forming what is now known as the Peace and Parsnip reaches. The replacement of riverine habitat with an inundated reservoir environment resulted in profound changes to the ecology, resource use and human settlement patterns in these systems [@hagen_etal2015Criticalhabitats; @pearce_etal2019FirstNations; @stamford_etal2017FWCPArctic]. Prior to the filling of the reservoir, the Pack River, into which McLeod Lake flows, was a major tributary to the Parsnip River.  The Pack River currently enters the Williston Reservoir directly as the historic location of the confluence of the two rivers lies within the reservoir's footprint.
 
-
-
 <br>
 
 
@@ -58,16 +56,16 @@ print(plot1$`Long-term_Monthly_Statistics`)
 <br>
 
 ## Fisheries
-Fish species recorded in the Parsnip River watershed are detailed in Table \@ref(tab:fiss-species-table) [@data_fish_obs]. In addition to flooding related to the formation of the Williston Reservoir, transmission lines, gas pipelines, rail, road networks, forestry, elevated water temperatures, interrupted connectivity, invasion from non-native species and insect infestations affecting forested areas pose threats to fisheries values in the Parsnip River watershed  [@hagen_2015_critical_habs; @stamford_etal2017FWCPArctic; @bull_trout_synthesis; @bt_cosewic]. A brief summary of trends and knowledge status related to Arctic grayling, bull trout, kokanee, mountain whitefish and rainbow trout in Williston Watershed streams is provided in @fishandwildlifecompensationprogram2020PeaceRegion with a more detailed review of the state of knowledge for Parsnip River watershed populations of Arctic grayling and bull trout provided below.
+Fish species recorded in the BC Fisheries Information Summary System (FISS) in the Parsnip River watershed are detailed in Table \@ref(tab:fiss-species-table) [@data_fish_obs]. In addition to flooding related to the formation of the Williston Reservoir, transmission lines, gas pipelines, rail, road networks, forestry, elevated water temperatures, interrupted connectivity, invasion from non-native species and insect infestations affecting forested areas pose threats to fisheries values in the Parsnip River watershed  [@hagen_2015_critical_habs; @stamford_etal2017FWCPArctic; @bull_trout_synthesis; @bt_cosewic]. A brief summary of trends and knowledge status related to Arctic grayling, bull trout, kokanee, mountain whitefish and rainbow trout in Williston Watershed streams is provided in @fishandwildlifecompensationprogram2020PeaceRegion with a more detailed review of the state of knowledge for Parsnip River watershed populations of Arctic grayling and bull trout provided below.
 
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+<br>
 
 
 ```{r fiss-species-table}
 fiss_species_table <- readr::read_csv(paste0(getwd(), '/data/inputs_extracted/fiss_species_table.csv'))
 
 fiss_species_table %>% 
-  fpr::fpr_kable(caption_text = 'Fish species recorded in the Parsnip River, Carp Lake, and Crooked River watershed groups.', 
+  fpr::fpr_kable(caption_text = 'Fish species recorded in FISS in the Parsnip River, Carp Lake, and Crooked River watershed groups.', 
                  footnote_text = 'COSEWIC abbreviations : 
                  SC - Special concern 
                  DD - Data deficient
@@ -76,12 +74,13 @@ fiss_species_table %>%
                  BC List definitions : 
                  Yellow - Species that is apparently secure 
                  Blue - Species that is of special concern
-                 Exotic - Species that have been moved beyond their natural range as a result of human activity
-                 ',
+                 Exotic - Species that have been moved beyond their natural range as a result of human activity \n
+                 Dolly Varden are documented in all three study watersheds—Carp, Crooked, and Parsnip—but these records are likely misidentifications of bull trout [@bt_cosewic].',
                  scroll = gitbook_on)
 
 ```
 
+<br>
 
 ### Bull Trout - sa'ba {-}
 
@@ -89,11 +88,11 @@ Tse'khene Elders from the McLeod Lake Indian Band report that sa'ba (bull trout)
 
 <br>
 
-Bull Trout populations of the Williston Reservoir watershed are included within the Western Arctic population 'Designatable Unit 10', which, in 2012, received a ranking of ‘Special Concern’ by the Committee on the Status of Endangered Wildlife in Canada [@cosewic2012COSEWICassessment].  They were added to Schedule 1 under the Species of Risk Act in 2019  [@speciesregistrycanada2020BullTrout] and are also considered of special concern (blue-listed) provincially [@bcspeciesecosystemexplorer2020Salvelinusconfluentus]. Some or all of the long-term foot survey index sections of four Williston Reservoir spawning tributaries (Davis Creek, Misinchinka River, Point Creek, and Scott Creek), have been surveyed within 16 of the 19 years between 2001 and 2019 (16 of 19 in Davis River, 10 years over a 13-year period in the Misinchinka River, 11 years over a 14-year period for Point Creek, and 9 years over an 11-year period for Scott Creek [@hagen_etal2020CriticalSpawning]. 
+Bull trout populations of the Williston Reservoir watershed are included within the Western Arctic population 'Designatable Unit 10', which, in 2012, received a ranking of ‘Special Concern’ by the Committee on the Status of Endangered Wildlife in Canada [@cosewic2012COSEWICassessment].  They were added to Schedule 1 under the Species of Risk Act in 2019  [@speciesregistrycanada2020BullTrout] and are also considered of special concern (blue-listed) provincially [@bcspeciesecosystemexplorer2020Salvelinusconfluentus]. Some or all of the long-term foot survey index sections of four Williston Reservoir spawning tributaries (Davis Creek, Misinchinka River, Point Creek, and Scott Creek), have been surveyed within 16 of the 19 years between 2001 and 2019 (16 of 19 in Davis River, 10 years over a 13-year period in the Misinchinka River, 11 years over a 14-year period for Point Creek, and 9 years over an 11-year period for Scott Creek [@hagen_etal2020CriticalSpawning]. 
 
 <br>
 
-A study of sa'ba critical habitats in the Parsnip River was conducted in 2014 with the Misinchinka and Anzac systems identified as the most important systems for adfluvial (large bodied) bull trout spawners.  The Table River was also highlighted as an important spawning destination.  Other watersheds identified as containing runs of large bodied bull troutspawners included the Colbourne, Reynolds, Hominka and Missinka River with potentially less than 50 spawners utilizing each sub-basin [@hagen_etal2015Criticalhabitats].  @hagen_weber2019Limitingfactors have synthesized a large body of information regarding limiting factors, enhancement potential, critical habitats and conservation status for bull trout of the Williston Reservoir and the reader is encouraged to review this work for context.  They have recommended experimental enhancements within a monitoring framework for Williston Reservoir bull trout (some spawning and rearing in Parsnip River mainstem and tributaries) which include stream fertilization, side channel development, riparian restoration and fish access improvement.  
+A study of bull trout critical habitats in the Parsnip River was conducted in 2014 with the Misinchinka and Anzac systems identified as the most important systems for adfluvial (large bodied) bull trout spawners.  The Table River was also highlighted as an important spawning destination.  Other watersheds identified as containing runs of large bodied bull trout spawners included the Colbourne, Reynolds, Hominka and Missinka River with potentially less than 50 spawners utilizing each sub-basin [@hagen_etal2015Criticalhabitats].  @hagen_weber2019Limitingfactors have synthesized a large body of information regarding limiting factors, enhancement potential, critical habitats and conservation status for bull trout of the Williston Reservoir and the reader is encouraged to review this work for context.  They have recommended experimental enhancements within a monitoring framework for Williston Reservoir bull trout (some spawning and rearing in Parsnip River mainstem and tributaries) which include stream fertilization, side channel development, riparian restoration and fish access improvement.  
 
 <br>
 
@@ -103,8 +102,7 @@ In 2018, sub-basins of the Anzac River watershed, Homininka River, Missinka Rive
 
 ### Arctic Grayling - dusk'ihje{-}
 
-
-Tse'khene Elders from the McLeod Lake Indian Band report that Arctic grayling numbers have declined dramatically since the flooding of the reservoir and that few dusk'ihje (Arctic Grayling) have been caught in the territory in the past 30 years [@pearce_etal2019FirstNations].
+Tse'khene Elders from the McLeod Lake Indian Band report that dusk'ihje (Arctic grayling) numbers have declined dramatically since the flooding of the reservoir and that few dusk'ihje have been caught in the territory in the past 30 years [@pearce_etal2019FirstNations].
 
 <br>
 
@@ -112,47 +110,26 @@ Since impoundment of the Williston Reservoir, it appears that physical habitat a
 
 <br>
 
-A detailed review of dusk'ihje life history can be referenced in @stamford_etal2017FWCPArctic. Migration of mature adult
-dusk'ihje (Arctic grayling) occurs in the spring with arrival at known spawning locations coinciding with water
-temperatures of 4$^\circ$C.  Spawning in the Parsnip watershed appears to occur between late-May and late-June within
-sites located primarily within the lower reaches of the Anzac and Table rivers as well as within the Parsnip River
-mainstem. Side-channel and multiple-channel locations containing small gravels appear to be selected for spawning.
-Currently, the primary distribution of Williston Arctic grayling appears to be among fourth order and larger streams
-[@williamson_2004; @stamford_etal2017FWCPArctic]. @stewartFishLifeHistory2007 report that Arctic grayling spawn in large
-and small tributaries to rivers and lakes, intermittent streams, within mainstem rivers as well as lakes, most commonly
-at tributary mouths.   Although past study results indicate that 0+ grayling appeared to overwinter in lower reaches of
-larger tributaries (i.e. Table, Anzac rivers) as well as the Parsnip River and that few age-1+ grayling have been
-sampled in tributaries, habitat use in small tributaries and the extent they are connected with the mainstem habitats of
-all core areas is not well understood. Between 1995 and 2019, Arctic grayling population monitoring has been conducted
-in the Table River in nine out of 25 years (8 years for the Anzac) using snorkel surveys.  Results from 2018 and 2019
-are intended to contribute to the assessment of the conservation status of the species in the Parsnip Core area
-[@hagenTrendAbundanceArctic2018].  In 2019, preliminary telemetry results indicate that both Arctic grayling and bull
-trout rely on the Parsnip River mainstem for overwinter residencies. Arctic grayling move into the tributaries beginning
-in April, and become widespread across the watershed by June.
+A detailed review of Arctic grayling life history is available in @stamford_etal2017FWCPArctic. Migration of mature adult Arctic grayling occurs in the spring, typically coinciding with water temperatures of 4$^\circ$C. In the Parsnip watershed, spawning appears to occur between late May and late June, primarily within the lower reaches of the Anzac and Table rivers and the Parsnip River mainstem. Spawning habitat is generally associated with side-channel and multi-channel areas containing small gravels. The current distribution of Williston Arctic grayling is concentrated in fourth-order and larger streams [@williamson_2004; @stamford_etal2017FWCPArctic]. According to @stewartFishLifeHistory2007, Arctic grayling spawn in both large and small tributaries to rivers and lakes, intermittent streams, mainstem rivers, and lakes—most commonly at tributary mouths. Although earlier studies suggest that 0+ grayling overwinter in the lower reaches of larger tributaries (e.g., Table and Anzac rivers) and the Parsnip River, and that few age-1+ grayling have been sampled in tributaries, habitat use in small tributaries and the extent to which they are connected with mainstem habitats across all core areas remains poorly understood. Between 1995 and 2019, population monitoring of Arctic grayling was conducted in the Table River in 9 out of 25 years, and in the Anzac River for 8 years, using snorkel surveys. Results from 2018 and 2019 support efforts to assess the conservation status of the species in the Parsnip Core Area [@hagenTrendAbundanceArctic2018]. Preliminary telemetry data from 2019 indicate that both Arctic grayling and bull trout rely on the Parsnip River mainstem for overwinter residency. Arctic grayling typically begin moving into tributaries in April and are widespread across the watershed by June, with larger adults observed in headwater habitats by August.
 
 <br>
 
-A 5 year study on Parsnip River watershed dusk'ihje abundance and trend are discussed in
-@hagen_stamford2023ParsnipArctic where they report that the most productive habitats for Arctic grayling summer rearing
-are within the Anzac River and Table River.  Although estimated abundance is lower than in the Anzac and Table,
-productive summer rearing habitats for adult Arctic grayling in the upper Parsnip River watershed are distributed
-between 36-25 km of the Missinka River and from 48-32 km of the Hominka River. @hagen_stamford2021ArcticGrayling report
-that within the Anzac River, a 30-km stretch from a chute obstruction at 47 km to 16 km is assumed to provide productive
-summer rearing habitats for adults as it is characterized by a high abundance of Arctic grayling. Although the spatial
-distribution of high Arctic grayling abundance in the Table River has not been determined through reconnaissance surveys
-it has been observed to span at least a 20-km zone from the waterfall migration barrier at 37 km to 18 km.
+A five-year study on Arctic grayling abundance and trends in the Parsnip River watershed is presented in @hagen_stamford2023ParsnipArctic, which reports that the most productive summer rearing habitats for Arctic grayling are within the Anzac and Table rivers. Although estimated abundance is lower than in the Anzac and Table, productive summer rearing habitats for adult Arctic grayling in the upper Parsnip River watershed are distributed between 36–25km of the Missinka River and 48–32km of the Hominka River. In the Anzac River, @hagen_stamford2021ArcticGrayling report that a 30km stretch from 47km to 16km supports high Arctic grayling abundance and is assumed to provide productive rearing habitat for adults. A chute obstruction located at 47km likely limits further upstream movement. Although the spatial distribution of high Arctic grayling abundance in the Table River has not been delineated through reconnaissance surveys, it has been observed to span at least a 20km zone from the waterfall migration barrier at 37km to 18km.
 
 <br>
 
-Spatial ecology studies in the Parsnip between 2018 and 2021 has been reported on by @martins_etal2022SpatialEcology with results related to:
+Spatial ecology studies in the Parsnip River between 2018 and 2021 has been reported on by @martins_etal2022SpatialEcology with results related to:
 
 - temperature modeling and spatio-temporal patterns in thermal habitat,
 - telemetry data modeling and arctic grayling spatial ecology, and
 - trophic relationships between Arctic grayling and bull trout
 
+
 <br>
 
-A review of available fisheries data for the Parsnip River watershed stratified by different habitat characteristics can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Figures \@ref(fig:fish-plot-grad) - \@ref(fig:fish-plot-wshed)).  It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).
+### Fish presence by Habitat Type {-}
+
+A review of available fisheries data for the Parsnip River watershed stratified by different habitat characteristics (stream gradient, channel width, and watershed size) can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Tables \@ref(tab:tab-fish-grad) - \@ref(tab:tab-fish-wshed) and Figures \@ref(fig:fish-plot-grad) - \@ref(fig:fish-plot-wshed)).  It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).
 
 
 <br>

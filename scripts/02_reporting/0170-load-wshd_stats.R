@@ -39,14 +39,21 @@ readwritesqlite::rws_disconnect(conn)
 # 2 - Retrieve the upstream watershed stats and site elevations for the phase 2 habitat confirmation sites (small scale)  -------------------------------------------------
 
 ## Filter the bcfishpass data to just the phase 2 sites -------------------------------------------------
+
+## Peace 2024- also include PSCIS 125179 which was a monitoring site and has a memo in this report, so we need the watershed stats for the memo.
 bcfishpass_phase2 <- bcfishpass |>
   dplyr::filter(
     stringr::str_detect(
       stream_crossing_id,
-      paste0(pscis_phase2 |>
-               pull(pscis_crossing_id),
-             collapse = "|")
-    ))
+      paste0(
+        c(pscis_phase2 |>
+            dplyr::pull(pscis_crossing_id),
+          "125179"),
+        collapse = "|"
+      )
+    )
+  )
+
 
 
 ## Remove crossings on first order streams -------------------------------------------------

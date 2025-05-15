@@ -3,7 +3,7 @@
 
 `r if(gitbook_on){knitr::asis_output("Results of Phase 1 and Phase 2 assessments are summarized in Figure \\@ref(fig:map-interactive) with additional details provided in sections below.")}`
 
-<br>
+`r if(gitbook_on){knitr::asis_output("<br>")}`
 
 ```{r map-interactive, fig.cap='Map of fish passage and habitat confirmation results', eval=gitbook_on}
 
@@ -112,18 +112,18 @@ map
 
 ```
 
-<br>
+`r if(gitbook_on){knitr::asis_output("<br>")}`
 
 ## Site Assessment Data Since 2019
 
-Fish passage assessment procedures conducted through FWCP in the Peace River Region since 2019 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0(" within Table \\@ref(tab:tab-sites-sum-kable) - with detailed outputs located online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-kable)) - \\@ref(tab:tab-sites-cap).")}`
+Fish passage assessment procedures conducted through FWCP in the Peace River Region since 2019 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0(" within Table \\@ref(tab:tab-sites-sum-kable) - with detailed outputs located online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-kable) - \\@ref(tab:tab-sites-cap)")}`.
 
 <br>
 
-Since 2019, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at ", params$report_url, "results-and-discussion.html")))`. Modelling data for all crossings assessed are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-bcfishpass-sum-cap)")}`.
+Since 2019, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (Amazon Web Services) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at ", params$report_url, "results-and-discussion.html")))`. Modelling data for all crossings assessed are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-bcfishpass-sum-cap)")}`.
 
 
-<br>
+`r if(gitbook_on){knitr::asis_output("<br>")}`
 
 ```{r ld-db}
 
@@ -372,7 +372,7 @@ bcfishpass_sum |>
 
 ## Collaborative GIS Environment
 
-In addition to numerous layers documenting fieldwork activities since 2019, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
+In addition to numerous layers documenting fieldwork activities since 2019, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking)")}`.
 
 <br>
 
@@ -449,7 +449,7 @@ actions in areas of highest potential for positive impacts on fisheries values (
 where water temperatures are likely too cold to support fish production) are detailed in @hill_etal2024Spatialstream which is 
 included as [Attachment - Water Temperature Modelling](#attach-bayes). 
 
-## Fish Passage Assessemnts
+## Fish Passage Assessments
 
 Field assessments were conducted between `r format(min(pscis_all$date), format="%B %d, %Y")` and `r format(max(pscis_all$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc., Bianca Prince, and Jillian Isadore. A total of `r pscis_all |> filter(source != 'pscis_phase2.xlsm') |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments. In 2024, field efforts prioritized revisiting previously assessed sites for monitoring rather than evaluating new Fish Passage Assessment locations.
 
@@ -484,14 +484,17 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @mo
 
 ## Habitat Confirmation Assessments
 
-During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in [Attachment - Maps](#attach-maps).
+During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:map-interactive))")}`. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at one habitat confirmation site as well as other past sites, with results provided in the following section. Georeferenced field maps are provided in [Attachment - Maps](#attach-maps). As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary.
 
 <br>
 
-As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Modelling data for all crossings assessed are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-bcfishpass-sum-cap)")}`. Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+An overview of site characteristics, fish presence, and priority ranking is provided in Table \@ref(tab:tab-overview). Habitat details for upstream surveyed areas are presented in Table \@ref(tab:tab-habitat-summary), and barrier status updates are summarized in Table \@ref(tab:phase-2-cv-assess-sum). Cost-benefit estimates based on upstream habitat gain are shown in Table \@ref(tab:cost-est-phase-2), while watershed-scale context for each site is summarized in Table \@ref(tab:tab-wshd-sum-all).
 
+<br>
 
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("<br><br><br><br>")`
+Modelled estimates of rearing and spawning habitat potentially accessible upstream are shown in Figure \@ref(fig:plot-model-all). Modelling data for all crossings assessed are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-bcfishpass-sum-cap)")}`. Raw habitat and fish sampling data are included in [Attachment - Data](#attach-dat). Detailed site-level information (including maps) is available in the appendices.
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 
 ```{r tab-overview, eval = TRUE}
@@ -517,17 +520,26 @@ tab_overview |>
 
 ```
 
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+<br>
 
+```{r tab-habitat-summary}
+tab_hab_summary |> 
+  dplyr::filter(stringr::str_like(Location, 'upstream')) |> 
+  dplyr::select(-Location) |> 
+  dplyr::rename(`PSCIS ID` = Site, `Length surveyed upstream (m)` = `Length Surveyed (m)`) |>
+  fpr::fpr_kable(caption_text = 'Summary of Phase 2 habitat confirmation details.', scroll = F)
+
+
+```
+
+<br>
 
 ```{r phase-2-cv-assess-sum}
 fpr::fpr_table_cv_summary(dat = pscis_phase2)  |>  
   fpr::fpr_kable(caption_text = 'Summary of Phase 2 fish passage reassessments.', scroll = F)
 ```
 
-
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
-
+<br>
 
 ```{r cost-est-phase-2, eval=T}
 tab_cost_est_phase2 |>
@@ -549,23 +561,12 @@ tab_cost_est_phase2 |>
 
 ```
 
-
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
-
-```{r tab-habitat-summary}
-tab_hab_summary |> 
-  dplyr::filter(stringr::str_like(Location, 'upstream')) |> 
-  dplyr::select(-Location) |> 
-  dplyr::rename(`PSCIS ID` = Site, `Length surveyed upstream (m)` = `Length Surveyed (m)`) |>
-  fpr::fpr_kable(caption_text = 'Summary of Phase 2 habitat confirmation details.', scroll = F)
-
-
-```
-
 <br>
 
 ```{r tab-wshd-sum-all}
 fpr::fpr_table_wshd_sum() |> 
+  #exclude stats for 125179 because not a hab con sites, but stats needed for memo
+  dplyr::filter(Site != 125179) |> 
   fpr::fpr_kable(caption_text = paste0('Summary of watershed area statistics upstream of Phase 2 crossings.'),
                                  footnote_text = 'Elev P60 = Elevation at which 60% of the watershed area is above', scroll = F)
 
@@ -624,24 +625,70 @@ bcfishpass_phase2_plot_prep |>
 
 ```
 
+<br>
 
 ### Fish Sampling
 
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
+```{r fiss-species, eval = F}
+tab_fish_summary |>
+  dplyr::ungroup() |>
+  dplyr::filter(species != "NFC") |>
+  dplyr::distinct(species) |>
+  dplyr::pull(species) |> 
+  stringr::str_to_lower() 
+```
+
+Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::filter(species != "NFC") |>  dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured, including `r tab_fish_summary |> dplyr::filter(species == "Rainbow Trout") |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` rainbow trout and `r tab_fish_summary |> dplyr::filter(species == "Sculpin (General)") |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` sculpin (general). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary) with site-specific abundance and density results presented in Table \@ref(tab:tab-fish-dens). 
+<br>
+
+Fork length, weight, and species were documented for each fish. Rainbow trout with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate rainbow trout based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) with results visually presented in Figure \@ref(fig:fish-histogram). Rainbow trout density results (fish/100m²) upstream and downstream of crossings are summarized by site and life stage in Figure \@ref(fig:plot-fish-all). Sculpin (general) were excluded from figures as they are not a target species for this project. Raw data is provided in [Attachment - Data](#attach-dat).
 
 <br>
 
-Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
-
-<br>
-
-`r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
+Sites were sampled to support baseline data collection, effectiveness monitoring, follow-up sampling, or reference comparisons, with detailed results presented across multiple reporting years. Individual site-specific appendices in this report include results for PSCIS crossings 198692 (baseline sampling), 125179 (effectiveness monitoring), and 125180 (reference site comparison to 125179). In the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting), results are available for crossings 125231 (effectiveness monitoring) and 125261 (baseline sampling). Crossing 125194 was sampled as follow-up to a 2022 habitat confirmation assessment, with results presented in the [2022 report](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/). Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
 
 <br>
 
 ```{r tab-fish-site-summary}
 tab_fish_sites_sum |> 
-  fpr::fpr_kable(caption_text = 'Summary of electrofishing sites.')
+  fpr::fpr_kable(caption_text = 'Summary of electrofishing site characteristics.',
+                 scroll = gitbook_on)
+```
+
+<br>
+
+```{r tab-fish-dens}
+fish_abund |> 
+  fpr::fpr_kable(caption_text = 'Summary of species abundance and density at electrofishing sites.',
+                 scroll = gitbook_on)
+```
+
+<br>
+
+```{r fish-histogram, fig.cap= 'Histogram of rainbow trout fork lengths captured by electrofishing (n = 301).', eval = T}
+
+# Fish histogram -----------------------------------------------------------------------
+bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
+bin_n <- ceiling(max(fish_data_complete$length, na.rm = TRUE) / 5) * 5
+bins <- seq(bin_1, bin_n, by = 5)
+
+# Check what species we have and filter out any we don't want
+# fish_data_complete |> dplyr::distinct(species)
+
+plot_fish_hist <- ggplot2::ggplot(
+  fish_data_complete |> dplyr::filter(!species %in% c('Fish Unidentified Species', 'Sculpin (General)', 'NFC')),
+  ggplot2::aes(x = length)
+) +
+  ggplot2::geom_histogram(breaks = bins, alpha = 0.75,
+                          position = "identity", size = 0.75) +
+  ggplot2::labs(x = "Fork Length (mm)", y = "Count (#)") +
+  ggplot2::facet_wrap(~species) +
+  ggplot2::theme_bw(base_size = 8) +
+  ggplot2::scale_x_continuous(breaks = bins[seq(1, length(bins), by = 2)]) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+
+plot_fish_hist
+
 ```
 
 <br>
@@ -673,33 +720,6 @@ plot_fish_box_all
 ```
 
 <br>
-
-```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = T}
-
-# Fish histogram -----------------------------------------------------------------------
-bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
-bin_n <- ceiling(max(fish_data_complete$length, na.rm = TRUE) / 5) * 5
-bins <- seq(bin_1, bin_n, by = 5)
-
-# Check what species we have and filter out any we don't want
-# fish_data_complete |> dplyr::distinct(species)
-
-plot_fish_hist <- ggplot2::ggplot(
-  fish_data_complete |> dplyr::filter(!species %in% c('Fish Unidentified Species', 'Sculpin (General)', 'NFC')),
-  ggplot2::aes(x = length)
-) +
-  ggplot2::geom_histogram(breaks = bins, alpha = 0.75,
-                          position = "identity", size = 0.75) +
-  ggplot2::labs(x = "Fork Length (mm)", y = "Count (#)") +
-  ggplot2::facet_wrap(~species) +
-  ggplot2::theme_bw(base_size = 8) +
-  ggplot2::scale_x_continuous(breaks = bins[seq(1, length(bins), by = 2)]) +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
-
-plot_fish_hist
-
-```
-
 
 ## Engineering Design
 
