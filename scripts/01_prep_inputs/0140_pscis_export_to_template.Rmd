@@ -99,10 +99,8 @@ pscis_export_prep1 <- pscis_export_raw |>
 
 Do some final cleaning and prepare the data for easy copy paste into the spreadsheets.
 - append MoTi ids to the comments
-
-TO ADD:
 - change crossing type to other if subtype is ford 
-- fill in resemble channel to no if not yes. This is required when in the spreadsheet. ugh.
+- fill in resemble channel to no if not yes. This is required when in the spreadsheet.
 
 ```{r clean-prep}
 
@@ -118,6 +116,23 @@ pscis_export <- pscis_export_prep1 |>
     TRUE ~ assessment_comment)) |>
   dplyr::mutate(assessment_comment = dplyr::case_when(moti_chris_culvert_id2 > 1000000 ~ paste0(assessment_comment, ', ', moti_chris_culvert_id2), TRUE ~ assessment_comment)) |>
   dplyr::mutate(assessment_comment = dplyr::case_when(moti_chris_culvert_id3 > 1000000 ~ paste0(assessment_comment, ', ', moti_chris_culvert_id3), TRUE ~ assessment_comment)) |>
+  
+   # add in pscis phase
+  ## DOUBLE CHECK IF THERE ARE ANY SITES THAT ARE PHASE 1 AND 2S!!! FIRST TIME HAB CON SITES
+  dplyr::mutate(pscis_phase = dplyr::case_when(
+    assess_type_phase1 == "Yes" ~ "phase 1",
+    assess_type_phase2 == "Yes" ~ "phase 2",
+    assess_type_reassessment == "Yes" ~ "reassessment"),
+    # Fix the vocabulary
+    stream_name = stringr::str_replace_all(stream_name, 'Trib ', 'Tributary '),
+    road_name = stringr::str_replace_all(road_name, 'Hwy ', 'Highway '),
+    crew_members = toupper(crew_members)) |>
+  
+   # If the crossing subtype is a ford then change the crossing type to other to fit spreadsheet requirements
+  dplyr::mutate(crossing_type = dplyr::case_when(crossing_subtype == "Ford" ~ "Other", TRUE ~ crossing_type)) |> 
+  
+  # fill in resemble channel to No if not Yes. This is required when in the spreadsheet
+  dplyr::mutate(resemble_channel_yes_no = dplyr::case_when(resemble_channel_yes_no == "Yes" ~ "Yes", TRUE ~ "No")) |> 
   
   # only select columns from the template object, as well as site_id, pscis_phase, and date_time_start
   dplyr::select(
@@ -148,7 +163,7 @@ Now burn to a csv in the the `imports_extracted` directory. This is data we impo
 ```{r pscis-burn-csv}
 dir.create("data/inputs_extracted")
 
-pscis_export %>%
+pscis_export |> 
   readr::write_csv('data/inputs_extracted/pscis_export_submission.csv', na='')
 
 ```
