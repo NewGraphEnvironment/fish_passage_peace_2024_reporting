@@ -1,5 +1,6 @@
 # fish_passage_peace_2024_reporting 0.1.2 (2025-05-15)
-- update report with FWCP edits 
+
+- update report with requested FWCP edits as per https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/issues/28
 
 # fish_passage_peace_2024_reporting 0.1.1 (2025-04-23)
 
