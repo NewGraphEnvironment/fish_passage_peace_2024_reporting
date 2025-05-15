@@ -37,7 +37,7 @@ a maximum of `r fpr::fpr_my_wshd(col = 'elev_max')`m to
 
 <br>
 
-In 2023, crossing `r as.character(my_site)` was assessed with a fish passage assessment and prioritized for follow-up with a habitat confirmation assessment due to the presence of quality habitat observed upstream and its proximity to fish-bearing Kerry Lake [@irvine_winterscheidt2024RestoringFish]. No fisheries data are available for this stream; however, `r fpr::fpr_my_fish_sp(col_pull = observedspp_dnstr)` have been documented in Kerry Lake, located just downstream [@norris2024smnorrisbcfishobs; @moe2024KnownBC].
+In 2023, crossing `r as.character(my_site)` was assessed with a fish passage assessment and prioritized for follow-up with a habitat confirmation assessment due to the presence of quality habitat observed upstream and its proximity to fish-bearing Kerry Lake [@irvine_winterscheidt2024RestoringFish]. No fisheries data are available for this stream; however, `r fpr::fpr_my_fish_sp(col_pull = observedspp_dnstr)` have been documented in Kerry Lake, located just downstream, in BC Fisheries Information Summary System (FISS) [@norris2024smnorrisbcfishobs; @moe2024KnownBC]. Although Dolly Varden are documented in the Crooked River watershed group, these records are likely misidentifications of bull trout [@bt_cosewic].
 
 <br>
 

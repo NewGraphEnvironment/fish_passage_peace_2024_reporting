@@ -6,6 +6,10 @@ fish_col_permit_num <- "PG24-879256"
 
 ```
 
+## Engage Partners
+
+Engaging partners in ecosystem restoration initiatives is critical, enabling the use of shared resources, diverse expertise, and collaborative input to support successful outcomes. Engagement efforts to date have included video conference calls, meetings, emails, presentations, and phone calls. We have collaborated with a range of partners—including Luc Turcotte (bull trout critical habitat), Eduardo Martins (spatial ecology of Arctic grayling), BC Timber Sales managers, McLeod Lake Indian Band, Canadian National Railway, and Canadian Forest Products Ltd. (Canfor)—as well as others, to advance restoration planning and implementation in the Peace River watershed.
+
 ## Collaborative GIS Environment 
 Geographical Information Systems are essential for developing and communicating restoration plans as well as the reasons
 they are required and how they are developed. Without the ability to visualize the landscape and the data that is used
@@ -141,8 +145,8 @@ The data used for the model were sourced from the following locations, for years
   
 ### Bull Trout and Arctic Grayling Critical Habitat
 
-We have incorporate Arctic grayling critical habitat data related to @bottoms_etal2023Criticalhabitats work on
-grayling in the Peace region and are custodianing 
+Arctic grayling critical habitat data, based on the work of @bottoms_etal2023Criticalhabitats, and bull trout Fisheries Sensitive Watershed and Wildlife Habitat Area designations have been incorporated into our planning and prioritization processes. Both datasets are stored securely, and access required completion of the Access to Secure Species and Ecosystem Data and Information (SEDIS) training.
+
   
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\newpage")`
 
@@ -356,13 +360,13 @@ Fish sampling was conducted on a subset of sites when biological data was consid
 
 
 #### Fish Handling and Processing
-Captured fish were held in buckets with sufficient water to minimize stress until processing, and multiple buckets were used when catch numbers were high. For each fish captured, fork length, weight and species was recorded in accordance with the provincial [Fish Data Submission Template](
+Captured fish were held in buckets with sufficient water to minimize stress until processing, and multiple buckets were used when catch numbers were high. For each fish captured, fork length (mm), weight (g) and species was recorded in accordance with the provincial [Fish Data Submission Template](
 https://www2.gov.bc.ca/gov/content/environment/plants-animals-ecosystems/fish/fish-and-fish-habitat-data-information/fish-data-submission/submit-fish-data). 
 
 
 #### Pit Tagging
 
-Fish with a fork length greater than 60 mm and belonging to species approved under the scientific fish collection permit `r fish_col_permit_num` were tagged with Passive Integrated Transponders (PIT tags) using the [Abdominal Cavity](https://www.youtube.com/watch?v=9CKZ9yaS5o8) method outlined by Biomark. To anesthetize fish prior to pit tagging, we used a solution of approximately 0.1 mL of clove oil per 1 L of water (1:10,000). This concentration was selected for its efficiency in providing effective sedation with minimal residual effects, making it ideal for studies in which fish are released back into their natural habitats [@fernandes_etal2017efficacyclove]. The clove oil solution was prepared in advance by dissolving pure clove oil in ethyl alcohol in a 1:9 ratio (clove oil: ethyl alcohol) to enhance solubility, then mixed into the water bucket [@fernandes_etal2017efficacyclove]. Fish were immersed in this solution until they reached an appropriate level of anesthesia for handling and then were tagged. To maintain needle sharpness and minimize injury risk, needles were replaced approximately every 10 fish. Each tagged fish was scanned with the PIT reader, and both the PIT tag ID and row ID were recorded. Once tagged, fish were placed into a bucket of fresh water and allowed to recover before being released back into the stream. Fish information and habitat data will be submitted to the province under scientific fish collection permit `r fish_col_permit_num`.
+Fish with a fork length greater than 60mm and belonging to species approved under the scientific fish collection permit `r fish_col_permit_num` were tagged with Passive Integrated Transponders (PIT tags) using the [Abdominal Cavity](https://www.youtube.com/watch?v=9CKZ9yaS5o8) method outlined by Biomark. To anesthetize fish prior to pit tagging, we used a solution of approximately 0.1mL of clove oil per 1L of water (1:10,000). This concentration was selected for its efficiency in providing effective sedation with minimal residual effects, making it ideal for studies in which fish are released back into their natural habitats [@fernandes_etal2017efficacyclove]. The clove oil solution was prepared in advance by dissolving pure clove oil in ethyl alcohol in a 1:9 ratio (clove oil: ethyl alcohol) to enhance solubility, then mixed into the water bucket [@fernandes_etal2017efficacyclove]. Fish were immersed in this solution until they reached an appropriate level of anesthesia for handling and then were tagged. To maintain needle sharpness and minimize injury risk, needles were replaced approximately every 10 fish. Each tagged fish was scanned with the PIT reader, and both the PIT tag ID and row ID were recorded. Once tagged, fish were placed into a bucket of fresh water and allowed to recover before being released back into the stream. Fish information and habitat data will be submitted to the province under scientific fish collection permit `r fish_col_permit_num`.
 
 ### Aerial Imagery
 
