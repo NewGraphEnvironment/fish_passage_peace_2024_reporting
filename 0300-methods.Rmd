@@ -8,7 +8,7 @@ fish_col_permit_num <- "PG24-879256"
 
 ## Engage Partners
 
-Engaging partners in ecosystem restoration initiatives is critical, enabling the use of shared resources, diverse expertise, and collaborative input to support successful outcomes. Engagement efforts to date have included video conference calls, meetings, emails, presentations, and phone calls. We have collaborated with a range of partners—including Luc Turcotte (bull trout critical habitat), Eduardo Martins (spatial ecology of Arctic grayling), BC Timber Sales managers, McLeod Lake Indian Band, Canadian National Railway, and Canadian Forest Products Ltd. (Canfor)—as well as others, to advance restoration planning and implementation in the Peace River watershed.
+Engaging partners in ecosystem restoration initiatives is critical, enabling the use of shared resources, diverse expertise, and collaborative input to support successful outcomes. 
 
 ## Collaborative GIS Environment 
 Geographical Information Systems are essential for developing and communicating restoration plans as well as the reasons
@@ -145,9 +145,13 @@ The data used for the model were sourced from the following locations, for years
   
 ### Bull Trout and Arctic Grayling Critical Habitat
 
-Arctic grayling critical habitat data, based on the work of @bottoms_etal2023Criticalhabitats, and bull trout Fisheries Sensitive Watershed and Wildlife Habitat Area designations have been incorporated into our planning and prioritization processes. Both datasets are stored securely, and access required completion of the Access to Secure Species and Ecosystem Data and Information (SEDIS) training.
+We collaborated with Eduardo Martins (Associate Professor at UNBC) to incorporate Arctic grayling into our collaborative
+GIS project so it could be used to inform field work activities and potential remediation site prioritization. Similarly, 
+critical bull trout habitat data was added to the GIS project after being obtained from Luc Turcotte (WLRS - Regional Aquatic Specialist)
+and stored securely.  Bull trout data acquisition required prior completion of the Access to Secure Species and Ecosystem 
+Data and Information (SEDIS) training conducted through WLRS.
 
-  
+
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\newpage")`
 
 <!-- This table has not been included in the most recent reports (skeena and peace 2023). Maybe because we now use 8.5% for ST rearing habitat, which is not what is referenced in this table (they said 7.5) or there are no salmon in the mackenzie basin?-->

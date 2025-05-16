@@ -1,6 +1,9 @@
 
 # Results and Discussion
 
+## Engage Partners
+Engagement efforts in 2024/25 included video conference calls, meetings, emails, presentations, and phone calls with a range of partners—including WLRS (Luc Turcotte - Regional Aquatic Specialist re: bull trout critical habitat, Benita Kaytor - Wildlife habitat Specialist re: Wildlife Habitat Features and bull trout protections), UNBC (Eduardo Martins and Joe Bottoms - spatial ecology of Arctic grayling), John Hagen (Fisheries biologist - re: bull trout critical habitat), Fish Passage Technical Working Group (Mya Eastmere and Craig Mount re: partnership funding and inter-program cooperation), BC Timber Sales (Stehanie Sunquist), McLeod Lake Indian Band, Canadian National Railway, Sinclar Forest Group, Canadian Forest Products Ltd. (Canfor) and others, to advance restoration planning and implementation in the Peace River watershed.
+
 `r if(gitbook_on){knitr::asis_output("Results of Phase 1 and Phase 2 assessments are summarized in Figure \\@ref(fig:map-interactive) with additional details provided in sections below.")}`
 
 `r if(gitbook_on){knitr::asis_output("<br>")}`
@@ -448,6 +451,14 @@ Initial mapping of stream discharge and temperature causal effects pathways for 
 actions in areas of highest potential for positive impacts on fisheries values (ie. elimination of areas from intrinsic models 
 where water temperatures are likely too cold to support fish production) are detailed in @hill_etal2024Spatialstream which is 
 included as [Attachment - Water Temperature Modelling](#attach-bayes). 
+
+### Bull Trout and Arctic Grayling Critical Habitat
+
+Arctic grayling critical habitat data, based on the work of @bottoms_etal2023Criticalhabitats, and bull trout critical habitat
+mapping for the FWCP Peace region based on work in @hagen_etal2020CriticalSpawninga, @hagen_weber2019Limitingfactors and
+@hagen_sary2023BullTrout have been incorporated into our collaborative GIS projects to inform planning and prioritization 
+processes. 
+
 
 ## Fish Passage Assessments
 
