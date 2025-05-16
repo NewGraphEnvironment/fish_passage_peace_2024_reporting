@@ -15,6 +15,7 @@ source('scripts/functions.R')
 
 ```{r  load-data-198669}
 my_site <- 198669
+my_site2 <- 199664
 ```
 
 `r fpr::fpr_appendix_title()`
@@ -22,9 +23,19 @@ my_site <- 198669
 
 ## Site Location {.unnumbered}
 
-PSCIS crossings `r as.character(my_site)` is located on `r fpr::fpr_my_pscis_info()`, approximately 13km south of the community of McLeod Lake, BC. The crossing is located 250m upstream of McLeod Lake, on the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`, and is within the Carp River watershed group. Crossing `r as.character(my_site)` is the responsibility of the Ministry of Transportation and Infrastructure (chris_culvert_id: 1996861). 
+PSCIS crossings `r as.character(my_site)` is located on `r fpr::fpr_my_pscis_info()`, approximately 13km south of the community of McLeod Lake, BC (Figure \@ref(fig:map-198669)). The crossing is located 250m upstream of McLeod Lake, on the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`, and is within the Carp River watershed group. Crossing `r as.character(my_site)` is the responsibility of the Ministry of Transportation and Infrastructure (chris_culvert_id: 1996861). 
 
 <br>
+
+```{r map-198669, fig.cap = my_caption}
+ my_caption <- "Map of Tributary to McLeod Lake"
+ 
+ knitr::include_graphics("fig/gis/map_mcleod.jpeg")
+ 
+```
+
+<br>
+
 
 ## Background {.unnumbered}
 
@@ -37,7 +48,7 @@ a maximum of `r fpr::fpr_my_wshd(col = 'elev_max')`m to
 
 <br>
 
-In 2023, crossing `r as.character(my_site)` was assessed with a fish passage assessment and was prioritized for follow-up with a habitat confirmation assessment due to the extremely poor condition and size of the culvert, and the presence of quality habitat observed upstream [@irvine_winterscheidt2024RestoringFish]. Upstream of the highway, `r fpr::fpr_my_fish_sp()` have previously been recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC]. 
+In 2023, crossing `r as.character(my_site)` was assessed with a fish passage assessment and was prioritized for follow-up with a habitat confirmation assessment due to the extremely poor condition and size of the culvert, and the presence of quality habitat observed upstream [@irvine_winterscheidt2024RestoringFish]. A habitat confirmation assessment was subsequently conducted in 2024. Upstream of the highway, `r fpr::fpr_my_fish_sp()` have previously been recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC]. In 2024, a second crossing (PSCIS `r as.character(my_site2)`) was assessed approximately 2.1km upstream of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing, and was located on an unnamed FSR.
 
 <br>
 
@@ -108,6 +119,10 @@ hab_site |>filter(site == my_site & location == 'us') |>pull(comments)
 
 <br>
 
+Approximately 2.1km upstream of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing, PSCIS crossing `r as.character(my_site2)` was located on an unnamed FSR. The crossing was
+un-embedded, backwatered 30%, and ranked as a barrier to upstream fish passage according to the provincial protocols [@moe2011Fieldassessment]. The culvert was poorly installed and in a deteriorated condition, resulting in significant upstream water backup. Habitat was considered medium value, characterized by dense riparian vegetation including shrubs and ferns. Detailed results are provided in [Appendix - Phase 1 Fish Passage Assessment Data and Photos].
+
+<br>
 
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
