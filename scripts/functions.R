@@ -24,6 +24,38 @@ fif <- function(what, where=".", in_files="\\.[Rr]$", recursive = TRUE,
 }
 
 
+# https://github.com/NewGraphEnvironment/fpr/issues/115
+lfpr_table_cv_summary_memo <- function(dat = pscis_phase2,
+                                       site = my_site,
+                                       site_photo_id = my_site,
+                                       font = 11,
+                                       col_filter = pscis_crossing_id) {
+
+  dat_site <- dat |> dplyr::filter({{ col_filter }} == site)
+  comments <- dat_site |> dplyr::pull(assessment_comment)
+
+  comment_label <- paste0("Comments: ", comments)
+
+  photo_label <- paste0(
+    "Photos: From top left clockwise: Road/Site Card, Barrel, Outlet, Downstream, Upstream, Inlet."
+    # "![](data/photos/", site_photo_id, "/crossing_all.JPG)"
+  )
+  photos_inserted <- paste0("![](data/photos/", site_photo_id, "/crossing_all.JPG)")
+
+
+  fpr::fpr_kable(
+    fpr::fpr_table_cv_detailed(dat = dat_site),
+    caption_text = paste0("Summary of fish passage assessment for PSCIS crossing ", site, "."),
+    booktabs = TRUE,
+    scroll = FALSE,
+    font = font
+  ) |>
+    kableExtra::add_footnote(
+      label = c(comment_label, photo_label, photos_inserted),
+      notation = "none"
+    )
+}
+
 lfpr_table_cv_detailed_print <- function(tab_sum,
                                          comments,
                                          photos,
@@ -49,4 +81,5 @@ lfpr_table_cv_detailed_print <- function(tab_sum,
   # inlclude page breaks so the pdf builds properly and so tables have some seperation in the online report- easier to read
   paste0(output, "<br><br><br><br><br>")
 }
+
 

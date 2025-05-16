@@ -32,11 +32,11 @@ url_gitpages <- 'https://newgraphenvironment.github.io/'
 
 
 
-## Phase 1-----------------------------------------------------------------
+# Phase 1-----------------------------------------------------------------
 
 name_submission <- 'pscis_phase1.xlsm'
 
-# Create folders and copy over photos -------------
+## Create folders and copy over photos -------------
 
 # need to add photos to local machine to upload to PSCIS
 targetdir = fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/submissions/PSCIS/2024/peace/PSCIS_peace_2024_phase1')
@@ -99,14 +99,14 @@ mapply(fs::file_copy,
        new_path = filestopaste_list)
 
 
-# QA photos -------------
+## QA photos -------------
 
 # do a little QA to be sure all the photos are there.
 
 t <- fpr::fpr_photo_qa_df(dat = d, dir_photos = '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/submissions/PSCIS/2024/peace/PSCIS_peace_2024_phase1/')
 
 
-# Move Pscis file -------------
+## Move Pscis file -------------
 
 ##also move over the pscis file
 fs::file_copy(path = fs::path('data', name_submission),
@@ -139,11 +139,11 @@ writeLines(
 
 
 
-## Phase 2-----------------------------------------------------------------
+# Phase 2-----------------------------------------------------------------
 
 name_submission <- 'pscis_phase2.xlsm'
 
-# Create folders and copy over photos -------------
+## Create folders and copy over photos -------------
 
 # need to add photos to local machine to upload to PSCIS
 targetdir = fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/submissions/PSCIS/2024/peace/PSCIS_peace_2024_phase2')
@@ -207,14 +207,14 @@ mapply(fs::file_copy,
        new_path = filestopaste_list)
 
 
-# QA photos -------------
+## QA photos -------------
 
 # do a little QA to be sure all the photos are there.
 
 t <- fpr::fpr_photo_qa_df(dat = d, dir_photos = '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/submissions/PSCIS/2024/peace/PSCIS_peace_2024_phase2/')
 
 
-# Move Pscis file -------------
+## Move Pscis file -------------
 
 ##also move over the pscis file
 fs::file_copy(path = fs::path('data', name_submission),
@@ -243,11 +243,11 @@ writeLines(
 
 
 
-## Reassessments -----------------------------------------------------------------
+# Reassessments -----------------------------------------------------------------
 
 name_submission <- 'pscis_reassessments.xlsm'
 
-# Create folders and copy over photos -------------
+## Create folders and copy over photos -------------
 
 # need to add photos to local machine to upload to PSCIS
 targetdir = fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/submissions/PSCIS/2024/peace/PSCIS_peace_2024_reassessments')
@@ -311,14 +311,14 @@ mapply(fs::file_copy,
        new_path = filestopaste_list)
 
 
-# QA photos -------------
+## QA photos -------------
 
 # do a little QA to be sure all the photos are there.
 
 t <- fpr::fpr_photo_qa_df(dat = d, dir_photos = '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/submissions/PSCIS/2024/peace/PSCIS_peace_2024_reassessments/')
 
 
-# Move Pscis file -------------
+## Move Pscis file -------------
 
 ##also move over the pscis file
 fs::file_copy(path = fs::path('data', name_submission),
