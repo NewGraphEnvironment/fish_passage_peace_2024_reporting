@@ -119,8 +119,7 @@ hab_site |>filter(site == my_site & location == 'us') |>pull(comments)
 
 <br>
 
-Approximately 2.1km upstream of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing, PSCIS crossing `r as.character(my_site2)` was located on an unnamed FSR. The crossing was
-un-embedded, backwatered 30%, and ranked as a barrier to upstream fish passage according to the provincial protocols [@moe2011Fieldassessment]. The culvert was poorly installed and in a deteriorated condition, resulting in significant upstream water backup. Habitat was considered medium value, characterized by dense riparian vegetation including shrubs and ferns. Detailed results are provided in [Appendix - Phase 1 Fish Passage Assessment Data and Photos].
+Approximately 2.1km upstream of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing, PSCIS crossing `r as.character(my_site2)` was located on an unnamed FSR. Although ranked as a barrier to upstream fish passage according to the provincial protocols [@moe2011Fieldassessment], the crossing was backwatered 30% and is not likely a barrier to fish passage.  The culvert was poorly installed and in a deteriorated condition, resulting in significant upstream water backup. Habitat was considered medium value, characterized by dense riparian vegetation including shrubs and ferns. Detailed results are provided in [Appendix - Phase 1 Fish Passage Assessment Data and Photos].
 
 <br>
 
@@ -133,7 +132,7 @@ Should restoration/maintenance activities proceed, replacement of the Hart Highw
 
 ## Conclusion {.unnumbered}
 
-Approximately 5km of bull trout rearing habitat is modelled upstream, and the habitat was rated as medium value for anadromous spawning and rearing; the channel would also be suitable for non-anadromous species. The culvert was in extremely poor condition, with a deep outlet pool and significant erosion around the pipe inlet, indicating that the culvert is severely undersized for the stream. The 0.36m outlet drop likely inhibits juvenile fish passage. The crossing is a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement. Due to this crossing being situated on the Hart Highway, construction would be complex and costly.
+Approximately 5km of bull trout rearing habitat is modelled upstream, and the habitat was rated as medium value for anadromous spawning and rearing; the channel would also be suitable for non-anadromous species. The culvert was in extremely poor condition, with a deep outlet pool and significant erosion around the pipe inlet, indicating that the culvert is severely undersized for the stream. The moderate outlet drop likely inhibits juvenile fish passage. The crossing is a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement. Due to this crossing being situated on the Hart Highway, construction would be complex and costly. Approximately 2.1km upstream, PSCIS crossing `r as.character(my_site2)` was also ranked as a barrier according to provincial protocols; however, the structure was 30% backwatered and considered passable. Medium value habitat was present at the upstream site.
 
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
