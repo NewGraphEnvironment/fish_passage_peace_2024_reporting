@@ -36,11 +36,13 @@ fig:plot-fish-box-125179
 fig:photo-125179-d01
 fig:photo-125179-d02
 fig:photo-125179-d03
+fig:map-198669
 tab:tab-wshd-198669
 tab:tab-culvert-bcfp-198669
 tab:tab-culvert-198669
 tab:tab-habitat-summary-198669
 fig:photo-198669-d01
+fig:map-198692
 tab:tab-wshd-198692
 tab:tab-culvert-bcfp-198692
 tab:tab-culvert-198692
@@ -78,11 +80,13 @@ engineering-design
 remediations
 monitoring
 results-and-discussion
+engage-partners-1
 site-assessment-data-since-2019
 collaborative-gis-environment-1
 planning-1
 habitat-modelling-1
 statistical-support-for-bcfishpass-fish-habitat-modelling-updates-1
+bull-trout-and-arctic-grayling-critical-habitat-1
 fish-passage-assessments-1
 habitat-confirmation-assessments-1
 fish-sampling-1
