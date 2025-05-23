@@ -25,17 +25,18 @@ Some of this could move to params in the future but for now we will just define 
 #location of the data
 repo_name <- "fish_passage_peace_2024_reporting"
 permit_id <- 'PG24-879256'
-sampling_year <- 2024
+sampling_year <- stringr::str_extract(repo_name, "\\d{4}")
+region <- stringr::str_extract(repo_name, "(?<=fish_passage_)[^_]+")
 
 stub_repo <- fs::path("~/Projects/repo", repo_name)
 
-stub_onedrive_submission <- fs::path_expand("~/Library/CloudStorage/OneDrive-Personal/Projects/submissions/fish_data")
+stub_onedrive_submission <- fs::path(fs::path_expand("~/Library/CloudStorage/OneDrive-Personal/Projects/submissions/fish_data"), sampling_year, region)
 
 path_in <- fs::path(stub_repo, "data/habitat_confirmations.xls")
 
 stub_out_csv <-  fs::path(stub_repo, "data/inputs_extracted")
 
-stub_out_permit <- fs::path(stub_repo, "data/permit_submission")
+stub_out_permit <- fs::path(stub_repo, "data/permit_submission", sampling_year, region)
 
 
 fs::dir_create(stub_out_permit)
@@ -146,10 +147,15 @@ site_comments_prep <- site_comments |>
   tidyr::replace_na(list(comments = ""))
 
 step_2_prep <- hab_con |> 
-      purrr::pluck("step_2_fish_coll_data") |> 
-      dplyr::select(reference_number, local_name, method_number, comments_step2 = comments) |> 
-      #tidyr::replace_na with "" so we don't get NAs
-      tidyr::replace_na(list(comments_step2 = ""))
+  purrr::pluck("step_2_fish_coll_data") |> 
+  # change comments from logical to character so replace_na works 
+  dplyr::mutate(comments_step2 = as.character(comments)) |> 
+  dplyr::select(reference_number, 
+                local_name, 
+                method_number, 
+                comments_step2) |> 
+  tidyr::replace_na(list(comments_step2 = ""))
+
 
 site_comments_step2 <- dplyr::left_join(
   
@@ -238,6 +244,11 @@ Run the QA tool.  Record issues with github and fix in repo permit copy.
 **Still to do**
 
 Fix in habitat_confirmations.xls - Rerun `fpr::fpr_import_hab_con(row_empty_remove = T)` and push to github.
+
+```{r}
+fpr::fpr_import_hab_con(row_empty_remove = T, col_filter_na = T)
+```
+
 
 
 
