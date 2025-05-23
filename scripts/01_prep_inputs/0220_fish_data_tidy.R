@@ -224,4 +224,10 @@ fish_coll_data |>
   readr::write_csv(file = path_repo_fish_data_coll, na = '')
 
 
+# Back up the habitat confirmation spreadsheet
+
+fpr::fpr_import_hab_con(row_empty_remove = T, col_filter_na = T)
+
+
+
 
