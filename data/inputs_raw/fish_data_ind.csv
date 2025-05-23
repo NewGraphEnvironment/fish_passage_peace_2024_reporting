@@ -67,7 +67,6 @@ reference_number,local_name,sampling_method,pass_number,species,length,weight,co
 6,125180_ds_ef1,electrofishing,1,Rainbow Trout,41,,"over counted fish while sampling, capture location uncertain"
 6,125180_ds_ef1,electrofishing,1,Rainbow Trout,46,,"over counted fish while sampling, capture location uncertain"
 6,125180_ds_ef1,electrofishing,1,Rainbow Trout,37,,"over counted fish while sampling, capture location uncertain"
-7,125194_ds_ef1,electrofishing,1,,,,No fish captured
 8,125179_ds_ef1,electrofishing,1,Rainbow Trout,43,0.9,
 8,125179_ds_ef1,electrofishing,1,Rainbow Trout,143,34.6,NA. Pit Tag ID: 3DD.003E192B0D. Row ID: 368.
 8,125179_ds_ef1,electrofishing,1,Rainbow Trout,91,7.5,NA. Pit Tag ID: 3DD.003E192AEE. Row ID: 369.
@@ -151,7 +150,7 @@ reference_number,local_name,sampling_method,pass_number,species,length,weight,co
 12,125231_us_ef1,electrofishing,1,Rainbow Trout,114,16.3,NA. Pit Tag ID: 3DD.003E192A4B. Row ID: 416.
 12,125231_us_ef1,electrofishing,1,Rainbow Trout,96,9.7,NA. Pit Tag ID: 3DD.003E192A1B. Row ID: 417.
 12,125231_us_ef1,electrofishing,1,Rainbow Trout,47,1.1,
-12,125231_us_ef1,electrofishing,1,Fish Unidentified Species,50,1.5,"over counted fish while sampling, capture location uncertain"
+12,125231_us_ef1,electrofishing,1,Rainbow Trout,50,1.5,"over counted fish while sampling, capture location uncertain"
 13,125231_ds_ef2,electrofishing,1,Rainbow Trout,86,6.7,NA. Pit Tag ID: 3DD.003E192A38. Row ID: 418.
 13,125231_ds_ef2,electrofishing,1,Rainbow Trout,91,11.7,NA. Pit Tag ID: 3DD.003E192A5D. Row ID: 420.
 13,125231_ds_ef2,electrofishing,1,Rainbow Trout,89,8.3,NA. Pit Tag ID: 3DD.003E192A2C. Row ID: 419.
@@ -316,8 +315,8 @@ reference_number,local_name,sampling_method,pass_number,species,length,weight,co
 19,198692_ds_ef2,electrofishing,1,Rainbow Trout,81,5.5,NA. Pit Tag ID: 3DD.003E192AB9. Row ID: 498.
 19,198692_ds_ef2,electrofishing,1,Rainbow Trout,85,5.3,NA. Pit Tag ID: 3DD.003E192AC6. Row ID: 499.
 19,198692_ds_ef2,electrofishing,1,Rainbow Trout,80,4.9,NA. Pit Tag ID: 3DD.003E192ABD. Row ID: 500.
-20,198692_us_ef1,electrofishing,1,Fish Unidentified Species,40,,fork length estimated
-20,198692_us_ef1,visual observation above water,1,Rainbow Trout,44,0.9,
+20,198692_us_ef1,visual observation above water,1,Fish Unidentified Species,40,,fork length estimated
+20,198692_us_ef1,electrofishing,1,Rainbow Trout,44,0.9,
 20,198692_us_ef1,electrofishing,1,Rainbow Trout,49,1,
 20,198692_us_ef1,electrofishing,1,Rainbow Trout,56,1.7,
 20,198692_us_ef1,electrofishing,1,Rainbow Trout,43,1,

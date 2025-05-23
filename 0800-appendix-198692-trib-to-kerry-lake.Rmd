@@ -166,18 +166,14 @@ knitr::include_graphics(my_photo, dpi = NA)
 
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
-If there are no plans for further logging in the area, removing the crossing and deactivating the road should be considered as a fish passage remediation option. If logging activities are planned to continue and restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)` m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
+Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)` m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
 
 <br>
 
 
 ## Conclusion {.unnumbered}
 
-Approximately 2.3km of bull trout rearing habitat is modelled upstream, and the habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |> stringr::str_to_lower()` value for anadromous spawning and rearing. The 0.34m outlet drop at PSCIS crossing `r as.character(my_site)` likely inhibits juvenile anadromous fish passage and the crossing is rated as a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement. Although bull trout were not captured at the time of assessment, their absence does not confirm exclusion from the stream. The stream was noted as having significant flow for the time of year, however, flow levels should be further investigated when evaluating the streams importance for bull trout spawning. 
-
-<br>
-
-Located on a low-traffic forest service road, remediation of this crossing would not require significant involvement. The road falls under the tenure of the Ministry of Forests, and if there are no plans for further logging in the area, removing the crossing and deactivating the road could be considered as a fish passage remediation option. If logging activities are planned to continue, opportunities could be explored to collaborate with road tenure holders to replace the crossing.
+Approximately 2.3km of bull trout rearing habitat is modelled upstream, and the habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |> stringr::str_to_lower()` value for resident salmonid spawning and rearing. The 0.34m outlet drop at PSCIS crossing `r as.character(my_site)` likely inhibits juvenile resident salmonid fish passage and the crossing is rated as a `r fpr::fpr_my_priority_info(col_pull = priority) |> stringr::str_to_lower()` priority for replacement. Although bull trout were not captured at the time of assessment, they have historically been captured downstream in Kerry Lake (mis-identified as dolly varden). The stream was noted as having good flow for time of year and during an uncharacteristically dry/hot spring and summer. 
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
