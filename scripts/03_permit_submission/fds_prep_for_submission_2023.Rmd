@@ -233,7 +233,7 @@ fs::dir_create(fs::path(stub_onedrive_submission))
 
 
 fs::file_copy(path = fs::path(stub_out_permit, paste0(permit_id, "_data.xls")),
-              new_path = fs::path(stub_onedrive_submission, sampling_year, paste0(permit_id, "_data.xls")),
+              new_path = fs::path(stub_onedrive_submission, paste0(permit_id, "_data.xls")),
               overwrite = TRUE)
 
 ```
