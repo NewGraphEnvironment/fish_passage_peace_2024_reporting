@@ -1,6 +1,8 @@
 # FDS cleanup and finalization
 These are the procedures for 2023 data.
 
+Used for 2024 data submission
+
 First we need to fill in everything in the Step 1 sheet. 
 
 Project Title: Same as report - "Restoring Fish Passage in the Peace Region - 2024"
@@ -23,14 +25,19 @@ Some of this could move to params in the future but for now we will just define 
 #location of the data
 repo_name <- "fish_passage_peace_2024_reporting"
 permit_id <- 'PG24-879256'
+sampling_year <- stringr::str_extract(repo_name, "\\d{4}")
+region <- stringr::str_extract(repo_name, "(?<=fish_passage_)[^_]+")
 
 stub_repo <- fs::path("~/Projects/repo", repo_name)
+
+stub_onedrive_submission <- fs::path(fs::path_expand("~/Library/CloudStorage/OneDrive-Personal/Projects/submissions/fish_data"), sampling_year, region)
 
 path_in <- fs::path(stub_repo, "data/habitat_confirmations.xls")
 
 stub_out_csv <-  fs::path(stub_repo, "data/inputs_extracted")
 
-stub_out_permit <- fs::path(stub_repo, "data/permit_submission")
+stub_out_permit <- fs::path(stub_repo, "data/permit_submission", sampling_year, region)
+
 
 fs::dir_create(stub_out_permit)
 
@@ -74,6 +81,8 @@ if we don't put it somewhere else. We want people to be able to cross reference 
 
 ```{r copy-alias-step4}
 
+hab_con <- fpr::fpr_import_hab_con(backup = F, row_empty_remove = T, col_filter_na = T)
+
 # now make a csv with the alias_local_name pasted to the comments so people can see which comments are linked to which site in the reports
 site_comments <- hab_con |> 
   purrr::pluck("step_4_stream_site_data") |> 
@@ -87,9 +96,7 @@ site_comments |>
 <br>
 
 Since we redo `step_4_stream_site_data` anyways to remove the ef sites (at the end), we should just add the updated comments then.
-<!-- Now we do the hand work to copy-paste-special-values the comments from `hab_con_alias_local_name_relocate.csv` over to `step_4_stream_site_data` of the `data/permit_submission/{permit_number}_data.xls` file.   -->
 
-<br>
 
 ### `step_2_fish_coll_data` - add all comments (now with site ids included) to the comments 
 Because one of our next steps is to remove the `_ef*` sites from `step_4_stream_site_data`, `step_2_fish_coll_data` will now be the
@@ -100,7 +107,7 @@ Catalogue but we do it in case it is helpful.
 <br>
 
 First we run a test to see if there is an `ef` in the `alias_local_name` column AND
-if there is an associated site that has the same "12345_us` but does not have the "_ef*" in the `alias_local_name`.
+if there is an associated site that has the same "12345_us" but does not have the "_ef*" in the `alias_local_name`.
 First step is just to answer the question of which sites have a non-ef site associated with them. We do not use this
 information in the final product but it is maybe useful to know.
 
@@ -140,10 +147,15 @@ site_comments_prep <- site_comments |>
   tidyr::replace_na(list(comments = ""))
 
 step_2_prep <- hab_con |> 
-      purrr::pluck("step_2_fish_coll_data") |> 
-      dplyr::select(reference_number, local_name, method_number, comments_step2 = comments) |> 
-      #tidyr::replace_na with "" so we don't get NAs
-      tidyr::replace_na(list(comments_step2 = ""))
+  purrr::pluck("step_2_fish_coll_data") |> 
+  # change comments from logical to character so replace_na works 
+  dplyr::mutate(comments_step2 = as.character(comments)) |> 
+  dplyr::select(reference_number, 
+                local_name, 
+                method_number, 
+                comments_step2) |> 
+  tidyr::replace_na(list(comments_step2 = ""))
+
 
 site_comments_step2 <- dplyr::left_join(
   
@@ -166,7 +178,7 @@ site_comments_step2 |>
 
 Ok - now we do the hand work to transfer `data/inputs_extracted/hab_con_method_comments_step2.csv` to `step_2_fish_coll_data` of the `data/permit_submission/{permit_number}_data.xls` file.
 
-
+ 
 ### Remove `step_4_stream_site_data` sites that are `_ef*` sites 
 We have lots of sites that are return visits where we are just sampling and not doing 100m habitat sites.
 For these we will leave all the locational information in the `step_1_ref_and_loc_info` sheet and remove all the `step_4_stream_site_data`.
@@ -183,9 +195,9 @@ step_4_prep <- hab_con |>
   purrr::pluck("step_4_stream_site_data") |> 
   dplyr::filter(!grepl("ef", local_name)) |> 
   #remove the old comments
-  select(-comments) |> 
+  dplyr::select(-comments) |> 
   #add the new comments
-  left_join(site_comments_prep, 
+  dplyr::left_join(site_comments_prep, 
              by = 'reference_number')
 
 # burn out our csv so we can hand-bomb
@@ -198,8 +210,7 @@ step_4_prep |>
 <br>
 
 Removed data for all sites and copy pasted special back in the data from the `data/inputs_extracted/hab_con_step4_no_ef.csv` 
-to `step_4_stream_site_data` sheet of `data/permit_submission/{permit_number}_data.xls`.  Need to pull up the formulas for averages and deal with `ph` significant digits but
-other than that it seemed to work fine.
+to `step_4_stream_site_data` sheet of `data/permit_submission/{permit_number}_data.xls`.  Need to pull up the formulas for averages and deal with `ph` significant digits but other than that it seemed to work fine.
 
 
 <br>
@@ -217,9 +228,14 @@ divergence with `habitat_confirmations.xls` file that should perhaps be remedied
 Copy data to onedrive to get to windows machine.
 
 ```{r}
-fs::file_copy(path = "/Users/airvine/Projects/repo/fish_passage_peace_2023_reporting/data/permit_submission/PG23-813101_data.xls",
-              new_path = "/Users/airvine/Library/CloudStorage/OneDrive-Personal/Projects/submissions/fish_data/2023/PG23-813101_data.xls",
+#make a new directory for this years data submission
+fs::dir_create(fs::path(stub_onedrive_submission, sampling_year))
+
+
+fs::file_copy(path = fs::path(stub_out_permit, paste0(permit_id, "_data.xls")),
+              new_path = fs::path(stub_onedrive_submission, sampling_year, paste0(permit_id, "_data.xls")),
               overwrite = TRUE)
+
 ```
 
 Run the QA tool.  Record issues with github and fix in repo permit copy. 
@@ -228,6 +244,11 @@ Run the QA tool.  Record issues with github and fix in repo permit copy.
 **Still to do**
 
 Fix in habitat_confirmations.xls - Rerun `fpr::fpr_import_hab_con(row_empty_remove = T)` and push to github.
+
+```{r}
+fpr::fpr_import_hab_con(row_empty_remove = T, col_filter_na = T)
+```
+
 
 
 
