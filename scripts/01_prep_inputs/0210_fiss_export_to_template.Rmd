@@ -169,7 +169,7 @@ form_fiss_site_step4 <- dplyr::bind_rows(
     dplyr:: mutate(dplyr::across(dplyr::everything(), as.character)),
                    
   form_site_info_prep |> 
-    dplyr:: mutate(dplyr::across(dplyr::everything(), as.character)) |>
+    dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
     # these column names differ slightly from those in `step_1_ref_and_loc_info`, so we update them so they are included in the csv for easier c/p.
     dplyr::rename(local_name = alias_local_name,
                 gazetted_names = gazetted_name,
@@ -178,6 +178,8 @@ form_fiss_site_step4 <- dplyr::bind_rows(
            # add the time to help put the puzzle together after)
            survey_date)
 ) |> 
+  # The columns utm_zone, utm_easting, utm_northing, and utm_method in our digital field forms (form_fiss_site) refer to the site, however, the same columns in the habitat_confirmations.xls spreadsheet - sheet `step_4_stream_site_data` - refer to utm coordinates of features. So we need to remove these columns so they don't end up loking like the utm coordinates for features. 
+  dplyr::mutate(dplyr::across(c(utm_zone, utm_easting, utm_northing, utm_method), ~NA_character_)) |>
   dplyr::select(everything())
 
 
