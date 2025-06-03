@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "hab_features",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "local_name": "198669_us", "feature_type": "beaver dam", "feature_height_m": 1.2, "feature_length_m": 1, "feature_height_length_method": "metre stick", "utm_zone": 10, "utm_easting": 503509, "utm_northing": 6086307, "fiss_obstacle_name": null }, "geometry": { "type": "Point", "coordinates": [ -122.945248691351821, 54.923742606819843 ] } }
+]
+}

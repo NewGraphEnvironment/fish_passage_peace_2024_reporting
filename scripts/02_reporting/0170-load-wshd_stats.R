@@ -35,6 +35,18 @@ readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_disconnect(conn)
 
 
+## Add to the geopackage in repo -------------------------------------------------
+# this is later needed in the outgoing_mapping script.
+
+path_repo_gpkg <- fs::path("data/fishpass_mapping/fishpass_mapping.gpkg")
+
+wshd_study_areas |>
+  sf::st_write(dsn = path_repo_gpkg,
+               layer = 'wshd_study_areas',
+               delete_layer = T,
+               append = F) ##might want to f the append....
+
+
 
 # 2 - Retrieve the upstream watershed stats and site elevations for the phase 2 habitat confirmation sites (small scale)  -------------------------------------------------
 
@@ -190,11 +202,9 @@ wshds <-  dplyr::left_join(
 
 
 
-## Add to the geopackage -------------------------------------------------
-path_gis_wshds <- fs::path("~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/fishpass_mapping.gpkg")
-
+## Add to the geopackage in repo -------------------------------------------------
 wshds |>
-  sf::st_write(dsn = path_gis_wshds,
+  sf::st_write(dsn = path_repo_gpkg,
                layer = 'hab_wshds',
                delete_layer = T,
                append = F) ##might want to f the append....
