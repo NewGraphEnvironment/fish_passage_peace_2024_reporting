@@ -18,10 +18,41 @@ t <- ngr::ngr_spk_join(
   dplyr::filter(!is.na(Shape__Area)) |>
   dplyr::arrange(watershed_group_code)
 
+t |>
+  mapview::mapview(
+    # popup = t$watershed_group_name,
+    label = t$watershed_group_name
+  )
+
+t_wsg84 <- t |>
+  sf::st_transform(4326)
+
+t_points <- t_wsg84 |>
+  sf::st_point_on_surface()
+
+leaflet::leaflet() |>
+  leaflet::addTiles() |>
+  leaflet::addPolygons(data = t_wsg84, fillColor = "blue", fillOpacity = 0.3, color = "black") |>
+  leaflet::addMarkers(
+    data = t_points,
+    lng = sf::st_coordinates(t_points)[,1],
+    lat = sf::st_coordinates(t_points)[,2],
+    label = t$watershed_group_name,
+    labelOptions = leaflet::labelOptions(
+      noHide = TRUE,
+      direction = "center",
+      textOnly = FALSE,
+      style = list("background" = "white", "border" = "1px solid black", "padding" = "2px")
+    )
+  )
+
 
 # burn to test
 t |>
   sf::st_write("/Users/airvine/Projects/gis/sern_peace_fwcp_2023/basin_test.geojson", delete_dsn = TRUE)
+
+
+t$watershed_group_name
 
 # now that we know it is correct
 # grab the csv of our watershed groups from github
