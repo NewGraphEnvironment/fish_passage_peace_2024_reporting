@@ -177,8 +177,6 @@ fs::file_copy(path = path_repo_gpkg,
 
 
 
-
-
 # Burn to GeoJSON -----------------------------------------------
 
 # We use geojsons to make the mapping convenient as they update automagically in QGIS without a restart and b/c
