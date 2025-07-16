@@ -36,7 +36,7 @@ path_in <- fs::path(stub_repo, "data/habitat_confirmations.xls")
 
 stub_out_csv <-  fs::path(stub_repo, "data/inputs_extracted")
 
-stub_out_permit <- fs::path(stub_repo, "data/permit_submission", sampling_year, region)
+stub_out_permit <- fs::path(stub_repo, "data/permit_submission")
 
 
 fs::dir_create(stub_out_permit)
@@ -229,11 +229,11 @@ Copy data to onedrive to get to windows machine.
 
 ```{r}
 #make a new directory for this years data submission
-fs::dir_create(fs::path(stub_onedrive_submission, sampling_year))
+fs::dir_create(fs::path(stub_onedrive_submission))
 
 
 fs::file_copy(path = fs::path(stub_out_permit, paste0(permit_id, "_data.xls")),
-              new_path = fs::path(stub_onedrive_submission, sampling_year, paste0(permit_id, "_data.xls")),
+              new_path = fs::path(stub_onedrive_submission, paste0(permit_id, "_data.xls")),
               overwrite = TRUE)
 
 ```

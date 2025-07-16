@@ -57,7 +57,7 @@ form_fiss_site_cleaned <- form_fiss_site |>
                 survey_date = lubridate::date(date_time_start),
                 time = hms::as_hms(date_time_start), 
                 # Fix some vocabulary. Change "trib" to long version "Tributary" etc.
-                gazetted_names = str_replace_all(gazetted_names, 'Trib ', 'Tributary '),
+                gazetted_names = stringr::str_replace_all(gazetted_names, 'Trib ', 'Tributary '),
                 crew_members = toupper(crew_members),
                 # fill in text columns from spreadsheet that will likely never change
                 waterbody_type = 'stream',
@@ -73,7 +73,7 @@ form_fiss_site_cleaned <- form_fiss_site |>
   # arrange by surveyor and date/time
   dplyr::arrange(mergin_user, date_time_start) |> 
   # ditch the time since we don't need anymore. Time was dropped on gpkg creation due to type conflict
-  select(-time) |>
+  dplyr::select(-time) |>
   # rearrange the columns for easier QA in QGIS.
   dplyr::select(
     date_time_start,
@@ -82,7 +82,7 @@ form_fiss_site_cleaned <- form_fiss_site |>
     crew_members,
     comments,
     everything()) |> 
-  arrange(date_time_start)
+  dplyr::arrange(date_time_start)
 
 ```
 
@@ -106,7 +106,7 @@ form_fiss_site_prep1 <- form_fiss_site_cleaned |>
 
 ## Double check the time is correct and now remove the date_time_start_raw column
 form_fiss_site_prep1 <- form_fiss_site_prep1 |> 
-  select(-date_time_start_raw)
+  dplyr::select(-date_time_start_raw)
 ```
 
 ## Query database to get 1:50,000 watershed codes

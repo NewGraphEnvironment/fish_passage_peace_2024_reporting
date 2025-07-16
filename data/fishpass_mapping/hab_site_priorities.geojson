@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "hab_site_priorities",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "stream_name": "Tributary to McLeod Lake", "local_name": "198669_us", "hab_value": "Medium", "priority": "Moderate", "barrier_result": "Barrier", "utm_zone": 10.0, "utm_easting": 503347.0, "utm_northing": 6085960.0 }, "geometry": { "type": "Point", "coordinates": [ -122.947780432106484, 54.920625391941769 ] } },
+{ "type": "Feature", "properties": { "stream_name": "Tributary to Kerry Lake", "local_name": "198692_us", "hab_value": "Medium", "priority": "High", "barrier_result": "Barrier", "utm_zone": 10.0, "utm_easting": 511736.0, "utm_northing": 6059308.0 }, "geometry": { "type": "Point", "coordinates": [ -122.81797602810127, 54.680985903763855 ] } }
+]
+}

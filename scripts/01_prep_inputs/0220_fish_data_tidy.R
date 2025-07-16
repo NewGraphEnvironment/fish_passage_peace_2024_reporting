@@ -169,15 +169,14 @@ fish_coll_data <- dplyr::left_join(
     length > 140 ~ 'adult',
     T ~ NA_character_
   ),
-  # QA tool requires a life stage for all species so removing this part for now.
   # when the species is not a salmonid we don't add a life stage. Check to see what other species are present and add!!!
-  # life_stage = dplyr::case_when(
-  #   stringr::str_like(species, '%sculpin%') ~ NA_character_,
-  #   T ~ life_stage),
-  # comments = dplyr::case_when(
-  #   stringr::str_like(species, '%sculpin%') ~
-  #     'Not salmonids so no life stage specified.',
-  #   T ~ NA),
+  life_stage = dplyr::case_when(
+    stringr::str_like(species, '%sculpin%') ~ NA_character_,
+    T ~ life_stage),
+  comments = dplyr::case_when(
+    stringr::str_like(species, '%sculpin%') ~
+      'Not salmonids so no life stage specified.',
+    T ~ NA),
   # refactor (needed later in the plot)
   life_stage = forcats::fct_relevel(life_stage,
                                   'fry',
@@ -212,8 +211,8 @@ fish_coll_data <- dplyr::left_join(
                 age,
                 total_num,
                 min_length,
-                max_length
-                # comments
+                max_length,
+                comments
                 )
 
 
