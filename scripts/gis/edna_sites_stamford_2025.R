@@ -19,13 +19,13 @@ edna_raw <- readxl::read_excel(path) |>
   fpr::fpr_sp_assign_latlong(col_lat = "latitude", col_lon = "longitude")
 
 
-  # burn to repo and gis project
-  if(fs::file_exists(path_out_repo)){
-    fs::file_delete(path_out_repo)
-  }
+# burn to repo and gis project
+if(fs::file_exists(path_out_repo)){
+  fs::file_delete(path_out_repo)
+}
 
 edna_raw |>
-  sf::st_transform(wsg = 4326) |>
+  sf::st_transform(crs = 4326) |>
   sf::st_write(
     path_out_repo
   )
