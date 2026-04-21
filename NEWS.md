@@ -1,3 +1,10 @@
+# fish_passage_peace_2024_reporting 0.1.3 (2026-04-21)
+
+- update to correct FWCP project number (was 2023/2024 fiscal ID)., Of note - in June of 2025 a pdf of version 0.1.2 
+was edited after production by FWCP team members to include the corrected project number. This document was then passed 
+on to provincial staff and uploaded to [ecocat](https://a100.gov.bc.ca/pub/acat/public/viewReport.do?reportId=63248). 
+That uploaded pdf is therefore inconsistent with the repo, versioning and source code that produced it. 
+
 # fish_passage_peace_2024_reporting 0.1.2 (2025-05-15)
 
 - update report with requested FWCP edits as per https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/issues/28
