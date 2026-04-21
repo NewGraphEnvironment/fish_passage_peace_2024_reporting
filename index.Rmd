@@ -2,7 +2,7 @@
 title: "Restoring Fish Passage in the Peace Region - 2024"
 author: |
  |
- | PEA-F24-F-3944-DCA
+ | PEA-F25-F-4090-DCA
  |
  | Prepared for
  | Fish and Wildlife Compensation Program 
@@ -22,7 +22,7 @@ author: |
 
 date: |
  |
- | Version 0.1.2 `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.1.3 `r format(Sys.Date(), "%Y-%m-%d")`
 toc-title: Table of Contents
 site: bookdown::bookdown_site
 output: 
@@ -51,7 +51,7 @@ nocite: |
   @porter_etal2008DevelopingFish,
   @rosenfeld_etal2000Habitatfactors
 documentclass: book
-bibliography: "`r rbbt::bbt_write_bib('references.bib', overwrite = TRUE)`"
+bibliography: 'references.bib'
 biblio-style: apalike
 link-citations: no
 github-repo: rstudio/bookdown-demo
@@ -62,8 +62,8 @@ lof: true
 
 ```{r switch-gitbook-html, echo=FALSE}
 gitbook_on <- TRUE
-# gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
-
+gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
+#"`r rbbt::bbt_write_bib('references.bib', overwrite = TRUE)`"
 ```
 
 
