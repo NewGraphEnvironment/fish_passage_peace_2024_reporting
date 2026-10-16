@@ -249,7 +249,7 @@ bcbbox <-  as.numeric(
 q <- rstac::stac("https://images.a11s.one/") |>
     rstac::stac_search(
       # collections = "uav-imagery-bc",
-      collections = "imagery-uav-bc-prod",
+      collections = "stac-imagery-uav-bc",
                       bbox = bcbbox
                       
                      ) |>
