@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: If you cite this report, please cite it as below.
+title: Restoring Fish Passage in the Peace Region 2024
+authors:
+- family-names: Irvine
+  given-names: Allan
+  orcid: https://orcid.org/0000-0002-3495-2128
+- family-names: Schick
+  given-names: Lucy
+date-released: '2026-04-21'
+url: https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/
+repository-code: https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting
+preferred-citation:
+  type: report
+  title: Restoring Fish Passage in the Peace Region 2024
+  authors:
+  - family-names: Irvine
+    given-names: Allan
+    orcid: https://orcid.org/0000-0002-3495-2128
+  - family-names: Schick
+    given-names: Lucy
+  institution:
+    name: New Graph Environment Ltd.
+  year: 2026
+  date-published: '2026-04-21'
+  url: https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/
+  repository-code: https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting
+
